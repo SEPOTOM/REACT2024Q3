@@ -11,7 +11,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:import/recommended',
-    'plugin:jsx-a11y/recommended'
+    'plugin:jsx-a11y/recommended',
+    'plugin:prettier/recommended'
   ],
   'ignorePatterns': ['dist', '.eslintrc.cjs'],
   'overrides': [
@@ -27,7 +28,8 @@ module.exports = {
     'react-compiler',
     '@typescript-eslint',
     'import',
-    'jsx-a11y'
+    'jsx-a11y',
+    'prettier'
   ],
   'settings': {
     "import/parsers": {
@@ -49,22 +51,6 @@ module.exports = {
     ],
     'react-compiler/react-compiler': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
-    "import/no-unresolved": "error",
-    'indent': [
-      'error',
-      2
-    ],
-    'linebreak-style': [
-      'error',
-      'unix'
-    ],
-    'quotes': [
-      'error',
-      'single'
-    ],
-    'semi': [
-      'error',
-      'always'
-    ]
+    "import/no-unresolved": "error"
   }
 };
