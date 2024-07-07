@@ -21,11 +21,11 @@ class MainPage extends Component {
 
   private _isMounted = false;
 
-  handleSearchQueryUpdate = (newSearchQuery: string) => {
+  handleSearchQueryUpdate = (newSearchQuery: string): void => {
     this.setState({ searchQuery: newSearchQuery });
   };
 
-  fetchProducts = async (searchQuery: string) => {
+  fetchProducts = async (searchQuery: string): Promise<void> => {
     const products = await getProductsBySearchQuery(searchQuery.trim());
 
     if (this._isMounted && searchQuery === this.state.searchQuery) {
@@ -56,7 +56,7 @@ class MainPage extends Component {
     );
   }
 
-  async componentDidMount(): Promise<void> {
+  componentDidMount(): void {
     this._isMounted = true;
 
     this.fetchProducts(this.state.searchQuery);
