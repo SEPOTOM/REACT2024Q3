@@ -38,6 +38,7 @@ class SearchForm extends Component<SearchFormProps> {
     const initialSearchQuery = getSearchQuery();
 
     if (initialSearchQuery) {
+      this.props.onSubmit(initialSearchQuery);
       this.setState({ inputValue: initialSearchQuery });
     }
   }

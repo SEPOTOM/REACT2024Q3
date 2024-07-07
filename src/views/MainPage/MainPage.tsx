@@ -20,12 +20,10 @@ class MainPage extends Component {
     this.setState({ searchQuery: newSearchQuery });
   };
 
-  fetchProducts = async () => {
-    const products = await getProductsBySearchQuery(
-      this.state.searchQuery.trim(),
-    );
+  fetchProducts = async (searchQuery: string) => {
+    const products = await getProductsBySearchQuery(searchQuery.trim());
 
-    if (this._isMounted) {
+    if (this._isMounted && searchQuery === this.state.searchQuery) {
       this.setState({ products });
     }
   };
@@ -48,7 +46,7 @@ class MainPage extends Component {
   async componentDidMount(): Promise<void> {
     this._isMounted = true;
 
-    this.fetchProducts();
+    this.fetchProducts(this.state.searchQuery);
   }
 
   async componentDidUpdate(
@@ -57,7 +55,7 @@ class MainPage extends Component {
   ): Promise<void> {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.setState({ products: null });
-      this.fetchProducts();
+      this.fetchProducts(this.state.searchQuery);
     }
   }
 
