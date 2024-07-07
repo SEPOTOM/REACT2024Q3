@@ -2,7 +2,7 @@ import { Component, ReactNode } from 'react';
 
 import { getProductsBySearchQuery } from '@services/api';
 
-import { ProductsList, SearchForm } from '@/components';
+import { ProductsList, SearchForm, StatusMessage } from '@/components';
 
 import { MainPageState } from '@views/MainPage/types';
 
@@ -37,6 +37,9 @@ class MainPage extends Component {
         <main className="main">
           {this.state.products && this.state.products.length > 0 && (
             <ProductsList products={this.state.products} />
+          )}
+          {this.state.products === null && (
+            <StatusMessage>Loading...</StatusMessage>
           )}
         </main>
       </>
