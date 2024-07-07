@@ -11,15 +11,20 @@ import '@views/MainPage/MainPage.css';
 class MainPage extends Component {
   state: Readonly<MainPageState> = {
     products: null,
+    searchQuery: '',
   };
 
   private _isMounted = false;
+
+  handleSearchFormSubmit = (newSearchQuery: string) => {
+    this.setState({ searchQuery: newSearchQuery });
+  };
 
   render(): ReactNode {
     return (
       <>
         <header>
-          <SearchForm />
+          <SearchForm onSubmit={this.handleSearchFormSubmit} />
         </header>
         <main className="main"></main>
       </>
@@ -29,10 +34,23 @@ class MainPage extends Component {
   async componentDidMount(): Promise<void> {
     this._isMounted = true;
 
-    const products = await getProductsBySearchQuery('');
+    const products = await getProductsBySearchQuery(this.state.searchQuery);
 
     if (this._isMounted) {
       this.setState({ products });
+    }
+  }
+
+  async componentDidUpdate(
+    _: Readonly<object>,
+    prevState: Readonly<MainPageState>,
+  ): Promise<void> {
+    if (prevState.searchQuery !== this.state.searchQuery) {
+      const products = await getProductsBySearchQuery(this.state.searchQuery);
+
+      if (this._isMounted) {
+        this.setState({ products });
+      }
     }
   }
 

@@ -1,10 +1,10 @@
 import { ChangeEvent, Component, FormEvent, ReactNode } from 'react';
 
-import { SearchFormState } from '@components/SearchForm/types';
+import { SearchFormProps, SearchFormState } from '@components/SearchForm/types';
 
 import '@components/SearchForm/SearchForm.css';
 
-class SearchForm extends Component {
+class SearchForm extends Component<SearchFormProps> {
   state: Readonly<SearchFormState> = {
     inputValue: '',
   };
@@ -15,6 +15,7 @@ class SearchForm extends Component {
 
   handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    this.props.onSubmit(this.state.inputValue);
   };
 
   render(): ReactNode {
