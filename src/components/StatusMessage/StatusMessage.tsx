@@ -6,7 +6,7 @@ import '@components/StatusMessage/StatusMessage.css';
 
 class StatusMessage extends Component<StatusMessageProps> {
   render(): ReactNode {
-    return <p>{this.props.children}</p>;
+    return <p className="status-message">{this.props.children}</p>;
   }
 }
 
