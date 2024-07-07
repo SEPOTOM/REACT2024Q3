@@ -36,17 +36,21 @@ class MainPage extends Component {
   render(): ReactNode {
     return (
       <>
-        <header>
-          <ErrorButton />
-          <SearchForm onInputUpdate={this.handleSearchQueryUpdate} />
+        <header className="header">
+          <div className="container header__inner">
+            <ErrorButton />
+            <SearchForm onInputUpdate={this.handleSearchQueryUpdate} />
+          </div>
         </header>
         <main className="main">
-          {this.state.products && this.state.products.length > 0 && (
-            <ProductsList products={this.state.products} />
-          )}
-          {this.state.products === null && (
-            <StatusMessage>Loading...</StatusMessage>
-          )}
+          <div className="container main__inner">
+            {this.state.products && this.state.products.length > 0 && (
+              <ProductsList products={this.state.products} />
+            )}
+            {this.state.products === null && (
+              <StatusMessage>Loading...</StatusMessage>
+            )}
+          </div>
         </main>
       </>
     );
