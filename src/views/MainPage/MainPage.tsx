@@ -21,7 +21,9 @@ class MainPage extends Component {
   };
 
   fetchProducts = async () => {
-    const products = await getProductsBySearchQuery(this.state.searchQuery);
+    const products = await getProductsBySearchQuery(
+      this.state.searchQuery.trim(),
+    );
 
     if (this._isMounted) {
       this.setState({ products });
