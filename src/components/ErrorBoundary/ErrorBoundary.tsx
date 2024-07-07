@@ -1,5 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 
+import { Fallback } from '@/components';
+
 import {
   ErrorBoundaryProps,
   ErrorBoundaryState,
@@ -14,7 +16,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
 
   render(): ReactNode {
     if (this.state.error) {
-      return <p>Error message: {this.state.error.message}</p>;
+      return <Fallback error={this.state.error} />;
     }
 
     return this.props.children;
