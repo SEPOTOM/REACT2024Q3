@@ -11,11 +11,11 @@ class SearchForm extends Component<SearchFormProps> {
     inputValue: '',
   };
 
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     this.setState({ inputValue: e.target.value });
   };
 
-  handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     const newInputValue = this.state.inputValue;
