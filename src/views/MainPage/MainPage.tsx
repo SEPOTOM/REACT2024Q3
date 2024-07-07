@@ -2,7 +2,7 @@ import { Component, ReactNode } from 'react';
 
 import { getProductsBySearchQuery } from '@services/api';
 
-import { SearchForm } from '@/components';
+import { ProductsList, SearchForm } from '@/components';
 
 import { MainPageState } from '@views/MainPage/types';
 
@@ -36,7 +36,11 @@ class MainPage extends Component {
         <header>
           <SearchForm onSubmit={this.handleSearchFormSubmit} />
         </header>
-        <main className="main"></main>
+        <main className="main">
+          {this.state.products && this.state.products.length > 0 && (
+            <ProductsList products={this.state.products} />
+          )}
+        </main>
       </>
     );
   }
