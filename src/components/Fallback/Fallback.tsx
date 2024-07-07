@@ -9,9 +9,11 @@ class Fallback extends Component<FallbackProps> {
     const { error } = this.props;
 
     return (
-      <div>
-        <h2>An unexpected error has occurred!</h2>
-        <p>Error: {error instanceof Error ? error.message : String(error)}</p>
+      <div className="fallback">
+        <h2 className="fallback__title">An unexpected error has occurred!</h2>
+        <p className="fallback__text">
+          Error: {error instanceof Error ? error.message : String(error)}
+        </p>
       </div>
     );
   }
