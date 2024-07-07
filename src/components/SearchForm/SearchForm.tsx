@@ -2,7 +2,7 @@ import { ChangeEvent, Component, FormEvent, ReactNode } from 'react';
 
 import { SearchFormProps, SearchFormState } from '@components/SearchForm/types';
 
-import { saveSearchQuery } from '@utils/localStorage';
+import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
 
 import '@components/SearchForm/SearchForm.css';
 
@@ -32,6 +32,14 @@ class SearchForm extends Component<SearchFormProps> {
         <button type="submit">Search</button>
       </form>
     );
+  }
+
+  componentDidMount(): void {
+    const initialSearchQuery = getSearchQuery();
+
+    if (initialSearchQuery) {
+      this.setState({ inputValue: initialSearchQuery });
+    }
   }
 }
 
