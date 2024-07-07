@@ -1,10 +1,18 @@
+:root {
+  --main-bg-color: #f1f1f1;
+}
+
 html {
   height: 100%;
+
+  font-size: 10px;
 }
 
 body {
   height: 100%;
   margin: 0;
+
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 #root {
@@ -13,4 +21,9 @@ body {
   height: 100%;
 
   overflow-x: hidden;
+}
+
+.container {
+  max-width: 100rem;
+  margin: 0 auto;
 }
