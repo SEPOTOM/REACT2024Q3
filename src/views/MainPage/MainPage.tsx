@@ -56,6 +56,7 @@ class MainPage extends Component {
     prevState: Readonly<MainPageState>,
   ): Promise<void> {
     if (prevState.searchQuery !== this.state.searchQuery) {
+      this.setState({ products: null });
       this.fetchProducts();
     }
   }
