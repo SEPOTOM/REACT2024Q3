@@ -2,7 +2,12 @@ import { Component, ReactNode } from 'react';
 
 import { getProductsBySearchQuery } from '@services/api';
 
-import { ProductsList, SearchForm, StatusMessage } from '@/components';
+import {
+  ErrorButton,
+  ProductsList,
+  SearchForm,
+  StatusMessage,
+} from '@/components';
 
 import { MainPageState } from '@views/MainPage/types';
 
@@ -32,6 +37,7 @@ class MainPage extends Component {
     return (
       <>
         <header>
+          <ErrorButton />
           <SearchForm onInputUpdate={this.handleSearchQueryUpdate} />
         </header>
         <main className="main">
