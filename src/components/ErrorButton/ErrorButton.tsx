@@ -9,7 +9,7 @@ class ErrorButton extends Component {
     needError: false,
   };
 
-  handleClick = () => {
+  handleClick = (): void => {
     this.setState({ needError: true });
   };
 
