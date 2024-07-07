@@ -2,6 +2,8 @@ import { Component, ReactNode } from 'react';
 
 import { getProductsBySearchQuery } from '@services/api';
 
+import { SearchForm } from '@/components';
+
 import { MainPageState } from '@views/MainPage/types';
 
 import '@views/MainPage/MainPage.css';
@@ -16,7 +18,9 @@ class MainPage extends Component {
   render(): ReactNode {
     return (
       <>
-        <header></header>
+        <header>
+          <SearchForm />
+        </header>
         <main className="main"></main>
       </>
     );
