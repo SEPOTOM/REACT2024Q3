@@ -16,7 +16,7 @@ class MainPage extends Component {
 
   private _isMounted = false;
 
-  handleSearchFormSubmit = (newSearchQuery: string) => {
+  handleSearchQueryUpdate = (newSearchQuery: string) => {
     this.setState({ searchQuery: newSearchQuery });
   };
 
@@ -32,7 +32,7 @@ class MainPage extends Component {
     return (
       <>
         <header>
-          <SearchForm onSubmit={this.handleSearchFormSubmit} />
+          <SearchForm onInputUpdate={this.handleSearchQueryUpdate} />
         </header>
         <main className="main">
           {this.state.products && this.state.products.length > 0 && (

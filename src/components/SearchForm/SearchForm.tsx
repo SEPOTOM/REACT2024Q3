@@ -17,7 +17,7 @@ class SearchForm extends Component<SearchFormProps> {
 
   handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    this.props.onSubmit(this.state.inputValue);
+    this.props.onInputUpdate(this.state.inputValue);
     saveSearchQuery(this.state.inputValue);
   };
 
@@ -38,7 +38,7 @@ class SearchForm extends Component<SearchFormProps> {
     const initialSearchQuery = getSearchQuery();
 
     if (initialSearchQuery) {
-      this.props.onSubmit(initialSearchQuery);
+      this.props.onInputUpdate(initialSearchQuery);
       this.setState({ inputValue: initialSearchQuery });
     }
   }
