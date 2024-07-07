@@ -1,0 +1,17 @@
+.error-button {
+  font-weight: 700;
+  font-size: 2rem;
+  color: #ff8080;
+
+  background-color: transparent;
+  border: 0.2rem solid #fd5f5f;
+  cursor: pointer;
+}
+
+.error-button:hover {
+  background-color: rgb(126, 0, 0);
+}
+
+.error-button:active {
+  background-color: rgb(78, 0, 0);
+}

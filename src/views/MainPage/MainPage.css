@@ -1,0 +1,22 @@
+.header {
+  padding: 3rem 1.2rem;
+
+  background-color: #3d3d3d;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
+}
+
+.main {
+  flex: 1 1 auto;
+  padding: 4rem 1.2rem;
+
+  background-color: #ecebeb;
+}
+
+.main__inner {
+  height: 100%;
+}
