@@ -2,6 +2,8 @@ import { ChangeEvent, Component, FormEvent, ReactNode } from 'react';
 
 import { SearchFormProps, SearchFormState } from '@components/SearchForm/types';
 
+import { saveSearchQuery } from '@utils/localStorage';
+
 import '@components/SearchForm/SearchForm.css';
 
 class SearchForm extends Component<SearchFormProps> {
@@ -16,6 +18,7 @@ class SearchForm extends Component<SearchFormProps> {
   handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     this.props.onSubmit(this.state.inputValue);
+    saveSearchQuery(this.state.inputValue);
   };
 
   render(): ReactNode {
