@@ -1,6 +1,8 @@
-import { SearchProductsResponse } from '@services/types';
+import { Product, SearchProductsResponse } from '@services/types';
 
-export const getProductsBySearchQuery = async (searchQuery: string) => {
+export const getProductsBySearchQuery = async (
+  searchQuery: string,
+): Promise<Product[]> => {
   const url = new URL('https://dummyjson.com/products');
   const searchParams = new URLSearchParams({
     limit: '10',
