@@ -23,13 +23,16 @@ class SearchForm extends Component<SearchFormProps> {
 
   render(): ReactNode {
     return (
-      <form onSubmit={this.handleFormSubmit}>
+      <form onSubmit={this.handleFormSubmit} className="search-form">
         <input
           type="search"
           value={this.state.inputValue}
           onChange={this.handleInputChange}
+          className="search-form__input"
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="search-form__button">
+          Search
+        </button>
       </form>
     );
   }
