@@ -1,0 +1,16 @@
+.product-page {
+  position: relative;
+
+  height: 100%;
+}
+
+.product-page__shadow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+
+  width: 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
