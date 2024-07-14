@@ -1,10 +1,13 @@
-import '@components/Pagination/Pagination.css';
 import { Link, useParams } from 'react-router-dom';
+
+import { validatePage } from '@/utils/validation';
+
+import '@components/Pagination/Pagination.css';
 
 const Pagination = () => {
   const { searchPage } = useParams();
 
-  const currentPage = searchPage ? Number(searchPage) : 1;
+  const currentPage = validatePage(searchPage);
 
   return (
     <div className="pagination">
