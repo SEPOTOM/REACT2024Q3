@@ -8,10 +8,13 @@ afterEach(() => {
 vi.mock('@services/api', () => {
   return {
     getProductsBySearchQuery: vi.fn().mockImplementation(async () => {
-      return [
-        { title: 'Product 1', description: 'Description 1', id: 1 },
-        { title: 'Product 2', description: 'Description 2', id: 2 },
-      ];
+      return {
+        total: 2,
+        products: [
+          { title: 'Product 1', description: 'Description 1', id: 1 },
+          { title: 'Product 2', description: 'Description 2', id: 2 },
+        ],
+      };
     }),
     getProductById: vi.fn().mockImplementation(async (productId: number) => {
       return {
