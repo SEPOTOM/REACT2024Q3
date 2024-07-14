@@ -6,10 +6,13 @@ import '@components/ProductCard/ProductCard.css';
 
 const ProductCard = ({ product }: ProductCardProps) => {
   return (
-    <li key={product.id} className="products-list__item">
-      <Link to={`details?product=${product.id}`}>
-        <h2 className="products-list__title">{product.title}</h2>
-        <p className="products-list__text">{product.description}</p>
+    <li key={product.id} className="products-card">
+      <Link
+        to={`details?product=${product.id}`}
+        className="products-card__link"
+      >
+        <h2 className="products-card__title">{product.title}</h2>
+        <p className="products-card__text">{product.description}</p>
       </Link>
     </li>
   );

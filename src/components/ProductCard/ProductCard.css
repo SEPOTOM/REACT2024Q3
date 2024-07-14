@@ -1,9 +1,17 @@
 .products-card {
-  padding: 2.4rem;
-
   background-color: var(--main-bg-color);
   border-radius: 1.2rem;
   box-shadow: 0.4rem 0.4rem 0.8rem #181818;
+
+  cursor: pointer;
+}
+
+.products-card__link {
+  display: inline-block;
+  padding: 2.4rem;
+
+  color: #000000;
+  text-decoration: none;
 }
 
 .products-card__title {
