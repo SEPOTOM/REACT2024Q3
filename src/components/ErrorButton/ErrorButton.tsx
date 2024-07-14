@@ -1,29 +1,23 @@
-import { Component, ReactNode } from 'react';
-
-import { ErrorButtonState } from '@components/ErrorButton/types';
+import { useState } from 'react';
 
 import '@components/ErrorButton/ErrorButton.css';
 
-class ErrorButton extends Component {
-  state: Readonly<ErrorButtonState> = {
-    needError: false,
+const ErrorButton = () => {
+  const [needError, setNeedError] = useState(false);
+
+  const handleClick = (): void => {
+    setNeedError(true);
   };
 
-  handleClick = (): void => {
-    this.setState({ needError: true });
-  };
-
-  render(): ReactNode {
-    if (this.state.needError) {
-      throw new Error('Test Error');
-    }
-
-    return (
-      <button onClick={this.handleClick} className="error-button">
-        Throw test error
-      </button>
-    );
+  if (needError) {
+    throw new Error('Test Error');
   }
-}
+
+  return (
+    <button onClick={handleClick} className="error-button">
+      Throw test error
+    </button>
+  );
+};
 
 export default ErrorButton;
