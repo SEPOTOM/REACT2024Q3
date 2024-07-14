@@ -52,3 +52,16 @@ test('MainPage retrieves the search query from the local storage upon mounting',
     expect(getByRole('searchbox')).toHaveDisplayValue('Saved search query');
   });
 });
+
+test('Validate that clicking on a card opens a detailed product page', async () => {
+  const router = createBrowserRouter(routes);
+  const { user, findByRole } = renderWithUser(
+    <RouterProvider router={router} />,
+  );
+
+  await user.click(await findByRole('heading', { name: /Product 1/i }));
+
+  expect(
+    await findByRole('heading', { name: /Detailed Product 1/i }),
+  ).toBeInTheDocument();
+});
