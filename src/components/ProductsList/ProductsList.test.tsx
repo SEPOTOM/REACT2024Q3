@@ -1,3 +1,5 @@
+import { BrowserRouter } from 'react-router-dom';
+
 import { renderWithUser } from '@tests/utils';
 
 import { Product } from '@services/types';
@@ -24,7 +26,9 @@ test('ProductsList renders the specified number of cards', () => {
   ];
 
   const { getAllByRole } = renderWithUser(
-    <ProductsList products={fakeProducts} />,
+    <BrowserRouter>
+      <ProductsList products={fakeProducts} />
+    </BrowserRouter>,
   );
 
   expect(getAllByRole('listitem').length).toBe(3);
