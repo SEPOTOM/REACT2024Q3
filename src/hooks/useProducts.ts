@@ -2,12 +2,17 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { getProductsBySearchQuery } from '@services/api';
-import { Product } from '@services/types';
+import { SearchProductsResponse } from '@services/types';
 
 import { validatePage } from '@/utils/validation';
 
-const useProducts = (searchQuery: string): Product[] | null => {
-  const [products, setProducts] = useState<Product[] | null>(null);
+import { ProductsData } from '@hooks/types';
+
+import { PRODUCTS_PER_PAGE_AMOUNT } from '@/consts';
+
+const useProducts = (searchQuery: string): ProductsData | null => {
+  const [productsResponse, setProductsResponse] =
+    useState<SearchProductsResponse | null>(null);
   const { searchPage } = useParams();
 
   const currentPage = validatePage(searchPage);
@@ -16,15 +21,15 @@ const useProducts = (searchQuery: string): Product[] | null => {
     let isMounted = true;
 
     const fetchProducts = async (): Promise<void> => {
-      setProducts(null);
+      setProductsResponse(null);
 
-      const newProducts = await getProductsBySearchQuery(
+      const newProductsResponse = await getProductsBySearchQuery(
         searchQuery.trim(),
         currentPage,
       );
 
       if (isMounted) {
-        setProducts(newProducts);
+        setProductsResponse(newProductsResponse);
       }
     };
 
@@ -35,7 +40,16 @@ const useProducts = (searchQuery: string): Product[] | null => {
     };
   }, [searchQuery, currentPage]);
 
-  return products;
+  const totalPages = Math.floor(
+    productsResponse ? productsResponse.total / PRODUCTS_PER_PAGE_AMOUNT : 0,
+  );
+
+  return productsResponse ?
+      {
+        productsForPage: productsResponse.products,
+        totalPages,
+      }
+    : null;
 };
 
 export default useProducts;

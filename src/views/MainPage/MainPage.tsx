@@ -35,8 +35,8 @@ const MainPage = () => {
         </header>
         <main className="main">
           <div className="container main__inner">
-            {products && <ProductsList products={products} />}
-            {products && products.length > 0 && <Pagination />}
+            {products && <ProductsList products={products.productsForPage} />}
+            {products && products.productsForPage.length > 0 && <Pagination />}
             {products === null && <StatusMessage>Loading...</StatusMessage>}
           </div>
         </main>
