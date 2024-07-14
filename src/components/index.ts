@@ -5,6 +5,7 @@ import ErrorBoundary from '@components/ErrorBoundary/ErrorBoundary';
 import ErrorButton from '@components/ErrorButton/ErrorButton';
 import Fallback from '@components/Fallback/Fallback';
 import Pagination from '@components/Pagination/Pagination';
+import ProductCard from '@components/ProductCard/ProductCard';
 
 export {
   SearchForm,
@@ -14,4 +15,5 @@ export {
   ErrorButton,
   Fallback,
   Pagination,
+  ProductCard,
 };

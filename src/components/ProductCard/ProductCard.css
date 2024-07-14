@@ -1,0 +1,21 @@
+.products-card {
+  padding: 2.4rem;
+
+  background-color: var(--main-bg-color);
+  border-radius: 1.2rem;
+  box-shadow: 0.4rem 0.4rem 0.8rem #181818;
+}
+
+.products-card__title {
+  margin: 0 0 1rem 0;
+
+  font-size: 3rem;
+  line-height: 130%;
+}
+
+.products-card__text {
+  margin: 0;
+
+  font-size: 2.4rem;
+  line-height: 150%;
+}
