@@ -33,3 +33,15 @@ test('ProductsList renders the specified number of cards', () => {
 
   expect(getAllByRole('listitem').length).toBe(3);
 });
+
+test('ProductsList displays a message when no products are found', () => {
+  const fakeProducts: Product[] = [];
+
+  const { getByRole } = renderWithUser(
+    <BrowserRouter>
+      <ProductsList products={fakeProducts} />
+    </BrowserRouter>,
+  );
+
+  expect(getByRole('status')).toHaveTextContent(/no products were found/i);
+});
