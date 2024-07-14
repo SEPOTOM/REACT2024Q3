@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
 import { getProductsBySearchQuery } from '@services/api';
 
@@ -9,72 +9,56 @@ import {
   StatusMessage,
 } from '@/components';
 
-import { MainPageState } from '@views/MainPage/types';
+import { Product } from '@services/types';
 
 import '@views/MainPage/MainPage.css';
 
-class MainPage extends Component {
-  state: Readonly<MainPageState> = {
-    products: null,
-    searchQuery: '',
+const MainPage = () => {
+  const [products, setProducts] = useState<Product[] | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchProducts = async (): Promise<void> => {
+      setProducts(null);
+
+      const newProducts = await getProductsBySearchQuery(searchQuery.trim());
+
+      if (isMounted) {
+        setProducts(newProducts);
+      }
+    };
+
+    fetchProducts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [searchQuery]);
+
+  const handleSearchQueryUpdate = (newSearchQuery: string): void => {
+    setSearchQuery(newSearchQuery);
   };
 
-  private _isMounted = false;
-
-  handleSearchQueryUpdate = (newSearchQuery: string): void => {
-    this.setState({ searchQuery: newSearchQuery });
-  };
-
-  fetchProducts = async (searchQuery: string): Promise<void> => {
-    const products = await getProductsBySearchQuery(searchQuery.trim());
-
-    if (this._isMounted && searchQuery === this.state.searchQuery) {
-      this.setState({ products });
-    }
-  };
-
-  render(): ReactNode {
-    return (
-      <>
-        <header className="header">
-          <div className="container header__inner">
-            <ErrorButton />
-            <SearchForm onInputUpdate={this.handleSearchQueryUpdate} />
-          </div>
-        </header>
-        <main className="main">
-          <div className="container main__inner">
-            {this.state.products && this.state.products.length > 0 && (
-              <ProductsList products={this.state.products} />
-            )}
-            {this.state.products === null && (
-              <StatusMessage>Loading...</StatusMessage>
-            )}
-          </div>
-        </main>
-      </>
-    );
-  }
-
-  componentDidMount(): void {
-    this._isMounted = true;
-
-    this.fetchProducts(this.state.searchQuery);
-  }
-
-  async componentDidUpdate(
-    _: Readonly<object>,
-    prevState: Readonly<MainPageState>,
-  ): Promise<void> {
-    if (prevState.searchQuery !== this.state.searchQuery) {
-      this.setState({ products: null });
-      this.fetchProducts(this.state.searchQuery);
-    }
-  }
-
-  componentWillUnmount(): void {
-    this._isMounted = false;
-  }
-}
+  return (
+    <>
+      <header className="header">
+        <div className="container header__inner">
+          <ErrorButton />
+          <SearchForm onInputUpdate={handleSearchQueryUpdate} />
+        </div>
+      </header>
+      <main className="main">
+        <div className="container main__inner">
+          {products && products.length > 0 && (
+            <ProductsList products={products} />
+          )}
+          {products === null && <StatusMessage>Loading...</StatusMessage>}
+        </div>
+      </main>
+    </>
+  );
+};
 
 export default MainPage;
