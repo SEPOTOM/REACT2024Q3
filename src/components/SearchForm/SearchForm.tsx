@@ -1,53 +1,47 @@
-import { ChangeEvent, Component, FormEvent, ReactNode } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
-import { SearchFormProps, SearchFormState } from '@components/SearchForm/types';
+import { SearchFormProps } from '@components/SearchForm/types';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
 
 import '@components/SearchForm/SearchForm.css';
 
-class SearchForm extends Component<SearchFormProps> {
-  state: Readonly<SearchFormState> = {
-    inputValue: '',
-  };
+const SearchForm = ({ onInputUpdate }: SearchFormProps) => {
+  const [inputValue, setInputValue] = useState('');
 
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ inputValue: e.target.value });
-  };
-
-  handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-
-    const newInputValue = this.state.inputValue;
-
-    this.props.onInputUpdate(newInputValue);
-    saveSearchQuery(newInputValue);
-  };
-
-  render(): ReactNode {
-    return (
-      <form onSubmit={this.handleFormSubmit} className="search-form">
-        <input
-          type="search"
-          value={this.state.inputValue}
-          onChange={this.handleInputChange}
-          className="search-form__input"
-        />
-        <button type="submit" className="search-form__button">
-          Search
-        </button>
-      </form>
-    );
-  }
-
-  componentDidMount(): void {
+  useEffect(() => {
     const initialSearchQuery = getSearchQuery();
 
     if (initialSearchQuery) {
-      this.props.onInputUpdate(initialSearchQuery);
-      this.setState({ inputValue: initialSearchQuery });
+      onInputUpdate(initialSearchQuery);
+      setInputValue(initialSearchQuery);
     }
-  }
-}
+  }, [onInputUpdate]);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(e.target.value);
+  };
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+
+    onInputUpdate(inputValue);
+    saveSearchQuery(inputValue);
+  };
+
+  return (
+    <form onSubmit={handleFormSubmit} className="search-form">
+      <input
+        type="search"
+        value={inputValue}
+        onChange={handleInputChange}
+        className="search-form__input"
+      />
+      <button type="submit" className="search-form__button">
+        Search
+      </button>
+    </form>
+  );
+};
 
 export default SearchForm;
