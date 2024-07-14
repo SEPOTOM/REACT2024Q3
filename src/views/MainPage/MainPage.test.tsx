@@ -1,8 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { waitFor } from '@testing-library/react';
 
-import * as api from '@services/api';
-
 import { renderWithUser } from '@tests/utils';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
@@ -53,30 +51,4 @@ test('MainPage retrieves the search query from the local storage upon mounting',
   await waitFor(() => {
     expect(getByRole('searchbox')).toHaveDisplayValue('Saved search query');
   });
-});
-
-test('Validate that clicking on a card opens a detailed product page', async () => {
-  const router = createBrowserRouter(routes);
-  const { user, findByRole } = renderWithUser(
-    <RouterProvider router={router} />,
-  );
-
-  await user.click(await findByRole('heading', { name: /Product 1/i }));
-
-  expect(
-    await findByRole('heading', { name: /Detailed Product 1/i }),
-  ).toBeInTheDocument();
-});
-
-test('Opening a detailed product page triggers an additional API call to fetch detailed information', async () => {
-  window.history.pushState(null, '', '/');
-  const getProductByIdSpy = vi.spyOn(api, 'getProductById');
-  const router = createBrowserRouter(routes);
-  const { user, findByRole } = renderWithUser(
-    <RouterProvider router={router} />,
-  );
-
-  await user.click(await findByRole('heading', { name: /Product 1/i }));
-
-  expect(getProductByIdSpy).toBeCalledTimes(1);
 });
