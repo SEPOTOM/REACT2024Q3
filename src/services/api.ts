@@ -1,15 +1,11 @@
-import {
-  DetailedProduct,
-  Product,
-  SearchProductsResponse,
-} from '@services/types';
+import { DetailedProduct, SearchProductsResponse } from '@services/types';
 
 const PRODUCTS_LIMIT = 10;
 
 export const getProductsBySearchQuery = async (
   searchQuery: string,
   page = 1,
-): Promise<Product[]> => {
+): Promise<SearchProductsResponse> => {
   const url = new URL('https://dummyjson.com/products');
   const searchParams = new URLSearchParams({
     limit: String(PRODUCTS_LIMIT),
@@ -33,7 +29,7 @@ export const getProductsBySearchQuery = async (
   }
 
   const data: SearchProductsResponse = await response.json();
-  return data.products;
+  return data;
 };
 
 export const getProductById = async (
