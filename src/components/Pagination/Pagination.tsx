@@ -11,11 +11,19 @@ const Pagination = () => {
 
   return (
     <div className="pagination">
-      <Link to={`/search/${currentPage - 1}`} aria-label="Previous page">
+      <Link
+        to={`/search/${currentPage - 1}`}
+        aria-label="Previous page"
+        className="pagination__button"
+      >
         &lt;
       </Link>
       <span className="pagination__page">{currentPage}</span>
-      <Link to={`/search/${currentPage + 1}`} aria-label="Next page">
+      <Link
+        to={`/search/${currentPage + 1}`}
+        aria-label="Next page"
+        className="pagination__button"
+      >
         &gt;
       </Link>
     </div>
