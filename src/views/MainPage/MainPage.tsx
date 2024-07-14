@@ -1,7 +1,3 @@
-import { useEffect, useState } from 'react';
-
-import { getProductsBySearchQuery } from '@services/api';
-
 import {
   ErrorButton,
   ProductsList,
@@ -9,35 +5,13 @@ import {
   StatusMessage,
 } from '@/components';
 
-import { useSearchQuery } from '@/hooks';
-
-import { Product } from '@services/types';
+import { useProducts, useSearchQuery } from '@/hooks';
 
 import '@views/MainPage/MainPage.css';
 
 const MainPage = () => {
-  const [products, setProducts] = useState<Product[] | null>(null);
   const [searchQuery, setSearchQuery] = useSearchQuery();
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchProducts = async (): Promise<void> => {
-      setProducts(null);
-
-      const newProducts = await getProductsBySearchQuery(searchQuery.trim());
-
-      if (isMounted) {
-        setProducts(newProducts);
-      }
-    };
-
-    fetchProducts();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [searchQuery]);
+  const products = useProducts(searchQuery);
 
   const handleSearchFormSubmit = (newSearchQuery: string): void => {
     setSearchQuery(newSearchQuery);
