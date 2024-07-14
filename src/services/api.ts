@@ -1,6 +1,6 @@
 import { DetailedProduct, SearchProductsResponse } from '@services/types';
 
-const PRODUCTS_LIMIT = 10;
+import { PRODUCTS_PER_PAGE_AMOUNT } from '@/consts';
 
 export const getProductsBySearchQuery = async (
   searchQuery: string,
@@ -8,9 +8,9 @@ export const getProductsBySearchQuery = async (
 ): Promise<SearchProductsResponse> => {
   const url = new URL('https://dummyjson.com/products');
   const searchParams = new URLSearchParams({
-    limit: String(PRODUCTS_LIMIT),
+    limit: String(PRODUCTS_PER_PAGE_AMOUNT),
     select: 'title,description',
-    skip: String((page - 1) * PRODUCTS_LIMIT),
+    skip: String((page - 1) * PRODUCTS_PER_PAGE_AMOUNT),
   });
 
   if (searchQuery) {

@@ -1,0 +1,1 @@
+export const PRODUCTS_PER_PAGE_AMOUNT = 10;
