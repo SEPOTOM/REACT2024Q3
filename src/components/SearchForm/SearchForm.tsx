@@ -1,40 +1,26 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useRef } from 'react';
 
 import { SearchFormProps } from '@components/SearchForm/types';
 
-import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
-
 import '@components/SearchForm/SearchForm.css';
 
-const SearchForm = ({ onInputUpdate }: SearchFormProps) => {
-  const [inputValue, setInputValue] = useState('');
-
-  useEffect(() => {
-    const initialSearchQuery = getSearchQuery();
-
-    if (initialSearchQuery) {
-      onInputUpdate(initialSearchQuery);
-      setInputValue(initialSearchQuery);
-    }
-  }, [onInputUpdate]);
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(e.target.value);
-  };
+const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    onInputUpdate(inputValue);
-    saveSearchQuery(inputValue);
+    if (inputRef.current) {
+      onFormSubmit(inputRef.current.value);
+    }
   };
 
   return (
     <form onSubmit={handleFormSubmit} className="search-form">
       <input
         type="search"
-        value={inputValue}
-        onChange={handleInputChange}
+        defaultValue={initialSearchQuery}
+        ref={inputRef}
         className="search-form__input"
       />
       <button type="submit" className="search-form__button">

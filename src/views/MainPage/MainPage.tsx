@@ -9,13 +9,15 @@ import {
   StatusMessage,
 } from '@/components';
 
+import { useSearchQuery } from '@/hooks';
+
 import { Product } from '@services/types';
 
 import '@views/MainPage/MainPage.css';
 
 const MainPage = () => {
   const [products, setProducts] = useState<Product[] | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useSearchQuery();
 
   useEffect(() => {
     let isMounted = true;
@@ -37,7 +39,7 @@ const MainPage = () => {
     };
   }, [searchQuery]);
 
-  const handleSearchQueryUpdate = (newSearchQuery: string): void => {
+  const handleSearchFormSubmit = (newSearchQuery: string): void => {
     setSearchQuery(newSearchQuery);
   };
 
@@ -46,7 +48,10 @@ const MainPage = () => {
       <header className="header">
         <div className="container header__inner">
           <ErrorButton />
-          <SearchForm onInputUpdate={handleSearchQueryUpdate} />
+          <SearchForm
+            initialSearchQuery={searchQuery}
+            onFormSubmit={handleSearchFormSubmit}
+          />
         </div>
       </header>
       <main className="main">
