@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
 } from 'react-router-dom';
 
-import { MainPage } from '@/views';
+import { MainPage, NotFoundPage } from '@/views';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: '/search/:searchPage',
     element: <MainPage />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ]);
 
