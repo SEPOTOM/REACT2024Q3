@@ -24,15 +24,19 @@ const ProductPage = () => {
 
   return (
     <div className="product-page">
-      <h2>{title}</h2>
-      {images[0] && <img src={images[0]} alt={title} />}
-      <p>{description}</p>
-      <p>Category: {category}</p>
-      <p>Price: ${price}</p>
-      <Link to={closeUrl}>Close</Link>
-      <Link to={closeUrl}>
-        <div className="product-page__shadow"></div>
-      </Link>
+      <div className="product-page__content">
+        <h2 className="product-page__title">{title}</h2>
+        {images[0] && (
+          <img src={images[0]} alt={title} className="product-page__image" />
+        )}
+        <p className="product-page__description">{description}</p>
+        <p className="product-page__feature">Category: {category}</p>
+        <p className="product-page__feature">Price: ${price}</p>
+        <Link to={closeUrl} className="product-page__button">
+          Close
+        </Link>
+      </div>
+      <Link to={closeUrl} className="product-page__shadow" />
     </div>
   );
 };
