@@ -1,6 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { validatePage } from '@/utils/validation';
+
+import { PaginationButton } from '@/components';
 
 import '@components/Pagination/Pagination.css';
 
@@ -11,21 +13,21 @@ const Pagination = () => {
 
   return (
     <div className="pagination">
-      <Link
+      <PaginationButton
         to={`/search/${currentPage - 1}`}
         aria-label="Previous page"
         className="pagination__button"
       >
         &lt;
-      </Link>
+      </PaginationButton>
       <span className="pagination__page">{currentPage}</span>
-      <Link
+      <PaginationButton
         to={`/search/${currentPage + 1}`}
         aria-label="Next page"
         className="pagination__button"
       >
         &gt;
-      </Link>
+      </PaginationButton>
     </div>
   );
 };
