@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom';
 
+import { StatusMessage } from '@/components';
 import { ProductsListProps } from '@components/ProductsList/types';
 
 import '@components/ProductsList/ProductsList.css';
 
 const ProductsList = ({ products }: ProductsListProps) => {
+  if (products.length === 0) {
+    return <StatusMessage>No products were found</StatusMessage>;
+  }
+
   return (
     <ul className="products-list">
       {products.map((product) => (
