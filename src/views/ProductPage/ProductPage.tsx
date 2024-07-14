@@ -12,12 +12,6 @@ const ProductPage = () => {
   const detailedProduct = useDetailedProduct();
   const { searchPage } = useParams();
 
-  if (!detailedProduct) {
-    return <StatusMessage>Loading...</StatusMessage>;
-  }
-
-  const { title, description, category, price, images } = detailedProduct;
-
   const currentPage = validatePage(searchPage);
 
   const closeUrl = `/search/${currentPage}`;
@@ -25,16 +19,30 @@ const ProductPage = () => {
   return (
     <div className="product-page">
       <div className="product-page__content">
-        <h2 className="product-page__title">{title}</h2>
-        {images[0] && (
-          <img src={images[0]} alt={title} className="product-page__image" />
-        )}
-        <p className="product-page__description">{description}</p>
-        <p className="product-page__feature">Category: {category}</p>
-        <p className="product-page__feature">Price: ${price}</p>
-        <Link to={closeUrl} className="product-page__button">
-          Close
-        </Link>
+        {detailedProduct ?
+          <>
+            <h2 className="product-page__title">{detailedProduct.title}</h2>
+            {detailedProduct.images[0] && (
+              <img
+                src={detailedProduct.images[0]}
+                alt={detailedProduct.title}
+                className="product-page__image"
+              />
+            )}
+            <p className="product-page__description">
+              {detailedProduct.description}
+            </p>
+            <p className="product-page__feature">
+              Category: {detailedProduct.category}
+            </p>
+            <p className="product-page__feature">
+              Price: ${detailedProduct.price}
+            </p>
+            <Link to={closeUrl} className="product-page__button">
+              Close
+            </Link>
+          </>
+        : <StatusMessage>Loading...</StatusMessage>}
       </div>
       <Link to={closeUrl} className="product-page__shadow" />
     </div>
