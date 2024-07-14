@@ -1,5 +1,6 @@
 import {
   ErrorButton,
+  Pagination,
   ProductsList,
   SearchForm,
   StatusMessage,
@@ -31,7 +32,10 @@ const MainPage = () => {
       <main className="main">
         <div className="container main__inner">
           {products && products.length > 0 && (
-            <ProductsList products={products} />
+            <>
+              <ProductsList products={products} />
+              <Pagination />
+            </>
           )}
           {products === null && <StatusMessage>Loading...</StatusMessage>}
         </div>
