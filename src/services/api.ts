@@ -1,4 +1,8 @@
-import { Product, SearchProductsResponse } from '@services/types';
+import {
+  DetailedProduct,
+  Product,
+  SearchProductsResponse,
+} from '@services/types';
 
 const PRODUCTS_LIMIT = 10;
 
@@ -30,4 +34,26 @@ export const getProductsBySearchQuery = async (
 
   const data: SearchProductsResponse = await response.json();
   return data.products;
+};
+
+export const getProductById = async (
+  productId: number,
+): Promise<DetailedProduct> => {
+  const url = new URL(`https://dummyjson.com/products/${productId}`);
+  const searchParams = new URLSearchParams({
+    select: 'title,description,category,price,images',
+  });
+
+  url.search = searchParams.toString();
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(
+      `Network error! status: ${response.status}, message: ${response.statusText}`,
+    );
+  }
+
+  const data: DetailedProduct = await response.json();
+  return data;
 };

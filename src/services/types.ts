@@ -7,3 +7,9 @@ export interface Product {
   title: string;
   description: string;
 }
+
+export interface DetailedProduct extends Product {
+  category: string;
+  price: number;
+  images: string[];
+}
