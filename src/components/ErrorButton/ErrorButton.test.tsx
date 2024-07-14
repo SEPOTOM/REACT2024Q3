@@ -1,14 +1,7 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
-import { renderWithUser } from '@tests/utils';
-
-import { routes } from '@/routes';
+import { renderRouterWithUser } from '@tests/utils';
 
 test('Click on ErrorButton should show the error page', async () => {
-  const router = createBrowserRouter(routes);
-  const { user, findByRole, getByRole } = renderWithUser(
-    <RouterProvider router={router} />,
-  );
+  const { user, findByRole, getByRole } = renderRouterWithUser();
 
   await user.click(await findByRole('button', { name: /throw/i }));
 

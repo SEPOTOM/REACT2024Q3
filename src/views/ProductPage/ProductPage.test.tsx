@@ -1,14 +1,8 @@
-import {
-  BrowserRouter,
-  RouterProvider,
-  createBrowserRouter,
-} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import { renderWithUser } from '@tests/utils';
+import { renderRouterWithUser, renderWithUser } from '@tests/utils';
 
 import { ProductPage } from '@/views';
-
-import { routes } from '@/routes';
 
 test('ProductPage displays a loading indicator while fetching data', async () => {
   window.history.pushState(null, '', '/search/1/details?product=1');
@@ -42,10 +36,7 @@ test('ProductPage correctly displays the detailed product data', async () => {
 
 test('Ensure that clicking the close button hides ProductPage', async () => {
   window.history.pushState(null, '', '/search/1/details?product=1');
-  const router = createBrowserRouter(routes);
-  const { user, findByRole, queryByRole } = renderWithUser(
-    <RouterProvider router={router} />,
-  );
+  const { user, findByRole, queryByRole } = renderRouterWithUser();
 
   await user.click(await findByRole('link', { name: /close/i }));
 
