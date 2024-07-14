@@ -1,11 +1,11 @@
-import { Component, ReactNode } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { MainPage } from '@/views';
+import { routes } from '@/routes';
 
-class App extends Component {
-  render(): ReactNode {
-    return <MainPage />;
-  }
-}
+const router = createBrowserRouter(routes);
+
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;

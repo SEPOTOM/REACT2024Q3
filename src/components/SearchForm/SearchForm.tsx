@@ -1,53 +1,33 @@
-import { ChangeEvent, Component, FormEvent, ReactNode } from 'react';
+import { FormEvent, useRef } from 'react';
 
-import { SearchFormProps, SearchFormState } from '@components/SearchForm/types';
-
-import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
+import { SearchFormProps } from '@components/SearchForm/types';
 
 import '@components/SearchForm/SearchForm.css';
 
-class SearchForm extends Component<SearchFormProps> {
-  state: Readonly<SearchFormState> = {
-    inputValue: '',
-  };
+const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ inputValue: e.target.value });
-  };
-
-  handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
-    const newInputValue = this.state.inputValue;
-
-    this.props.onInputUpdate(newInputValue);
-    saveSearchQuery(newInputValue);
+    if (inputRef.current) {
+      onFormSubmit(inputRef.current.value);
+    }
   };
 
-  render(): ReactNode {
-    return (
-      <form onSubmit={this.handleFormSubmit} className="search-form">
-        <input
-          type="search"
-          value={this.state.inputValue}
-          onChange={this.handleInputChange}
-          className="search-form__input"
-        />
-        <button type="submit" className="search-form__button">
-          Search
-        </button>
-      </form>
-    );
-  }
-
-  componentDidMount(): void {
-    const initialSearchQuery = getSearchQuery();
-
-    if (initialSearchQuery) {
-      this.props.onInputUpdate(initialSearchQuery);
-      this.setState({ inputValue: initialSearchQuery });
-    }
-  }
-}
+  return (
+    <form onSubmit={handleFormSubmit} className="search-form">
+      <input
+        type="search"
+        defaultValue={initialSearchQuery}
+        ref={inputRef}
+        className="search-form__input"
+      />
+      <button type="submit" className="search-form__button">
+        Search
+      </button>
+    </form>
+  );
+};
 
 export default SearchForm;
