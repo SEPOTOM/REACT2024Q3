@@ -27,9 +27,9 @@
   max-height: 50rem;
   margin-bottom: 3rem;
 
-  background-color: var(--main-bg-color);
+  background-color: var(--bg-color-alt);
   border-radius: 1rem;
-  box-shadow: 0.4rem 0.4rem 0.8rem #181818;
+  box-shadow: 0.4rem 0.4rem 0.8rem var(--bg-color-secondary);
 }
 
 .product-page__description {
@@ -52,16 +52,16 @@
   padding: 1rem;
 
   font-size: 4rem;
-  color: var(--main-bg-color);
+  color: var(--bg-color-alt);
   text-decoration: none;
 
-  background-color: #181818;
-  border: 0.2rem solid #181818;
+  background-color: var(--bg-color-secondary);
+  border: 0.2rem solid var(--bg-color-secondary);
   border-radius: 1rem;
 }
 
 .product-page__button:hover {
-  color: #181818;
+  color: var(--bg-color-secondary);
 
   background-color: transparent;
 }

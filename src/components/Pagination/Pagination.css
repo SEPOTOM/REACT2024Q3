@@ -23,16 +23,16 @@
   font-weight: 700;
   font-size: 3rem;
   text-decoration: none;
-  color: #000000;
+  color: var(--text-color);
 
-  border: 0.3rem solid #181818;
+  border: 0.3rem solid var(--bg-color-secondary);
   border-radius: 1rem;
 }
 
 .pagination__button:hover {
-  color: var(--main-bg-color);
+  color: var(--bg-color);
 
-  background-color: #181818;
+  background-color: var(--bg-color-secondary);
 }
 
 .pagination__button:active {
