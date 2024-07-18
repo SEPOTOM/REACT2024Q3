@@ -18,9 +18,16 @@ const ThemesComboBox = () => {
   };
 
   return (
-    <div>
-      <label htmlFor={themeSelectId}>Theme:</label>
-      <select id={themeSelectId} value={theme} onChange={handleSelectChange}>
+    <div className={`themes-combo-box themes-combo-box_theme_${theme}`}>
+      <label htmlFor={themeSelectId} className="themes-combo-box__label">
+        Theme:
+      </label>
+      <select
+        id={themeSelectId}
+        value={theme}
+        onChange={handleSelectChange}
+        className="themes-combo-box__dropdown"
+      >
         {Object.values(Themes).map((theme) => {
           return (
             <option value={theme} key={theme}>

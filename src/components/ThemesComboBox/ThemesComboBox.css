@@ -1,0 +1,32 @@
+.themes-combo-box {
+  display: flex;
+  align-items: center;
+  column-gap: 0.4rem;
+
+  font-size: 2rem;
+  color: var(--dark-text-color);
+}
+
+.themes-combo-box__label {
+  font-weight: 700;
+}
+
+.themes-combo-box__dropdown {
+  align-self: stretch;
+  padding: 0.4rem;
+
+  font-size: 2rem;
+  color: var(--text-color);
+
+  background-color: var(--bg-color);
+}
+
+.themes-combo-box_theme_dark {
+  color: var(--text-color);
+
+  .themes-combo-box__dropdown {
+    color: var(--dark-text-color);
+
+    background-color: var(--dark-bg-color);
+  }
+}
