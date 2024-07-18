@@ -3,6 +3,10 @@
   --bg-color-alt: #f1f1f1;
   --bg-color-secondary: #3d3d3d;
   --text-color: #0c0c0c;
+  --dark-bg-color: #131414;
+  --dark-bg-color-alt: #0e0e0e;
+  --dark-bg-color-secondary: #c2c2c2;
+  --dark-text-color: #f3f3f3;
 }
 
 html {
