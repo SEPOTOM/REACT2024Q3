@@ -1,8 +1,11 @@
+import { BrowserRouter } from 'react-router-dom';
 import { waitFor } from '@testing-library/react';
 
-import { renderRouterWithUser } from '@tests/utils';
+import { renderRouterWithUser, renderWithUser } from '@tests/utils';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
+
+import { MainPage } from '@/views';
 
 test('MainPage saves the entered search query to the local storage when the Search button is clicked', async () => {
   localStorage.clear();
@@ -23,4 +26,14 @@ test('MainPage retrieves the search query from the local storage upon mounting',
   await waitFor(() => {
     expect(getByRole('searchbox')).toHaveDisplayValue('Saved search query');
   });
+});
+
+test('Main page has a combobox to change the app theme', async () => {
+  const { findByRole } = renderWithUser(
+    <BrowserRouter>
+      <MainPage />
+    </BrowserRouter>,
+  );
+
+  expect(await findByRole('combobox', { name: /theme/i })).toBeInTheDocument();
 });
