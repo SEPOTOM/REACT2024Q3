@@ -27,3 +27,13 @@
   font-size: 2.4rem;
   line-height: 150%;
 }
+
+.products-card_theme_dark {
+  background-color: var(--dark-bg-color-alt);
+
+  box-shadow: 0.4rem 0.4rem 0.8rem var(--dark-bg-color-secondary);
+
+  .products-card__link {
+    color: var(--dark-text-color);
+  }
+}
