@@ -6,6 +6,8 @@
   align-items: center;
   padding: 4rem;
 
+  color: var(--text-color);
+
   background-color: var(--bg-color);
 }
 
@@ -21,4 +23,10 @@
 
   font-size: 2.4rem;
   line-height: 150%;
+}
+
+.fallback_theme_dark {
+  color: var(--dark-text-color);
+
+  background-color: var(--dark-bg-color);
 }
