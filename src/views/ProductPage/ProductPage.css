@@ -4,6 +4,8 @@
   display: flex;
   width: 50%;
   height: 100%;
+
+  color: var(--text-color);
 }
 
 .product-page__content {
@@ -80,4 +82,26 @@
   width: 100%;
 
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.product-page_theme_dark {
+  color: var(--dark-text-color);
+
+  .product-page__image {
+    background-color: var(--dark-bg-color-alt);
+    box-shadow: 0.4rem 0.4rem 0.8rem var(--dark-bg-color-secondary);
+  }
+
+  .product-page__button {
+    color: var(--dark-bg-color-alt);
+
+    background-color: var(--dark-bg-color-secondary);
+    border-color: var(--dark-bg-color-secondary);
+  }
+
+  .product-page__button:hover {
+    color: var(--dark-bg-color-secondary);
+
+    background-color: transparent;
+  }
 }

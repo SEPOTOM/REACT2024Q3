@@ -1,5 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 
+import { useTheme } from '@/contexts';
+
 import { useDetailedProduct } from '@/hooks';
 
 import { validatePage } from '@/utils/validation';
@@ -11,13 +13,14 @@ import '@views/ProductPage/ProductPage.css';
 const ProductPage = () => {
   const detailedProduct = useDetailedProduct();
   const { searchPage } = useParams();
+  const theme = useTheme();
 
   const currentPage = validatePage(searchPage);
 
   const closeUrl = `/search/${currentPage}`;
 
   return (
-    <div className="product-page">
+    <div className={`product-page product-page_theme_${theme}`}>
       <div className="product-page__content">
         {detailedProduct ?
           <>
