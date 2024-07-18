@@ -6,6 +6,7 @@ import {
   ProductsList,
   SearchForm,
   StatusMessage,
+  ThemesComboBox,
 } from '@/components';
 
 import { useProducts, useSearchQuery } from '@/hooks';
@@ -31,6 +32,7 @@ const MainPage = () => {
               initialSearchQuery={searchQuery}
               onFormSubmit={handleSearchFormSubmit}
             />
+            <ThemesComboBox />
           </div>
         </header>
         <main className="main">

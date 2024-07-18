@@ -7,6 +7,7 @@ import Fallback from '@components/Fallback/Fallback';
 import Pagination from '@components/Pagination/Pagination';
 import ProductCard from '@components/ProductCard/ProductCard';
 import PaginationButton from '@components/PaginationButton/PaginationButton';
+import ThemesComboBox from '@/components/ThemesComboBox/ThemesComboBox';
 
 export {
   SearchForm,
@@ -18,4 +19,5 @@ export {
   Pagination,
   ProductCard,
   PaginationButton,
+  ThemesComboBox,
 };
