@@ -1,11 +1,17 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import { ThemeProvider } from '@/contexts';
+
 import { routes } from '@/routes';
 
 const router = createBrowserRouter(routes);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 };
 
 export default App;
