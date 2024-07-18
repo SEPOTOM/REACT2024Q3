@@ -10,4 +10,9 @@
 
   font-weight: 700;
   font-size: 4rem;
+  color: var(--text-color);
+}
+
+.status-message_theme_dark {
+  color: var(--dark-text-color);
 }
