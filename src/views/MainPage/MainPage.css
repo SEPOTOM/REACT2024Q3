@@ -33,3 +33,13 @@
 .main__inner {
   height: 100%;
 }
+
+.main-page_theme_dark {
+  .main-page__column {
+    background-color: var(--dark-bg-color);
+  }
+
+  .header {
+    background-color: var(--dark-bg-color-secondary);
+  }
+}
