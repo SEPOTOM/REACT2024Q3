@@ -17,10 +17,14 @@ const checkedProductsSlice = createSlice({
     productChecked: (state, action: PayloadAction<DetailedProduct>) => {
       checkedProductsAdapter.addOne(state, action.payload);
     },
+    productUnchecked: (state, action: PayloadAction<number>) => {
+      checkedProductsAdapter.removeOne(state, action.payload);
+    },
   },
 });
 
-export const { productChecked } = checkedProductsSlice.actions;
+export const { productChecked, productUnchecked } =
+  checkedProductsSlice.actions;
 
 export default checkedProductsSlice.reducer;
 
