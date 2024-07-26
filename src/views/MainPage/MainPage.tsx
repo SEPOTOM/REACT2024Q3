@@ -17,13 +17,21 @@ import '@views/MainPage/MainPage.css';
 
 const MainPage = () => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
-  const products = useProducts(searchQuery);
+  const { productsResponse, totalPages, isFetching, isSuccess } =
+    useProducts(searchQuery);
   const outlet = useOutlet();
   const theme = useTheme();
 
   const handleSearchFormSubmit = (newSearchQuery: string): void => {
     setSearchQuery(newSearchQuery);
   };
+
+  const isProductsFetched = !isFetching && isSuccess && productsResponse;
+  const hasFetchedProducts =
+    !isFetching &&
+    isSuccess &&
+    productsResponse &&
+    productsResponse.products.length > 0;
 
   return (
     <div className={`main-page main-page_theme_${theme}`}>
@@ -40,11 +48,11 @@ const MainPage = () => {
         </header>
         <main className="main">
           <div className="container main__inner">
-            {products && <ProductsList products={products.productsForPage} />}
-            {products && products.productsForPage.length > 0 && (
-              <Pagination totalPages={products.totalPages} />
+            {isProductsFetched && (
+              <ProductsList products={productsResponse.products} />
             )}
-            {products === null && <StatusMessage>Loading...</StatusMessage>}
+            {hasFetchedProducts && <Pagination totalPages={totalPages} />}
+            {isFetching && <StatusMessage>Loading...</StatusMessage>}
           </div>
         </main>
       </div>

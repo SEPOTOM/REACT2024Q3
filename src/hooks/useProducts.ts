@@ -1,18 +1,18 @@
 import { useParams } from 'react-router-dom';
 
-import { useGetProductsQuery } from '@/store/api/apiSlice';
+import { useGetProductsQuery } from '@store/api/apiSlice';
 
-import { validatePage } from '@/utils/validation';
+import { validatePage } from '@utils/validation';
 
-import { ProductsData } from '@hooks/types';
+import { UseProductsResult } from '@/hooks/types';
 
 import { PRODUCTS_PER_PAGE_AMOUNT } from '@/consts';
 
-const useProducts = (searchQuery: string): ProductsData | null => {
+const useProducts = (searchQuery: string): UseProductsResult => {
   const { searchPage } = useParams();
   const currentPage = validatePage(searchPage);
 
-  const { data: productsResponse } = useGetProductsQuery({
+  const { data: productsResponse = null, ...response } = useGetProductsQuery({
     searchQuery,
     page: currentPage,
   });
@@ -21,12 +21,11 @@ const useProducts = (searchQuery: string): ProductsData | null => {
     productsResponse ? productsResponse.total / PRODUCTS_PER_PAGE_AMOUNT : 0,
   );
 
-  return productsResponse ?
-      {
-        productsForPage: productsResponse.products,
-        totalPages,
-      }
-    : null;
+  return {
+    totalPages,
+    productsResponse,
+    ...response,
+  };
 };
 
 export default useProducts;

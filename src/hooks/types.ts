@@ -1,6 +1,8 @@
-import { Product } from '@services/types';
+import { SearchProductsResponse } from '@services/types';
 
-export interface ProductsData {
-  productsForPage: Product[];
+export interface UseProductsResult {
   totalPages: number;
+  isFetching: boolean;
+  isSuccess: boolean;
+  productsResponse: SearchProductsResponse | null;
 }
