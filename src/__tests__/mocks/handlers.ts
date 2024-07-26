@@ -10,4 +10,16 @@ export const handlers: HttpHandler[] = [
       ],
     });
   }),
+  http.get('https://dummyjson.com/products/:productId', ({ params }) => {
+    const { productId } = params;
+
+    return HttpResponse.json({
+      title: `Detailed Product ${productId}`,
+      description: `Detailed Description ${productId}`,
+      category: `Detailed Category ${productId}`,
+      price: 9.99,
+      images: [`Detailed Image ${productId}`],
+      id: productId,
+    });
+  }),
 ];
