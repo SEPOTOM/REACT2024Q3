@@ -21,6 +21,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <h2 className="products-card__title">{product.title}</h2>
         <p className="products-card__text">{product.description}</p>
       </Link>
+      <input
+        type="checkbox"
+        aria-label="Select product"
+        className="products-card__checkbox"
+      />
     </li>
   );
 };

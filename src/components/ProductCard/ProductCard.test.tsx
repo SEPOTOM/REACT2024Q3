@@ -1,4 +1,4 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 import { renderRouterWithUser, renderWithUser } from '@tests/utils';
 
@@ -41,4 +41,19 @@ test('Opening a detailed product page triggers an additional API call to fetch d
   await user.click(await findByRole('heading', { name: /Product 1/i }));
 
   expect(fetchSpy).toBeCalledTimes(2);
+});
+
+test('ProductCard displays a checkbox', () => {
+  const fakeProduct: Product = {
+    title: 'Fake Product',
+    description: 'Fake Description',
+    id: 1,
+  };
+  const { getByRole } = renderWithUser(
+    <MemoryRouter>
+      <ProductCard product={fakeProduct} />
+    </MemoryRouter>,
+  );
+
+  expect(getByRole('checkbox', { name: /select/i })).toBeInTheDocument();
 });

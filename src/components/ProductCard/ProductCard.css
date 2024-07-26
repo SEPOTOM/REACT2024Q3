@@ -1,4 +1,6 @@
 .products-card {
+  position: relative;
+
   background-color: var(--bg-color-alt);
   border-radius: 1.2rem;
   box-shadow: 0.4rem 0.4rem 0.8rem var(--bg-color-secondary);
@@ -16,6 +18,7 @@
 
 .products-card__title {
   margin: 0 0 1rem 0;
+  padding: 0 0 0 40px;
 
   font-size: 3rem;
   line-height: 130%;
@@ -26,6 +29,16 @@
 
   font-size: 2.4rem;
   line-height: 150%;
+}
+
+.products-card__checkbox {
+  position: absolute;
+  top: 28px;
+  left: 24px;
+
+  width: 30px;
+  height: 30px;
+  margin: 0;
 }
 
 .products-card_theme_dark {
