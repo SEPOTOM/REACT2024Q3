@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { apiSlice } from '@store/api/apiSlice';
+import checkedProductsReducer from '@/store/checkedProducts/checkedProductsSlice';
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
+  checkedProducts: checkedProductsReducer,
 });
 
 export function setupStore(preloadedState?: Partial<RootState>) {
