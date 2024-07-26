@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { productChecked } from '@store/checkedProducts/checkedProductsSlice';
+import {
+  productChecked,
+  productUnchecked,
+} from '@store/checkedProducts/checkedProductsSlice';
 
 import { useReceiveProductMutation } from '@store/api/apiSlice';
 import { useAppDispatch } from '@store/hooks';
@@ -20,6 +23,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const handleChange = async () => {
     if (isChecked) {
       setIsChecked(false);
+      dispatch(productUnchecked(product.id));
     } else {
       try {
         const detailedProduct = await receiveProduct(product.id).unwrap();
