@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import {
   productChecked,
   productUnchecked,
+  selectCheckedProductById,
 } from '@store/checkedProducts/checkedProductsSlice';
 
 import { useReceiveProductMutation } from '@store/api/apiSlice';
-import { useAppDispatch } from '@store/hooks';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { useTheme } from '@/contexts';
 
 import { ProductCardProps } from '@components/ProductCard/types';
@@ -17,8 +18,11 @@ import '@components/ProductCard/ProductCard.css';
 const ProductCard = ({ product }: ProductCardProps) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
+  const checkedProduct = useAppSelector((state) =>
+    selectCheckedProductById(state, product.id),
+  );
   const [receiveProduct] = useReceiveProductMutation();
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(Boolean(checkedProduct));
 
   const handleChange = async () => {
     if (isChecked) {
