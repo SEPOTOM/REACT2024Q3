@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -22,19 +21,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
     selectCheckedProductById(state, product.id),
   );
   const [receiveProduct] = useReceiveProductMutation();
-  const [isChecked, setIsChecked] = useState(Boolean(checkedProduct));
+
+  const isChecked = Boolean(checkedProduct);
 
   const handleChange = async () => {
     if (isChecked) {
-      setIsChecked(false);
       dispatch(productUnchecked(product.id));
     } else {
       try {
         const detailedProduct = await receiveProduct(product.id).unwrap();
         dispatch(productChecked(detailedProduct));
-        setIsChecked(true);
       } catch (err) {
-        setIsChecked(false);
+        dispatch(productUnchecked(product.id));
       }
     }
   };
