@@ -1,4 +1,8 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import {
+  PayloadAction,
+  createEntityAdapter,
+  createSlice,
+} from '@reduxjs/toolkit';
 
 import { RootState } from '@store/store';
 
@@ -9,8 +13,14 @@ const checkedProductsAdapter = createEntityAdapter<DetailedProduct>();
 const checkedProductsSlice = createSlice({
   name: 'checkedProducts',
   initialState: checkedProductsAdapter.getInitialState(),
-  reducers: {},
+  reducers: {
+    productChecked: (state, action: PayloadAction<DetailedProduct>) => {
+      checkedProductsAdapter.addOne(state, action.payload);
+    },
+  },
 });
+
+export const { productChecked } = checkedProductsSlice.actions;
 
 export default checkedProductsSlice.reducer;
 
