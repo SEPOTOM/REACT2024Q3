@@ -2,7 +2,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { renderRouterWithUser, renderWithUser } from '@tests/utils';
 
-import * as api from '@services/api';
 import { Product } from '@services/types';
 
 import { ProductCard } from '@/components';
@@ -36,10 +35,10 @@ test('Validate that clicking on a card opens a detailed product page', async () 
 
 test('Opening a detailed product page triggers an additional API call to fetch detailed information', async () => {
   window.history.pushState(null, '', '/');
-  const getProductByIdSpy = vi.spyOn(api, 'getProductById');
+  const fetchSpy = vi.spyOn(window, 'fetch');
   const { user, findByRole } = renderRouterWithUser();
 
   await user.click(await findByRole('heading', { name: /Product 1/i }));
 
-  expect(getProductByIdSpy).toBeCalledTimes(1);
+  expect(fetchSpy).toBeCalledTimes(2);
 });
