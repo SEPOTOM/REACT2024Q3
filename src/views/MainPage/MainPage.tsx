@@ -3,6 +3,7 @@ import { useOutlet } from 'react-router-dom';
 import {
   ErrorButton,
   Pagination,
+  ProductsFlyout,
   ProductsList,
   SearchForm,
   StatusMessage,
@@ -53,6 +54,7 @@ const MainPage = () => {
             )}
             {hasFetchedProducts && <Pagination totalPages={totalPages} />}
             {isFetching && <StatusMessage>Loading...</StatusMessage>}
+            {isProductsFetched && <ProductsFlyout />}
           </div>
         </main>
       </div>

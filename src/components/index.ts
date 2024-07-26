@@ -8,6 +8,7 @@ import Pagination from '@components/Pagination/Pagination';
 import ProductCard from '@components/ProductCard/ProductCard';
 import PaginationButton from '@components/PaginationButton/PaginationButton';
 import ThemesComboBox from '@/components/ThemesComboBox/ThemesComboBox';
+import ProductsFlyout from '@components/ProductsFlyout/ProductsFlyout';
 
 export {
   SearchForm,
@@ -20,4 +21,5 @@ export {
   ProductCard,
   PaginationButton,
   ThemesComboBox,
+  ProductsFlyout,
 };
