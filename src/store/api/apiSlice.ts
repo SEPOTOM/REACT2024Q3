@@ -40,7 +40,23 @@ export const apiSlice = createApi({
         return pathname;
       },
     }),
+    receiveProduct: builder.mutation<DetailedProduct, number>({
+      query: (productId) => {
+        let pathname = `/products/${productId}`;
+        const searchParams = new URLSearchParams({
+          select: 'title,description,category,price,images',
+        });
+
+        pathname += `?${searchParams.toString()}`;
+
+        return pathname;
+      },
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery } = apiSlice;
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useReceiveProductMutation,
+} = apiSlice;
