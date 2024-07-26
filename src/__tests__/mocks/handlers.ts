@@ -1,7 +1,9 @@
 import { HttpHandler, HttpResponse, http } from 'msw';
 
+import { BASE_API_URL } from '@/consts';
+
 export const handlers: HttpHandler[] = [
-  http.get(new RegExp('^https://dummyjson.com/products(/search)?$'), () => {
+  http.get(new RegExp(`^${BASE_API_URL}/products(/search)?$`), () => {
     return HttpResponse.json({
       total: 2,
       products: [
@@ -10,7 +12,7 @@ export const handlers: HttpHandler[] = [
       ],
     });
   }),
-  http.get('https://dummyjson.com/products/:productId', ({ params }) => {
+  http.get(`${BASE_API_URL}/products/:productId`, ({ params }) => {
     const { productId } = params;
 
     return HttpResponse.json({
