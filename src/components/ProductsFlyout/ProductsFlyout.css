@@ -28,9 +28,12 @@
 }
 
 .products-flyout__button {
+  padding: 0.1rem 0.6rem;
+
   font-size: 3rem;
   line-height: 130%;
   color: var(--bg-color-alt);
+  text-decoration: none;
 
   background-color: var(--bg-color-secondary);
   border: 0.2rem solid var(--bg-color-secondary);

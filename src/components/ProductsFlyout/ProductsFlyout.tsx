@@ -6,6 +6,8 @@ import {
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { useTheme } from '@/contexts';
 
+import { convertProductsToCsvUrl } from '@utils/converters';
+
 import '@components/ProductsFlyout/ProductsFlyout.css';
 
 const ProductsFlyout = () => {
@@ -34,6 +36,13 @@ const ProductsFlyout = () => {
           >
             Unselect all
           </button>
+          <a
+            href={convertProductsToCsvUrl(checkedProducts)}
+            download={`${checkedProducts.length}_products.csv`}
+            className="products-flyout__button"
+          >
+            Download
+          </a>
         </div>
       </div>
     : null;
