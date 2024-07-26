@@ -16,3 +16,22 @@ export const convertToSaveableProduct = (
       : 'Unknown image url',
   };
 };
+
+export const convertProductsToCsvUrl = (products: DetailedProduct[]) => {
+  const titleKeys = Object.keys(convertToSaveableProduct(products[0]));
+
+  const refinedData = [titleKeys];
+
+  products.forEach((product) =>
+    refinedData.push(Object.values(convertToSaveableProduct(product))),
+  );
+
+  let csvContent = '';
+
+  refinedData.forEach((row) => {
+    csvContent += row.join('|') + '\n';
+  });
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8,' });
+  return URL.createObjectURL(blob);
+};
