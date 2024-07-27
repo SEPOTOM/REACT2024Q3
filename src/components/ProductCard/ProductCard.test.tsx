@@ -1,3 +1,4 @@
+import { waitFor } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 import { renderRouterWithUser, renderWithUser } from '@tests/utils';
@@ -47,4 +48,22 @@ test('ProductCard displays a checkbox', () => {
   );
 
   expect(getByRole('checkbox', { name: /select/i })).toBeInTheDocument();
+});
+
+test("Checking ProductCard's checkbox adds the detailed product to the store", async () => {
+  const productId = 1;
+  const fakeProduct = createFakeProduct(productId);
+  const { user, getByRole, store } = renderWithUser(
+    <MemoryRouter>
+      <ProductCard product={fakeProduct} />
+    </MemoryRouter>,
+  );
+
+  await user.click(getByRole('checkbox', { name: /select/i }));
+
+  await waitFor(() => {
+    const { ids, entities } = store.getState().checkedProducts;
+    expect(ids.includes(productId)).toBeTruthy();
+    expect(entities[productId]).toBeTruthy();
+  });
 });
