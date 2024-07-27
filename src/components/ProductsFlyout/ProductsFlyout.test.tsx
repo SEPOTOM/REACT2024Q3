@@ -1,12 +1,11 @@
 import { act } from '@testing-library/react';
 
 import { renderWithUser } from '@tests/utils';
+import { createFakeDetailedProduct } from '@tests/mocks/products';
 
 import { productChecked } from '@store/checkedProducts/checkedProductsSlice';
 
 import { ProductsFlyout } from '@/components';
-
-import { DetailedProduct } from '@services/types';
 
 beforeAll(() => {
   vi.stubGlobal('URL', {
@@ -26,16 +25,9 @@ test('ProductsFlyout displays nothing if there is no checked products in store',
 
 test('ProductsFlyout displays amount of checked products', () => {
   const { getByRole, store } = renderWithUser(<ProductsFlyout />);
-  const fakeProduct: DetailedProduct = {
-    title: 'Fake Product',
-    description: 'Fake Description',
-    id: 1,
-    category: 'Fake Category',
-    price: 99.99,
-    images: ['Fake url'],
-  };
+  const fakeDetailedProduct = createFakeDetailedProduct(1);
   act(() => {
-    store.dispatch(productChecked(fakeProduct));
+    store.dispatch(productChecked(fakeDetailedProduct));
   });
 
   expect(getByRole('paragraph')).toHaveTextContent(/1 product/i);

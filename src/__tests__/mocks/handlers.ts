@@ -1,5 +1,7 @@
 import { HttpHandler, HttpResponse, http } from 'msw';
 
+import { createFakeDetailedProduct } from '@tests/mocks/products';
+
 import { BASE_API_URL } from '@/consts';
 
 export const handlers: HttpHandler[] = [
@@ -15,13 +17,6 @@ export const handlers: HttpHandler[] = [
   http.get(`${BASE_API_URL}/products/:productId`, ({ params }) => {
     const { productId } = params;
 
-    return HttpResponse.json({
-      title: `Detailed Product ${productId}`,
-      description: `Detailed Description ${productId}`,
-      category: `Detailed Category ${productId}`,
-      price: 9.99,
-      images: [`Detailed Image ${productId}`],
-      id: productId,
-    });
+    return HttpResponse.json(createFakeDetailedProduct(Number(productId)));
   }),
 ];

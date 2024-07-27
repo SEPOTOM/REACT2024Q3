@@ -1,44 +1,34 @@
+import { createFakeDetailedProduct } from '@tests/mocks/products';
+
 import { setupStore } from '@store/store';
 import {
   productChecked,
   productUnchecked,
 } from '@store/checkedProducts/checkedProductsSlice';
 
-import { DetailedProduct } from '@services/types';
-
-test('productChecked action adds the product to the store', () => {
-  const fakeProduct: DetailedProduct = {
-    id: 1,
-    title: 'Fake Product 1',
-    description: 'Fake Description 1',
-    price: 99.99,
-    category: 'Fake Category 1',
-    images: ['Fake Image URL 1'],
-  };
+test('productChecked action adds the detailed product to the store', () => {
+  const fakeDetailedProduct = createFakeDetailedProduct(1);
   const store = setupStore();
 
-  store.dispatch(productChecked(fakeProduct));
+  store.dispatch(productChecked(fakeDetailedProduct));
 
   const checkedProductsState = store.getState().checkedProducts;
-  expect(checkedProductsState.entities[fakeProduct.id]).toEqual(fakeProduct);
-  expect(checkedProductsState.ids.includes(fakeProduct.id)).toBeTruthy();
+  expect(checkedProductsState.entities[fakeDetailedProduct.id]).toEqual(
+    fakeDetailedProduct,
+  );
+  expect(
+    checkedProductsState.ids.includes(fakeDetailedProduct.id),
+  ).toBeTruthy();
 });
 
-test('productUnchecked action removes the product from the store', () => {
-  const fakeProduct: DetailedProduct = {
-    id: 1,
-    title: 'Fake Product 1',
-    description: 'Fake Description 1',
-    price: 99.99,
-    category: 'Fake Category 1',
-    images: ['Fake Image URL 1'],
-  };
+test('productUnchecked action removes the detailed product from the store', () => {
+  const fakeDetailedProduct = createFakeDetailedProduct(1);
   const store = setupStore();
-  store.dispatch(productChecked(fakeProduct));
+  store.dispatch(productChecked(fakeDetailedProduct));
 
-  store.dispatch(productUnchecked(fakeProduct.id));
+  store.dispatch(productUnchecked(fakeDetailedProduct.id));
 
   const checkedProductsState = store.getState().checkedProducts;
-  expect(checkedProductsState.entities[fakeProduct.id]).toBe(undefined);
-  expect(checkedProductsState.ids.includes(fakeProduct.id)).toBeFalsy();
+  expect(checkedProductsState.entities[fakeDetailedProduct.id]).toBe(undefined);
+  expect(checkedProductsState.ids.includes(fakeDetailedProduct.id)).toBeFalsy();
 });
