@@ -2,7 +2,12 @@ import { waitFor } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 import { renderRouterWithUser, renderWithUser } from '@tests/utils';
-import { createFakeProduct } from '@tests/mocks/products';
+import {
+  createFakeDetailedProduct,
+  createFakeProduct,
+} from '@tests/mocks/products';
+
+import { RootState } from '@/store/store';
 
 import * as api from '@store/api/apiSlice';
 
@@ -87,4 +92,29 @@ test("ProductCard triggers an API call via RTK Query's useReceiveProductMutation
 
   expect(useReceiveProductMutationSpy).toBeCalled();
   expect(fetchSpy).toBeCalledTimes(1);
+});
+
+test("Unchecking ProductCard's checkbox removes the detailed product from the store", async () => {
+  const productId = 1;
+  const fakeProduct = createFakeProduct(productId);
+  const preloadedState: Partial<RootState> = {
+    checkedProducts: {
+      ids: [productId],
+      entities: {
+        [productId]: createFakeDetailedProduct(productId),
+      },
+    },
+  };
+  const { user, getByRole, store } = renderWithUser(
+    <MemoryRouter>
+      <ProductCard product={fakeProduct} />
+    </MemoryRouter>,
+    { preloadedState },
+  );
+
+  await user.click(getByRole('checkbox', { name: /select/i }));
+
+  const { ids, entities } = store.getState().checkedProducts;
+  expect(ids.includes(productId)).toBeFalsy();
+  expect(entities[productId]).toBe(undefined);
 });
