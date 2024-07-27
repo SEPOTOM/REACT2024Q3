@@ -4,6 +4,8 @@ import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { renderRouterWithUser, renderWithUser } from '@tests/utils';
 import { createFakeProduct } from '@tests/mocks/products';
 
+import * as api from '@store/api/apiSlice';
+
 import { ProductCard } from '@/components';
 
 test('ProductCard renders the relevant card data', () => {
@@ -66,4 +68,23 @@ test("Checking ProductCard's checkbox adds the detailed product to the store", a
     expect(ids.includes(productId)).toBeTruthy();
     expect(entities[productId]).toBeTruthy();
   });
+});
+
+test("ProductCard triggers an API call via RTK Query's useReceiveProductMutation hook", async () => {
+  const fetchSpy = vi.spyOn(window, 'fetch');
+  const useReceiveProductMutationSpy = vi.spyOn(
+    api,
+    'useReceiveProductMutation',
+  );
+  const fakeProduct = createFakeProduct(1);
+  const { user, getByRole } = renderWithUser(
+    <MemoryRouter>
+      <ProductCard product={fakeProduct} />
+    </MemoryRouter>,
+  );
+
+  await user.click(getByRole('checkbox', { name: /select/i }));
+
+  expect(useReceiveProductMutationSpy).toBeCalled();
+  expect(fetchSpy).toBeCalledTimes(1);
 });
