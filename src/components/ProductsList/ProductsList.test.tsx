@@ -1,29 +1,12 @@
 import { BrowserRouter } from 'react-router-dom';
 
 import { renderWithUser } from '@tests/utils';
-
-import { Product } from '@services/types';
+import { createFakeProducts } from '@tests/mocks/products';
 
 import { ProductsList } from '@/components';
 
 test('ProductsList renders the specified number of cards', () => {
-  const fakeProducts: Product[] = [
-    {
-      title: 'Product 1',
-      description: 'Description 1',
-      id: 1,
-    },
-    {
-      title: 'Product 2',
-      description: 'Description 2',
-      id: 2,
-    },
-    {
-      title: 'Product 3',
-      description: 'Description 3',
-      id: 3,
-    },
-  ];
+  const fakeProducts = createFakeProducts(3);
 
   const { getAllByRole } = renderWithUser(
     <BrowserRouter>
@@ -35,7 +18,7 @@ test('ProductsList renders the specified number of cards', () => {
 });
 
 test('ProductsList displays a message when no products are found', () => {
-  const fakeProducts: Product[] = [];
+  const fakeProducts = createFakeProducts(0);
 
   const { getByRole } = renderWithUser(
     <BrowserRouter>

@@ -20,3 +20,13 @@ export const createFakeProduct = (productId: number): Product => {
     description: `Fake description ${productId}`,
   };
 };
+
+export const createFakeProducts = (productsAmount: number): Product[] => {
+  const fakeProducts: Product[] = [];
+
+  for (let i = 0; i < productsAmount; i += 1) {
+    fakeProducts.push(createFakeProduct(i + 1));
+  }
+
+  return fakeProducts;
+};
