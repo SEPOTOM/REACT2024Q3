@@ -1,4 +1,5 @@
 import { FormEvent, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useTheme } from '@/contexts';
 
@@ -9,12 +10,14 @@ import '@components/SearchForm/SearchForm.css';
 const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (inputRef.current) {
       onFormSubmit(inputRef.current.value);
+      navigate('/search/1');
     }
   };
 
