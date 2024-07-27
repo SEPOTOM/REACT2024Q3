@@ -7,9 +7,9 @@ import {
   createFakeProduct,
 } from '@tests/mocks/products';
 
-import { RootState } from '@/store/store';
-
 import * as api from '@store/api/apiSlice';
+
+import { RootState } from '@store/store';
 
 import { ProductCard } from '@/components';
 
@@ -117,4 +117,26 @@ test("Unchecking ProductCard's checkbox removes the detailed product from the st
   const { ids, entities } = store.getState().checkedProducts;
   expect(ids.includes(productId)).toBeFalsy();
   expect(entities[productId]).toBe(undefined);
+});
+
+test("ProductCard's checkbox is checked if the store has the corresponding detailed product", () => {
+  const productId = 1;
+  const fakeProduct = createFakeProduct(productId);
+  const preloadedState: Partial<RootState> = {
+    checkedProducts: {
+      ids: [productId],
+      entities: {
+        [productId]: createFakeDetailedProduct(productId),
+      },
+    },
+  };
+
+  const { getByRole } = renderWithUser(
+    <MemoryRouter>
+      <ProductCard product={fakeProduct} />
+    </MemoryRouter>,
+    { preloadedState },
+  );
+
+  expect(getByRole('checkbox', { name: /select/i })).toBeChecked();
 });
