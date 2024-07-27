@@ -32,3 +32,24 @@ test('ProductsFlyout displays amount of checked products', () => {
 
   expect(getByRole('paragraph')).toHaveTextContent(/1 product/i);
 });
+
+test("ProductsFlyout's unselect button removes all checked products from the store", async () => {
+  const { user, store, getByRole } = renderWithUser(<ProductsFlyout />, {
+    preloadedState: {
+      checkedProducts: {
+        ids: [1, 2],
+        entities: {
+          1: createFakeDetailedProduct(1),
+          2: createFakeDetailedProduct(2),
+        },
+      },
+    },
+  });
+
+  await user.click(getByRole('button', { name: /unselect/i }));
+
+  const checkedProductsState = store.getState().checkedProducts;
+  expect(checkedProductsState.ids.length).toBe(0);
+  expect(checkedProductsState.entities[1]).toBe(undefined);
+  expect(checkedProductsState.entities[2]).toBe(undefined);
+});
