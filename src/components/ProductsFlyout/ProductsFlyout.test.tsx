@@ -53,3 +53,18 @@ test("ProductsFlyout's unselect button removes all checked products from the sto
   expect(checkedProductsState.entities[1]).toBe(undefined);
   expect(checkedProductsState.entities[2]).toBe(undefined);
 });
+
+test('ProductsFlyout displays download link', () => {
+  const { getByRole } = renderWithUser(<ProductsFlyout />, {
+    preloadedState: {
+      checkedProducts: {
+        ids: [1],
+        entities: {
+          1: createFakeDetailedProduct(1),
+        },
+      },
+    },
+  });
+
+  expect(getByRole('link', { name: /download/i })).toBeInTheDocument();
+});
