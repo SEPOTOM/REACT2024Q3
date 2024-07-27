@@ -1,7 +1,9 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { waitFor } from '@testing-library/react';
 
 import { renderRouterWithUser, renderWithUser } from '@tests/utils';
+
+import * as api from '@store/api/apiSlice';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
 
@@ -36,4 +38,16 @@ test('Main page has a combobox to change the app theme', async () => {
   );
 
   expect(await findByRole('combobox', { name: /theme/i })).toBeInTheDocument();
+});
+
+test("MainPage triggers an API call via RTK Query's useGetProductsQuery hook", async () => {
+  const useGetProductsQuerySpy = vi.spyOn(api, 'useGetProductsQuery');
+
+  renderWithUser(
+    <MemoryRouter>
+      <MainPage />
+    </MemoryRouter>,
+  );
+
+  expect(useGetProductsQuerySpy).toBeCalled();
 });
