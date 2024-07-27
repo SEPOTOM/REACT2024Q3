@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+import { getDetailedProductQuery } from '@store/api/utils';
+
 import { DetailedProduct, SearchProductsResponse } from '@services/types';
 import { GetProductsParams } from '@store/api/types';
 
@@ -29,28 +31,10 @@ export const apiSlice = createApi({
       },
     }),
     getProductById: builder.query<DetailedProduct, number>({
-      query: (productId) => {
-        let pathname = `/products/${productId}`;
-        const searchParams = new URLSearchParams({
-          select: 'title,description,category,price,images',
-        });
-
-        pathname += `?${searchParams.toString()}`;
-
-        return pathname;
-      },
+      query: (productId) => getDetailedProductQuery(productId),
     }),
     receiveProduct: builder.mutation<DetailedProduct, number>({
-      query: (productId) => {
-        let pathname = `/products/${productId}`;
-        const searchParams = new URLSearchParams({
-          select: 'title,description,category,price,images',
-        });
-
-        pathname += `?${searchParams.toString()}`;
-
-        return pathname;
-      },
+      query: (productId) => getDetailedProductQuery(productId),
     }),
   }),
 });
