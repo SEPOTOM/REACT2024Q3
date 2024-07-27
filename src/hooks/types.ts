@@ -4,7 +4,7 @@ export interface UseProductsResult {
   totalPages: number;
   isFetching: boolean;
   isSuccess: boolean;
-  productsResponse: SearchProductsResponse | null;
+  productsResponse: Nullable<SearchProductsResponse>;
 }
 
 export interface UseDetailedProductResult {
