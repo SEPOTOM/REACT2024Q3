@@ -1,7 +1,8 @@
 import { createFakeDetailedProduct } from '@tests/mocks/products';
 
-import { setupStore } from '@store/store';
+import { RootState, setupStore } from '@store/store';
 import {
+  checkedProductsDeleted,
   productChecked,
   productUnchecked,
 } from '@store/checkedProducts/checkedProductsSlice';
@@ -31,4 +32,24 @@ test('productUnchecked action removes the detailed product from the store', () =
   const checkedProductsState = store.getState().checkedProducts;
   expect(checkedProductsState.entities[fakeDetailedProduct.id]).toBe(undefined);
   expect(checkedProductsState.ids.includes(fakeDetailedProduct.id)).toBeFalsy();
+});
+
+test('checkedProductsDeleted action removes all detailed products from the store', () => {
+  const initialState: Partial<RootState> = {
+    checkedProducts: {
+      ids: [1, 2],
+      entities: {
+        1: createFakeDetailedProduct(1),
+        2: createFakeDetailedProduct(2),
+      },
+    },
+  };
+  const store = setupStore(initialState);
+
+  store.dispatch(checkedProductsDeleted());
+
+  const checkedProductsState = store.getState().checkedProducts;
+  expect(checkedProductsState.ids.length).toBe(0);
+  expect(checkedProductsState.entities[1]).toBe(undefined);
+  expect(checkedProductsState.entities[2]).toBe(undefined);
 });
