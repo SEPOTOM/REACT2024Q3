@@ -19,16 +19,17 @@ const ProductsFlyout = () => {
     dispatch(checkedProductsDeleted());
   };
 
-  const productString = checkedProducts.length > 1 ? 'products' : 'product';
+  const checkedProductsAmount = checkedProducts.length;
+  const productString = checkedProductsAmount > 1 ? 'products' : 'product';
 
-  return checkedProducts.length > 0 ?
+  return checkedProductsAmount > 0 ?
       <div
         role="status"
         className={`products-flyout products-flyout_theme_${theme}`}
       >
         <div className="products-flyout__content">
           <p className="products-flyout__text">
-            {checkedProducts.length} {productString} selected
+            {checkedProductsAmount} {productString} selected
           </p>
           <button
             type="button"
@@ -39,7 +40,7 @@ const ProductsFlyout = () => {
           </button>
           <a
             href={convertProductsToCsvUrl(checkedProducts)}
-            download={`${checkedProducts.length}_${productString}.csv`}
+            download={`${checkedProductsAmount}_${productString}.csv`}
             className="products-flyout__button"
           >
             Download
