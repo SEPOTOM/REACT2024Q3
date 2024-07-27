@@ -29,10 +29,7 @@ const MainPage = () => {
 
   const isProductsFetched = !isFetching && isSuccess && productsResponse;
   const hasFetchedProducts =
-    !isFetching &&
-    isSuccess &&
-    productsResponse &&
-    productsResponse.products.length > 0;
+    !isFetching && isSuccess && (productsResponse?.products ?? []).length > 0;
 
   return (
     <div className={`main-page main-page_theme_${theme}`}>
