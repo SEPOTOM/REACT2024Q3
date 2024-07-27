@@ -8,6 +8,16 @@ import { ProductsFlyout } from '@/components';
 
 import { DetailedProduct } from '@services/types';
 
+beforeAll(() => {
+  vi.stubGlobal('URL', {
+    createObjectURL: vi.fn(() => 'blob:http://example.com/fake-url'),
+  });
+});
+
+afterAll(() => {
+  vi.unstubAllGlobals();
+});
+
 test('ProductsFlyout displays nothing if there is no checked products in store', () => {
   const { queryByRole } = renderWithUser(<ProductsFlyout />);
 
