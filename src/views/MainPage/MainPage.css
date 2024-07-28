@@ -10,13 +10,13 @@
   height: 100%;
   width: 50%;
 
-  background-color: #ecebeb;
+  background-color: var(--bg-color);
 }
 
 .header {
   padding: 3rem 1.2rem;
 
-  background-color: #3d3d3d;
+  background-color: var(--bg-color-secondary);
 }
 
 .header__inner {
@@ -32,4 +32,14 @@
 
 .main__inner {
   height: 100%;
+}
+
+.main-page_theme_dark {
+  .main-page__column {
+    background-color: var(--dark-bg-color);
+  }
+
+  .header {
+    background-color: var(--dark-bg-color-secondary);
+  }
 }

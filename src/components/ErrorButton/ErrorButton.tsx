@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
+import { useTheme } from '@/contexts';
+
 import '@components/ErrorButton/ErrorButton.css';
 
 const ErrorButton = () => {
   const [needError, setNeedError] = useState(false);
+  const theme = useTheme();
 
   const handleClick = (): void => {
     setNeedError(true);
@@ -14,7 +17,10 @@ const ErrorButton = () => {
   }
 
   return (
-    <button onClick={handleClick} className="error-button">
+    <button
+      onClick={handleClick}
+      className={`error-button error-button_theme_${theme}`}
+    >
       Throw test error
     </button>
   );

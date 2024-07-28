@@ -1,5 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 
+import { useTheme } from '@/contexts';
+
 import { useDetailedProduct } from '@/hooks';
 
 import { validatePage } from '@/utils/validation';
@@ -9,17 +11,20 @@ import { StatusMessage } from '@/components';
 import '@views/ProductPage/ProductPage.css';
 
 const ProductPage = () => {
-  const detailedProduct = useDetailedProduct();
+  const { detailedProduct, isFetching, isSuccess } = useDetailedProduct();
   const { searchPage } = useParams();
+  const theme = useTheme();
 
   const currentPage = validatePage(searchPage);
 
   const closeUrl = `/search/${currentPage}`;
 
+  const isFetched = !isFetching && isSuccess && detailedProduct;
+
   return (
-    <div className="product-page">
+    <div className={`product-page product-page_theme_${theme}`}>
       <div className="product-page__content">
-        {detailedProduct ?
+        {isFetched ?
           <>
             <h2 className="product-page__title">{detailedProduct.title}</h2>
             {detailedProduct.images[0] && (

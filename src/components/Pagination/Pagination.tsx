@@ -1,5 +1,7 @@
 import { useParams } from 'react-router-dom';
 
+import { useTheme } from '@/contexts';
+
 import { validatePage } from '@/utils/validation';
 
 import { PaginationButton } from '@/components';
@@ -8,6 +10,7 @@ import { PaginationProps } from '@components/Pagination/types';
 import '@components/Pagination/Pagination.css';
 
 const Pagination = ({ totalPages }: PaginationProps) => {
+  const theme = useTheme();
   const { searchPage } = useParams();
 
   const currentPage = validatePage(searchPage);
@@ -16,7 +19,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
   const disableNext = currentPage === totalPages;
 
   return (
-    <div className="pagination">
+    <div className={`pagination pagination_theme_${theme}`}>
       <PaginationButton
         to={`/search/${currentPage - 1}`}
         aria-label="Previous page"

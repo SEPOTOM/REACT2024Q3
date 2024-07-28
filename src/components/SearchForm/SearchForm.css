@@ -6,10 +6,29 @@
   padding: 0.4rem 0.6rem;
 
   font-size: 2.4rem;
+  color: var(--text-color);
+
+  background-color: var(--bg-color);
 }
 
 .search-form__button {
   font-size: 2rem;
+  color: var(--text-color);
 
+  background-color: var(--bg-color);
   cursor: pointer;
+}
+
+.search-form_theme_dark {
+  .search-form__input {
+    color: var(--dark-text-color);
+
+    background-color: var(--dark-bg-color);
+  }
+
+  .search-form__button {
+    color: var(--dark-text-color);
+
+    background-color: var(--dark-bg-color);
+  }
 }

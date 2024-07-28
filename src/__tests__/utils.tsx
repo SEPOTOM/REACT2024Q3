@@ -1,28 +1,56 @@
-import { ReactElement } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 import {
   RouteObject,
   RouterProvider,
   createBrowserRouter,
 } from 'react-router-dom';
-import { RenderOptions, RenderResult, render } from '@testing-library/react';
-import { UserEvent, userEvent } from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+
+import { setupStore } from '@store/store';
+
+import { ExtendedRenderOptions } from '@tests/types';
 
 import { routes } from '@/routes';
 
+const renderWithProviders = (
+  ui: ReactElement,
+  extendedRenderOptions: ExtendedRenderOptions = {},
+) => {
+  const {
+    preloadedState = {},
+    store = setupStore(preloadedState),
+    ...renderOptions
+  } = extendedRenderOptions;
+
+  const Wrapper = ({ children }: PropsWithChildren) => (
+    <Provider store={store}>{children}</Provider>
+  );
+
+  return {
+    store,
+    ...render(ui, { wrapper: Wrapper, ...renderOptions }),
+  };
+};
+
 const renderWithUser = (
   ui: ReactElement,
-  renderOptions?: RenderOptions,
-): RenderResult & { user: UserEvent } => {
+  extendedRenderOptions?: ExtendedRenderOptions,
+) => {
   const user = userEvent.setup();
-  return { user, ...render(ui, renderOptions) };
+  return { user, ...renderWithProviders(ui, extendedRenderOptions) };
 };
 
 const renderRouterWithUser = (
   innerRoutes?: RouteObject[],
-  renderOptions?: RenderOptions,
+  extendedRenderOptions?: ExtendedRenderOptions,
 ) => {
   const router = createBrowserRouter(innerRoutes ? innerRoutes : routes);
-  return renderWithUser(<RouterProvider router={router} />, renderOptions);
+  return renderWithUser(
+    <RouterProvider router={router} />,
+    extendedRenderOptions,
+  );
 };
 
-export { renderWithUser, renderRouterWithUser };
+export { renderWithUser, renderRouterWithUser, renderWithProviders };

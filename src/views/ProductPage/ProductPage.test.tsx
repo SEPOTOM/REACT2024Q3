@@ -1,6 +1,8 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 import { renderRouterWithUser, renderWithUser } from '@tests/utils';
+
+import * as api from '@store/api/apiSlice';
 
 import { ProductPage } from '@/views';
 
@@ -43,4 +45,16 @@ test('Ensure that clicking the close button hides ProductPage', async () => {
   expect(
     queryByRole('heading', { name: /Detailed Product 1/i }),
   ).not.toBeInTheDocument();
+});
+
+test("ProductPage triggers an API call via RTK Query's useGetProductByIdQuery hook", async () => {
+  const useGetProductByIdQuerySpy = vi.spyOn(api, 'useGetProductByIdQuery');
+
+  renderWithUser(
+    <MemoryRouter>
+      <ProductPage />
+    </MemoryRouter>,
+  );
+
+  expect(useGetProductByIdQuerySpy).toBeCalled();
 });

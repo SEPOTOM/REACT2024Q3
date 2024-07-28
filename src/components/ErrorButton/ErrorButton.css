@@ -9,9 +9,15 @@
 }
 
 .error-button:hover {
-  background-color: rgb(126, 0, 0);
+  background-color: #7e0000;
 }
 
 .error-button:active {
-  background-color: rgb(78, 0, 0);
+  background-color: #4e0000;
+}
+
+.error-button_theme_dark {
+  color: #ff5050;
+
+  border-color: #ff3737;
 }
