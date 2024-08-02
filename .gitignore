@@ -23,3 +23,8 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Next.js
+.next
+next-env.d.ts
+dist
