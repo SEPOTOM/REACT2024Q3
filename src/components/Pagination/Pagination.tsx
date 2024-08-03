@@ -31,7 +31,9 @@ const Pagination = ({ totalPages }: PaginationProps) => {
       >
         &lt;
       </PaginationButton>
-      <span className={styles.paginationPage}>{currentPage}</span>
+      <span role="status" className={styles.paginationPage}>
+        {currentPage}
+      </span>
       <PaginationButton
         to={`/search/${currentPage + 1}`}
         aria-label="Next page"
