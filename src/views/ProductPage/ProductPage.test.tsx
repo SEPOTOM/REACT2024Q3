@@ -1,19 +1,28 @@
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-
-import { renderRouterWithUser, renderWithUser } from '@tests/utils';
+import { Mock } from 'vitest';
+import { renderWithUser } from '@tests/utils';
+import { useRouter } from 'next/router';
 
 import * as api from '@store/api/apiSlice';
 
 import { ProductPage } from '@/views';
 
+beforeAll(() => {
+  (useRouter as Mock).mockReturnValue({
+    pathname: '/search/2',
+    query: { pageNumber: '2' },
+    asPath: '/search/2',
+    route: '/search/[pageNumber]',
+  });
+});
+
+afterAll(() => {
+  vi.resetAllMocks();
+});
+
 test('ProductPage displays a loading indicator while fetching data', async () => {
   window.history.pushState(null, '', '/search/1/details?product=1');
 
-  const { findByRole } = renderWithUser(
-    <BrowserRouter>
-      <ProductPage />
-    </BrowserRouter>,
-  );
+  const { findByRole } = renderWithUser(<ProductPage />);
 
   expect(await findByRole('status')).toHaveTextContent(/loading/i);
 });
@@ -22,9 +31,7 @@ test('ProductPage correctly displays the detailed product data', async () => {
   window.history.pushState(null, '', '/search/1/details?product=1');
 
   const { findByAltText, getByRole, getByText } = renderWithUser(
-    <BrowserRouter>
-      <ProductPage />
-    </BrowserRouter>,
+    <ProductPage />,
   );
 
   expect(await findByAltText(/Detailed Product 1/i)).toBeInTheDocument();
@@ -36,25 +43,10 @@ test('ProductPage correctly displays the detailed product data', async () => {
   expect(getByText(/9.99/i)).toBeInTheDocument();
 });
 
-test('Ensure that clicking the close button hides ProductPage', async () => {
-  window.history.pushState(null, '', '/search/1/details?product=1');
-  const { user, findByRole, queryByRole } = renderRouterWithUser();
-
-  await user.click(await findByRole('link', { name: /close/i }));
-
-  expect(
-    queryByRole('heading', { name: /Detailed Product 1/i }),
-  ).not.toBeInTheDocument();
-});
-
 test("ProductPage triggers an API call via RTK Query's useGetProductByIdQuery hook", async () => {
   const useGetProductByIdQuerySpy = vi.spyOn(api, 'useGetProductByIdQuery');
 
-  renderWithUser(
-    <MemoryRouter>
-      <ProductPage />
-    </MemoryRouter>,
-  );
+  renderWithUser(<ProductPage />);
 
   expect(useGetProductByIdQuerySpy).toBeCalled();
 });

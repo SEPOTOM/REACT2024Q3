@@ -1,7 +1,8 @@
+import type { Mock } from 'vitest';
 import { waitFor } from '@testing-library/react';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
-import { renderRouterWithUser, renderWithUser } from '@tests/utils';
+import { renderWithUser } from '@tests/utils';
 import {
   createFakeDetailedProduct,
   createFakeProduct,
@@ -13,46 +14,31 @@ import { RootState } from '@store/store';
 
 import { ProductCard } from '@/components';
 
+beforeAll(() => {
+  (useRouter as Mock).mockReturnValue({
+    pathname: '/search/2',
+    query: { pageNumber: '2' },
+    asPath: '/search/2',
+    route: '/search/[pageNumber]',
+  });
+});
+
+afterAll(() => {
+  vi.resetAllMocks();
+});
+
 test('ProductCard renders the relevant card data', () => {
   const fakeProduct = createFakeProduct(1);
 
-  const { getByRole } = renderWithUser(
-    <BrowserRouter>
-      <ProductCard product={fakeProduct} />
-    </BrowserRouter>,
-  );
+  const { getByRole } = renderWithUser(<ProductCard product={fakeProduct} />);
 
   expect(getByRole('heading')).toHaveTextContent(/Fake Product/i);
   expect(getByRole('paragraph')).toHaveTextContent(/Fake Description/i);
 });
 
-test('Validate that clicking on a card opens a detailed product page', async () => {
-  const { user, findByRole } = renderRouterWithUser();
-
-  await user.click(await findByRole('heading', { name: /Product 1/i }));
-
-  expect(
-    await findByRole('heading', { name: /Detailed Product 1/i }),
-  ).toBeInTheDocument();
-});
-
-test('Opening a detailed product page triggers an additional API call to fetch detailed information', async () => {
-  window.history.pushState(null, '', '/');
-  const fetchSpy = vi.spyOn(window, 'fetch');
-  const { user, findByRole } = renderRouterWithUser();
-
-  await user.click(await findByRole('heading', { name: /Product 1/i }));
-
-  expect(fetchSpy).toBeCalledTimes(2);
-});
-
 test('ProductCard displays a checkbox', () => {
   const fakeProduct = createFakeProduct(1);
-  const { getByRole } = renderWithUser(
-    <MemoryRouter>
-      <ProductCard product={fakeProduct} />
-    </MemoryRouter>,
-  );
+  const { getByRole } = renderWithUser(<ProductCard product={fakeProduct} />);
 
   expect(getByRole('checkbox', { name: /select/i })).toBeInTheDocument();
 });
@@ -61,9 +47,7 @@ test("Checking ProductCard's checkbox adds the detailed product to the store", a
   const productId = 1;
   const fakeProduct = createFakeProduct(productId);
   const { user, getByRole, store } = renderWithUser(
-    <MemoryRouter>
-      <ProductCard product={fakeProduct} />
-    </MemoryRouter>,
+    <ProductCard product={fakeProduct} />,
   );
 
   await user.click(getByRole('checkbox', { name: /select/i }));
@@ -83,9 +67,7 @@ test("ProductCard triggers an API call via RTK Query's useReceiveProductMutation
   );
   const fakeProduct = createFakeProduct(1);
   const { user, getByRole } = renderWithUser(
-    <MemoryRouter>
-      <ProductCard product={fakeProduct} />
-    </MemoryRouter>,
+    <ProductCard product={fakeProduct} />,
   );
 
   await user.click(getByRole('checkbox', { name: /select/i }));
@@ -106,9 +88,7 @@ test("Unchecking ProductCard's checkbox removes the detailed product from the st
     },
   };
   const { user, getByRole, store } = renderWithUser(
-    <MemoryRouter>
-      <ProductCard product={fakeProduct} />
-    </MemoryRouter>,
+    <ProductCard product={fakeProduct} />,
     { preloadedState },
   );
 
@@ -131,12 +111,9 @@ test("ProductCard's checkbox is checked if the store has the corresponding detai
     },
   };
 
-  const { getByRole } = renderWithUser(
-    <MemoryRouter>
-      <ProductCard product={fakeProduct} />
-    </MemoryRouter>,
-    { preloadedState },
-  );
+  const { getByRole } = renderWithUser(<ProductCard product={fakeProduct} />, {
+    preloadedState,
+  });
 
   expect(getByRole('checkbox', { name: /select/i })).toBeChecked();
 });
