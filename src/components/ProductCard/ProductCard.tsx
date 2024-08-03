@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import {
   productChecked,
@@ -9,6 +10,8 @@ import {
 import { useReceiveProductMutation } from '@store/api/apiSlice';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { useTheme } from '@/contexts';
+
+import { validatePage } from '@utils/validation';
 
 import { ProductCardProps } from '@components/ProductCard/types';
 
@@ -21,6 +24,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
     selectCheckedProductById(state, product.id),
   );
   const [receiveProduct] = useReceiveProductMutation();
+  const router = useRouter();
+
+  const { pageNumber } = router.query;
+  const currentPage = validatePage(pageNumber);
 
   const isChecked = Boolean(checkedProduct);
 
@@ -43,7 +50,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       className={`${styles.productCard} ${styles[`productCard_theme_${theme}`]}`}
     >
       <Link
-        to={`details?product=${product.id}`}
+        href={`/search/${currentPage}/details?product=${product.id}`}
         className={styles.productCardLink}
       >
         <h2 className={styles.productCardTitle}>{product.title}</h2>

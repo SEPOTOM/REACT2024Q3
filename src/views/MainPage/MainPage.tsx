@@ -1,5 +1,3 @@
-import { useOutlet } from 'react-router-dom';
-
 import {
   ErrorButton,
   Pagination,
@@ -14,13 +12,14 @@ import { useTheme } from '@/contexts';
 
 import { useProducts, useSearchQuery } from '@/hooks';
 
+import { MainPageProps } from '@views/MainPage/types';
+
 import styles from '@views/MainPage/MainPage.module.css';
 
-const MainPage = () => {
+const MainPage = ({ children }: MainPageProps) => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
   const { productsResponse, totalPages, isFetching, isSuccess } =
     useProducts(searchQuery);
-  const outlet = useOutlet();
   const theme = useTheme();
 
   const handleSearchFormSubmit = (newSearchQuery: string): void => {
@@ -55,7 +54,7 @@ const MainPage = () => {
           </div>
         </main>
       </div>
-      {outlet && <div className={styles.mainPageColumn}>{outlet}</div>}
+      {children && <div className={styles.mainPageColumn}>{children}</div>}
     </div>
   );
 };

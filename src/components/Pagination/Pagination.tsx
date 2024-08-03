@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { useTheme } from '@/contexts';
 
@@ -11,9 +11,10 @@ import styles from '@components/Pagination/Pagination.module.css';
 
 const Pagination = ({ totalPages }: PaginationProps) => {
   const theme = useTheme();
-  const { searchPage } = useParams();
+  const router = useRouter();
 
-  const currentPage = validatePage(searchPage);
+  const { pageNumber } = router.query;
+  const currentPage = validatePage(pageNumber);
 
   const disablePrevious = currentPage === 1;
   const disableNext = currentPage === totalPages;

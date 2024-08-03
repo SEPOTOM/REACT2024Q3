@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 import { useTheme } from '@/contexts';
 
@@ -15,7 +15,7 @@ const NotFoundPage = () => {
       <h2 className={styles.notFoundPageTitle}>
         The requested page was not found
       </h2>
-      <Link to="/search/1" className={styles.notFoundPageLink}>
+      <Link href="/search/1" className={styles.notFoundPageLink}>
         To the main page
       </Link>
     </div>

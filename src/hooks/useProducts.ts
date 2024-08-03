@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { useGetProductsQuery } from '@store/api/apiSlice';
 
@@ -9,8 +9,10 @@ import { UseProductsResult } from '@/hooks/types';
 import { PRODUCTS_PER_PAGE_AMOUNT } from '@/consts';
 
 const useProducts = (searchQuery: string): UseProductsResult => {
-  const { searchPage } = useParams();
-  const currentPage = validatePage(searchPage);
+  const router = useRouter();
+
+  const { pageNumber } = router.query;
+  const currentPage = validatePage(pageNumber);
 
   const { data: productsResponse = null, ...response } = useGetProductsQuery({
     searchQuery,

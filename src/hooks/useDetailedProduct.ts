@@ -1,14 +1,16 @@
-import { useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { useGetProductByIdQuery } from '@/store/api/apiSlice';
 
 import { UseDetailedProductResult } from '@/hooks/types';
 
 const useDetailedProduct = (): UseDetailedProductResult => {
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
 
-  const productSearchParam = searchParams.get('product');
-  const productId = productSearchParam ? Number(productSearchParam) : 1;
+  const productSearchParam = router.query.product;
+  const isProductSearchParamString =
+    !Array.isArray(productSearchParam) && productSearchParam;
+  const productId = isProductSearchParamString ? Number(productSearchParam) : 1;
 
   const { data: detailedProduct = null, ...response } =
     useGetProductByIdQuery(productId);

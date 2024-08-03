@@ -1,4 +1,5 @@
-import { Link, useParams } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { useTheme } from '@/contexts';
 
@@ -12,10 +13,11 @@ import styles from '@views/ProductPage/ProductPage.module.css';
 
 const ProductPage = () => {
   const { detailedProduct, isFetching, isSuccess } = useDetailedProduct();
-  const { searchPage } = useParams();
+  const router = useRouter();
   const theme = useTheme();
 
-  const currentPage = validatePage(searchPage);
+  const { pageNumber } = router.query;
+  const currentPage = validatePage(pageNumber);
 
   const closeUrl = `/search/${currentPage}`;
 
@@ -45,13 +47,13 @@ const ProductPage = () => {
             <p className={styles.productPageFeature}>
               Price: ${detailedProduct.price}
             </p>
-            <Link to={closeUrl} className={styles.productPageButton}>
+            <Link href={closeUrl} className={styles.productPageButton}>
               Close
             </Link>
           </>
         : <StatusMessage>Loading...</StatusMessage>}
       </div>
-      <Link to={closeUrl} className={styles.productPageShadow} />
+      <Link href={closeUrl} className={styles.productPageShadow} />
     </div>
   );
 };

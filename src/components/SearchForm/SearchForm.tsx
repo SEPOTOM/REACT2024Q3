@@ -1,5 +1,5 @@
 import { FormEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { useTheme } from '@/contexts';
 
@@ -10,14 +10,14 @@ import styles from '@components/SearchForm/SearchForm.module.css';
 const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const theme = useTheme();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (inputRef.current) {
       onFormSubmit(inputRef.current.value);
-      navigate('/search/1');
+      router.push('/search/1');
     }
   };
 
