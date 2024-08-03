@@ -7,7 +7,7 @@ import { validatePage } from '@/utils/validation';
 import { PaginationButton } from '@/components';
 import { PaginationProps } from '@components/Pagination/types';
 
-import '@components/Pagination/Pagination.css';
+import styles from '@components/Pagination/Pagination.module.css';
 
 const Pagination = ({ totalPages }: PaginationProps) => {
   const theme = useTheme();
@@ -19,20 +19,22 @@ const Pagination = ({ totalPages }: PaginationProps) => {
   const disableNext = currentPage === totalPages;
 
   return (
-    <div className={`pagination pagination_theme_${theme}`}>
+    <div
+      className={`${styles.pagination} ${styles[`pagination_theme_${theme}`]}`}
+    >
       <PaginationButton
         to={`/search/${currentPage - 1}`}
         aria-label="Previous page"
-        className="pagination__button"
+        className={styles.paginationButton}
         disabled={disablePrevious}
       >
         &lt;
       </PaginationButton>
-      <span className="pagination__page">{currentPage}</span>
+      <span className={styles.paginationPage}>{currentPage}</span>
       <PaginationButton
         to={`/search/${currentPage + 1}`}
         aria-label="Next page"
-        className="pagination__button"
+        className={styles.paginationButton}
         disabled={disableNext}
       >
         &gt;

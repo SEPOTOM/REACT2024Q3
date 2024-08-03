@@ -8,7 +8,7 @@ import { useTheme } from '@/contexts';
 
 import { convertProductsToCsvUrl } from '@utils/converters';
 
-import '@components/ProductsFlyout/ProductsFlyout.css';
+import styles from '@components/ProductsFlyout/ProductsFlyout.module.css';
 
 const ProductsFlyout = () => {
   const theme = useTheme();
@@ -25,23 +25,23 @@ const ProductsFlyout = () => {
   return checkedProductsAmount > 0 ?
       <div
         role="status"
-        className={`products-flyout products-flyout_theme_${theme}`}
+        className={`${styles.productsFlyout} ${styles[`productsFlyout_theme_${theme}`]}`}
       >
-        <div className="products-flyout__content">
-          <p className="products-flyout__text">
+        <div className={styles.productsFlyoutContent}>
+          <p className={styles.productsFlyoutText}>
             {checkedProductsAmount} {productString} selected
           </p>
           <button
             type="button"
             onClick={handleUnselectAllClick}
-            className="products-flyout__button"
+            className={styles.productsFlyoutButton}
           >
             Unselect all
           </button>
           <a
             href={convertProductsToCsvUrl(checkedProducts)}
             download={`${checkedProductsAmount}_${productString}.csv`}
-            className="products-flyout__button"
+            className={styles.productsFlyoutButton}
           >
             Download
           </a>

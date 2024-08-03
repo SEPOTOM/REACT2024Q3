@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { PaginationButtonProps } from '@components/PaginationButton/types';
 
-import '@components/PaginationButton/PaginationButton.css';
+import '@components/PaginationButton/PaginationButton.module.css';
 
 const PaginationButton = (props: PaginationButtonProps) => {
   const { to, disabled, children, className } = props;

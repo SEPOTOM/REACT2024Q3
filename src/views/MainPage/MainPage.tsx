@@ -14,7 +14,7 @@ import { useTheme } from '@/contexts';
 
 import { useProducts, useSearchQuery } from '@/hooks';
 
-import '@views/MainPage/MainPage.css';
+import styles from '@views/MainPage/MainPage.module.css';
 
 const MainPage = () => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
@@ -32,10 +32,10 @@ const MainPage = () => {
     !isFetching && isSuccess && (productsResponse?.products ?? []).length > 0;
 
   return (
-    <div className={`main-page main-page_theme_${theme}`}>
-      <div className="main-page__column">
-        <header className="header">
-          <div className="container header__inner">
+    <div className={`${styles.mainPage} ${styles[`mainPage_theme_${theme}`]}`}>
+      <div className={styles.mainPageColumn}>
+        <header className={styles.header}>
+          <div className={`container ${styles.headerInner}`}>
             <ErrorButton />
             <SearchForm
               initialSearchQuery={searchQuery}
@@ -44,8 +44,8 @@ const MainPage = () => {
             <ThemesComboBox />
           </div>
         </header>
-        <main className="main">
-          <div className="container main__inner">
+        <main className={styles.main}>
+          <div className={`container ${styles.mainInner}`}>
             {isProductsFetched && (
               <ProductsList products={productsResponse.products} />
             )}
@@ -55,7 +55,7 @@ const MainPage = () => {
           </div>
         </main>
       </div>
-      {outlet && <div className="main-page__column">{outlet}</div>}
+      {outlet && <div className={styles.mainPageColumn}>{outlet}</div>}
     </div>
   );
 };

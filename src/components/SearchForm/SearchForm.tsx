@@ -5,7 +5,7 @@ import { useTheme } from '@/contexts';
 
 import { SearchFormProps } from '@components/SearchForm/types';
 
-import '@components/SearchForm/SearchForm.css';
+import styles from '@components/SearchForm/SearchForm.module.css';
 
 const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -24,15 +24,15 @@ const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className={`search-form search-form_theme_${theme}`}
+      className={`${styles.searchForm} ${styles[`searchForm_theme_${theme}`]}`}
     >
       <input
         type="search"
         defaultValue={initialSearchQuery}
         ref={inputRef}
-        className="search-form__input"
+        className={styles.searchFormInput}
       />
-      <button type="submit" className="search-form__button">
+      <button type="submit" className={styles.searchFormButton}>
         Search
       </button>
     </form>

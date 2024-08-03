@@ -8,7 +8,7 @@ import { validatePage } from '@/utils/validation';
 
 import { StatusMessage } from '@/components';
 
-import '@views/ProductPage/ProductPage.css';
+import styles from '@views/ProductPage/ProductPage.module.css';
 
 const ProductPage = () => {
   const { detailedProduct, isFetching, isSuccess } = useDetailedProduct();
@@ -22,34 +22,36 @@ const ProductPage = () => {
   const isFetched = !isFetching && isSuccess && detailedProduct;
 
   return (
-    <div className={`product-page product-page_theme_${theme}`}>
-      <div className="product-page__content">
+    <div
+      className={`${styles.productPage} ${styles[`productPage_theme_${theme}`]}`}
+    >
+      <div className={styles.productPageContent}>
         {isFetched ?
           <>
-            <h2 className="product-page__title">{detailedProduct.title}</h2>
+            <h2 className={styles.productPageTitle}>{detailedProduct.title}</h2>
             {detailedProduct.images[0] && (
               <img
                 src={detailedProduct.images[0]}
                 alt={detailedProduct.title}
-                className="product-page__image"
+                className={styles.productPageImage}
               />
             )}
-            <p className="product-page__description">
+            <p className={styles.productPageDescription}>
               {detailedProduct.description}
             </p>
-            <p className="product-page__feature">
+            <p className={styles.productPageFeature}>
               Category: {detailedProduct.category}
             </p>
-            <p className="product-page__feature">
+            <p className={styles.productPageFeature}>
               Price: ${detailedProduct.price}
             </p>
-            <Link to={closeUrl} className="product-page__button">
+            <Link to={closeUrl} className={styles.productPageButton}>
               Close
             </Link>
           </>
         : <StatusMessage>Loading...</StatusMessage>}
       </div>
-      <Link to={closeUrl} className="product-page__shadow" />
+      <Link to={closeUrl} className={styles.productPageShadow} />
     </div>
   );
 };

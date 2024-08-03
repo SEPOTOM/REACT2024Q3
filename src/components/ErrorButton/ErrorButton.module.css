@@ -1,4 +1,4 @@
-.error-button {
+.errorButton {
   font-weight: 700;
   font-size: 2rem;
   color: #ff8080;
@@ -8,15 +8,15 @@
   cursor: pointer;
 }
 
-.error-button:hover {
+.errorButton:hover {
   background-color: #7e0000;
 }
 
-.error-button:active {
+.errorButton:active {
   background-color: #4e0000;
 }
 
-.error-button_theme_dark {
+.errorButton_theme_dark {
   color: #ff5050;
 
   border-color: #ff3737;

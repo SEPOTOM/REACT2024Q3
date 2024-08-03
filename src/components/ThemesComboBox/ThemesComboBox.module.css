@@ -1,4 +1,4 @@
-.themes-combo-box {
+.themesComboBox {
   display: flex;
   align-items: center;
   column-gap: 0.4rem;
@@ -7,11 +7,11 @@
   color: var(--dark-text-color);
 }
 
-.themes-combo-box__label {
+.themesComboBoxLabel {
   font-weight: 700;
 }
 
-.themes-combo-box__dropdown {
+.themesComboBoxDropdown {
   align-self: stretch;
   padding: 0.4rem;
 
@@ -21,10 +21,10 @@
   background-color: var(--bg-color);
 }
 
-.themes-combo-box_theme_dark {
+.themesComboBox_theme_dark {
   color: var(--text-color);
 
-  .themes-combo-box__dropdown {
+  .themesComboBoxDropdown {
     color: var(--dark-text-color);
 
     background-color: var(--dark-bg-color);

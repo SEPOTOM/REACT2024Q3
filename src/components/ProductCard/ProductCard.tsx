@@ -12,7 +12,7 @@ import { useTheme } from '@/contexts';
 
 import { ProductCardProps } from '@components/ProductCard/types';
 
-import '@components/ProductCard/ProductCard.css';
+import styles from '@components/ProductCard/ProductCard.module.css';
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const theme = useTheme();
@@ -40,21 +40,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <li
       key={product.id}
-      className={`products-card products-card_theme_${theme}`}
+      className={`${styles.productCard} ${styles[`productCard_theme_${theme}`]}`}
     >
       <Link
         to={`details?product=${product.id}`}
-        className="products-card__link"
+        className={styles.productCardLink}
       >
-        <h2 className="products-card__title">{product.title}</h2>
-        <p className="products-card__text">{product.description}</p>
+        <h2 className={styles.productCardTitle}>{product.title}</h2>
+        <p className={styles.productCardText}>{product.description}</p>
       </Link>
       <input
         type="checkbox"
         checked={isChecked}
         onChange={handleChange}
         aria-label="Select product"
-        className="products-card__checkbox"
+        className={styles.productCardCheckbox}
       />
     </li>
   );

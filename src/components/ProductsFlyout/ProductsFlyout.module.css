@@ -1,4 +1,4 @@
-.products-flyout {
+.productsFlyout {
   position: sticky;
   bottom: 28px;
 
@@ -7,7 +7,7 @@
   margin: 2rem 0 0 0;
 }
 
-.products-flyout__content {
+.productsFlyoutContent {
   display: flex;
   align-items: center;
   column-gap: 2rem;
@@ -19,7 +19,7 @@
   box-shadow: 1px 1px 10px var(--dark-bg-color);
 }
 
-.products-flyout__text {
+.productsFlyoutText {
   margin: 0;
 
   font-size: 3rem;
@@ -27,7 +27,7 @@
   color: var(--text-color);
 }
 
-.products-flyout__button {
+.productsFlyoutButton {
   padding: 0.1rem 0.6rem;
 
   font-size: 3rem;
@@ -41,35 +41,35 @@
   cursor: pointer;
 }
 
-.products-flyout__button:hover {
+.productsFlyoutButton:hover {
   color: var(--bg-color-secondary);
 
   background-color: transparent;
 }
 
-.products-flyout__button:active {
+.productsFlyoutButton:active {
   transform: scale(0.9);
 }
 
-.products-flyout_theme_dark {
+.productsFlyout_theme_dark {
   .products-flyout__content {
     background-color: var(--dark-bg-color);
     border-color: var(--bg-color);
     box-shadow: 1px 1px 10px var(--bg-color);
   }
 
-  .products-flyout__text {
+  .productsFlyoutText {
     color: var(--dark-text-color);
   }
 
-  .products-flyout__button {
+  .productsFlyoutButton {
     color: var(--dark-bg-color-alt);
 
     background-color: var(--dark-bg-color-secondary);
     border-color: var(--dark-bg-color-secondary);
   }
 
-  .products-flyout__button:hover {
+  .productsFlyoutButton:hover {
     color: var(--dark-bg-color-secondary);
 
     background-color: transparent;
