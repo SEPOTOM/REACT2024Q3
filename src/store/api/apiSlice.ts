@@ -45,4 +45,4 @@ export const {
   useReceiveProductMutation,
 } = apiSlice;
 
-export const { getProducts } = apiSlice.endpoints;
+export const { getProducts, getProductById } = apiSlice.endpoints;

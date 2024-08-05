@@ -1,28 +1,30 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { useTheme } from '@/contexts';
 
-import { useCurrentPage, useDetailedProduct } from '@/hooks';
+import { useCurrentPage, useIsPageLoading } from '@/hooks';
 
 import { StatusMessage } from '@/components';
 
+import { ProductPageProps } from '@views/ProductPage/types';
+
 import styles from '@views/ProductPage/ProductPage.module.css';
 
-const ProductPage = () => {
-  const { detailedProduct, isFetching, isSuccess } = useDetailedProduct();
+const ProductPage = ({ detailedProduct }: ProductPageProps) => {
   const theme = useTheme();
   const currentPage = useCurrentPage();
+  const isPageLoading = useIsPageLoading();
+  const router = useRouter();
 
-  const closeUrl = `/search/${currentPage}`;
-
-  const isFetched = !isFetching && isSuccess && detailedProduct;
+  const closeUrl = `/search/${currentPage}${router.query.q ? `?q=${router.query.q}` : ''}`;
 
   return (
     <div
       className={`${styles.productPage} ${styles[`productPage_theme_${theme}`]}`}
     >
       <div className={styles.productPageContent}>
-        {isFetched ?
+        {!isPageLoading ?
           <>
             <h2 className={styles.productPageTitle}>{detailedProduct.title}</h2>
             {detailedProduct.images[0] && (

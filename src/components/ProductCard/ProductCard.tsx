@@ -14,6 +14,7 @@ import { useCurrentPage } from '@/hooks';
 import { ProductCardProps } from '@components/ProductCard/types';
 
 import styles from '@components/ProductCard/ProductCard.module.css';
+import { useRouter } from 'next/router';
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const theme = useTheme();
@@ -23,6 +24,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
   );
   const [receiveProduct] = useReceiveProductMutation();
   const currentPage = useCurrentPage();
+  const router = useRouter();
+
+  const searchParams = new URLSearchParams({
+    q: router.query.q ? String(router.query.q) : '',
+    product: String(product.id),
+  });
 
   const isChecked = Boolean(checkedProduct);
 
@@ -45,7 +52,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       className={`${styles.productCard} ${styles[`productCard_theme_${theme}`]}`}
     >
       <Link
-        href={`/search/${currentPage}/details?product=${product.id}`}
+        href={`/search/${currentPage}/details?${searchParams.toString()}`}
         className={styles.productCardLink}
       >
         <h2 className={styles.productCardTitle}>{product.title}</h2>
