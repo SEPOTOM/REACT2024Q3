@@ -1,4 +1,8 @@
-import { DetailedProduct, Product } from '@services/types';
+import {
+  DetailedProduct,
+  Product,
+  SearchProductsResponse,
+} from '@services/types';
 
 export const createFakeDetailedProduct = (
   productId: number,
@@ -29,4 +33,13 @@ export const createFakeProducts = (productsAmount: number): Product[] => {
   }
 
   return fakeProducts;
+};
+
+export const createFakeProductsResponse = (
+  productsAmount: number,
+): SearchProductsResponse => {
+  return {
+    products: createFakeProducts(productsAmount),
+    total: productsAmount,
+  };
 };
