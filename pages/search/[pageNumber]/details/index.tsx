@@ -30,7 +30,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       getProductByIdPromise,
     ]);
 
-    const totalPages = Math.floor(
+    const totalPages = Math.ceil(
       productsResponse ? productsResponse.total / PRODUCTS_PER_PAGE_AMOUNT : 0,
     );
 
