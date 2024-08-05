@@ -1,20 +1,14 @@
-import { useRouter } from 'next/router';
-
 import { useTheme } from '@/contexts';
-
-import { validatePage } from '@/utils/validation';
 
 import { PaginationButton } from '@/components';
 import { PaginationProps } from '@components/Pagination/types';
 
 import styles from '@components/Pagination/Pagination.module.css';
+import { useCurrentPage } from '@/hooks';
 
 const Pagination = ({ totalPages }: PaginationProps) => {
   const theme = useTheme();
-  const router = useRouter();
-
-  const { pageNumber } = router.query;
-  const currentPage = validatePage(pageNumber);
+  const currentPage = useCurrentPage();
 
   const disablePrevious = currentPage === 1;
   const disableNext = currentPage === totalPages;

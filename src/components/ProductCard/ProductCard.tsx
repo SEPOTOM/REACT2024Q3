@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import {
   productChecked,
@@ -10,8 +9,7 @@ import {
 import { useReceiveProductMutation } from '@store/api/apiSlice';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { useTheme } from '@/contexts';
-
-import { validatePage } from '@utils/validation';
+import { useCurrentPage } from '@/hooks';
 
 import { ProductCardProps } from '@components/ProductCard/types';
 
@@ -24,10 +22,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     selectCheckedProductById(state, product.id),
   );
   const [receiveProduct] = useReceiveProductMutation();
-  const router = useRouter();
-
-  const { pageNumber } = router.query;
-  const currentPage = validatePage(pageNumber);
+  const currentPage = useCurrentPage();
 
   const isChecked = Boolean(checkedProduct);
 

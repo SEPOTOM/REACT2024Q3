@@ -1,11 +1,8 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { useTheme } from '@/contexts';
 
-import { useDetailedProduct } from '@/hooks';
-
-import { validatePage } from '@/utils/validation';
+import { useCurrentPage, useDetailedProduct } from '@/hooks';
 
 import { StatusMessage } from '@/components';
 
@@ -13,11 +10,8 @@ import styles from '@views/ProductPage/ProductPage.module.css';
 
 const ProductPage = () => {
   const { detailedProduct, isFetching, isSuccess } = useDetailedProduct();
-  const router = useRouter();
   const theme = useTheme();
-
-  const { pageNumber } = router.query;
-  const currentPage = validatePage(pageNumber);
+  const currentPage = useCurrentPage();
 
   const closeUrl = `/search/${currentPage}`;
 
