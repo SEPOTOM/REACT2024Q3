@@ -1,5 +1,6 @@
 import { FormEvent, useRef } from 'react';
 import { useRouter } from 'next/router';
+import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 
 import { useTheme } from '@/contexts';
 
@@ -16,8 +17,18 @@ const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
     e.preventDefault();
 
     if (inputRef.current) {
-      onFormSubmit(inputRef.current.value);
-      router.push('/search/1');
+      const newSearchQuery = inputRef.current.value;
+      const query: NextParsedUrlQuery = {};
+
+      if (newSearchQuery) {
+        query.q = newSearchQuery;
+      }
+
+      onFormSubmit(newSearchQuery);
+      router.push({
+        pathname: '/search/1',
+        query,
+      });
     }
   };
 
