@@ -47,10 +47,7 @@ module.exports = {
     },
   },
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': 'off',
     'react-compiler/react-compiler': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
     'import/no-unresolved': 'error',
