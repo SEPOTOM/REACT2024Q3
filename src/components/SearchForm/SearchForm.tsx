@@ -7,24 +7,30 @@ import { useTheme } from '@/contexts';
 import { SearchFormProps } from '@components/SearchForm/types';
 
 import styles from '@components/SearchForm/SearchForm.module.css';
+import { useSearchQuery } from '@/hooks';
 
-const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
+const SearchForm = ({ onFormSubmit }: SearchFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const theme = useTheme();
   const router = useRouter();
+  const searchQuery = useSearchQuery();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (inputRef.current) {
       const newSearchQuery = inputRef.current.value;
+
       const query: NextParsedUrlQuery = {};
 
       if (newSearchQuery) {
         query.q = newSearchQuery;
       }
 
-      onFormSubmit(newSearchQuery);
+      if (onFormSubmit) {
+        onFormSubmit(newSearchQuery);
+      }
+
       router.push({
         pathname: '/search/1',
         query,
@@ -39,7 +45,7 @@ const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
     >
       <input
         type="search"
-        defaultValue={initialSearchQuery}
+        defaultValue={searchQuery}
         ref={inputRef}
         className={styles.searchFormInput}
       />

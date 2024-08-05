@@ -10,7 +10,7 @@ import {
 
 import { useTheme } from '@/contexts';
 
-import { useIsPageLoading, useSearchQuery } from '@/hooks';
+import { useIsPageLoading } from '@/hooks';
 
 import { MainPageProps } from '@views/MainPage/types';
 
@@ -21,13 +21,7 @@ const MainPage = ({
   totalPages,
   productsResponse,
 }: MainPageProps) => {
-  const [searchQuery, setSearchQuery] = useSearchQuery();
   const theme = useTheme();
-
-  const handleSearchFormSubmit = (newSearchQuery: string): void => {
-    setSearchQuery(newSearchQuery);
-  };
-
   const isPageLoading = useIsPageLoading();
 
   return (
@@ -36,10 +30,7 @@ const MainPage = ({
         <header className={styles.header}>
           <div className={`container ${styles.headerInner}`}>
             <ErrorButton />
-            <SearchForm
-              initialSearchQuery={searchQuery}
-              onFormSubmit={handleSearchFormSubmit}
-            />
+            <SearchForm />
             <ThemesComboBox />
           </div>
         </header>

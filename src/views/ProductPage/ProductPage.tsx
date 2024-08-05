@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { useTheme } from '@/contexts';
 
-import { useCurrentPage, useIsPageLoading } from '@/hooks';
+import { useCurrentPage, useIsPageLoading, useSearchQuery } from '@/hooks';
 
 import { StatusMessage } from '@/components';
 
@@ -15,9 +14,9 @@ const ProductPage = ({ detailedProduct }: ProductPageProps) => {
   const theme = useTheme();
   const currentPage = useCurrentPage();
   const isPageLoading = useIsPageLoading();
-  const router = useRouter();
+  const searchQuery = useSearchQuery();
 
-  const closeUrl = `/search/${currentPage}${router.query.q ? `?q=${router.query.q}` : ''}`;
+  const closeUrl = `/search/${currentPage}${searchQuery ? `?q=${searchQuery}` : ''}`;
 
   return (
     <div

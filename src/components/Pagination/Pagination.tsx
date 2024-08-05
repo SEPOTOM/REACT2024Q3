@@ -1,19 +1,17 @@
-import { useRouter } from 'next/router';
-
 import { useTheme } from '@/contexts';
 
 import { PaginationButton } from '@/components';
 import { PaginationProps } from '@components/Pagination/types';
 
 import styles from '@components/Pagination/Pagination.module.css';
-import { useCurrentPage } from '@/hooks';
+import { useCurrentPage, useSearchQuery } from '@/hooks';
 
 const Pagination = ({ totalPages }: PaginationProps) => {
   const theme = useTheme();
   const currentPage = useCurrentPage();
-  const router = useRouter();
+  const searchQuery = useSearchQuery();
 
-  const searchQuery = router.query.q ? `?q=${router.query.q}` : '';
+  const searchQueryParam = searchQuery ? `?q=${searchQuery}` : '';
 
   const disablePrevious = currentPage === 1;
   const disableNext = currentPage === totalPages;
@@ -23,7 +21,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
       className={`${styles.pagination} ${styles[`pagination_theme_${theme}`]}`}
     >
       <PaginationButton
-        to={`/search/${currentPage - 1}${searchQuery}`}
+        to={`/search/${currentPage - 1}${searchQueryParam}`}
         aria-label="Previous page"
         className={styles.paginationButton}
         disabled={disablePrevious}
@@ -34,7 +32,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
         {currentPage}
       </span>
       <PaginationButton
-        to={`/search/${currentPage + 1}${searchQuery}`}
+        to={`/search/${currentPage + 1}${searchQueryParam}`}
         aria-label="Next page"
         className={styles.paginationButton}
         disabled={disableNext}
