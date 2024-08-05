@@ -44,3 +44,5 @@ export const {
   useGetProductByIdQuery,
   useReceiveProductMutation,
 } = apiSlice;
+
+export const { getProducts } = apiSlice.endpoints;

@@ -10,25 +10,25 @@ import {
 
 import { useTheme } from '@/contexts';
 
-import { useProducts, useSearchQuery } from '@/hooks';
+import { useIsPageLoading, useSearchQuery } from '@/hooks';
 
 import { MainPageProps } from '@views/MainPage/types';
 
 import styles from '@views/MainPage/MainPage.module.css';
 
-const MainPage = ({ children }: MainPageProps) => {
+const MainPage = ({
+  children,
+  totalPages,
+  productsResponse,
+}: MainPageProps) => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
-  const { productsResponse, totalPages, isFetching, isSuccess } =
-    useProducts(searchQuery);
   const theme = useTheme();
 
   const handleSearchFormSubmit = (newSearchQuery: string): void => {
     setSearchQuery(newSearchQuery);
   };
 
-  const isProductsFetched = !isFetching && isSuccess && productsResponse;
-  const hasFetchedProducts =
-    !isFetching && isSuccess && (productsResponse?.products ?? []).length > 0;
+  const isPageLoading = useIsPageLoading();
 
   return (
     <div className={`${styles.mainPage} ${styles[`mainPage_theme_${theme}`]}`}>
@@ -45,12 +45,14 @@ const MainPage = ({ children }: MainPageProps) => {
         </header>
         <main className={styles.main}>
           <div className={`container ${styles.mainInner}`}>
-            {isProductsFetched && (
-              <ProductsList products={productsResponse.products} />
-            )}
-            {hasFetchedProducts && <Pagination totalPages={totalPages} />}
-            {isFetching && <StatusMessage>Loading...</StatusMessage>}
-            {isProductsFetched && <ProductsFlyout />}
+            {isPageLoading ?
+              <StatusMessage>Loading...</StatusMessage>
+            : <>
+                <ProductsList products={productsResponse.products} />
+                <Pagination totalPages={totalPages} />
+                <ProductsFlyout />
+              </>
+            }
           </div>
         </main>
       </div>
