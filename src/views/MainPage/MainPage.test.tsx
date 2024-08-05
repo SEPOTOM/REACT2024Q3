@@ -3,8 +3,7 @@ import { waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
 
 import { renderWithUser } from '@tests/utils';
-
-import * as api from '@store/api/apiSlice';
+import { createFakeProductsResponse } from '@tests/mocks/products';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
 
@@ -17,6 +16,10 @@ beforeAll(() => {
     asPath: '/search/2',
     route: '/search/[pageNumber]',
     push: vi.fn(),
+    events: {
+      on: vi.fn(),
+      off: vi.fn(),
+    },
   });
 });
 
@@ -26,7 +29,10 @@ afterAll(() => {
 
 test('MainPage saves the entered search query to the local storage when the Search button is clicked', async () => {
   localStorage.clear();
-  const { user, getByRole } = renderWithUser(<MainPage />);
+  const fakeProductsResponse = createFakeProductsResponse(5);
+  const { user, getByRole } = renderWithUser(
+    <MainPage productsResponse={fakeProductsResponse} totalPages={1} />,
+  );
 
   await user.type(getByRole('searchbox'), 'Test query');
   await user.click(getByRole('button', { name: /search/i }));
@@ -37,8 +43,11 @@ test('MainPage saves the entered search query to the local storage when the Sear
 test('MainPage retrieves the search query from the local storage upon mounting', async () => {
   localStorage.clear();
   saveSearchQuery('Saved search query');
+  const fakeProductsResponse = createFakeProductsResponse(15);
 
-  const { getByRole } = renderWithUser(<MainPage />);
+  const { getByRole } = renderWithUser(
+    <MainPage productsResponse={fakeProductsResponse} totalPages={2} />,
+  );
 
   await waitFor(() => {
     expect(getByRole('searchbox')).toHaveDisplayValue('Saved search query');
@@ -46,15 +55,11 @@ test('MainPage retrieves the search query from the local storage upon mounting',
 });
 
 test('Main page has a combobox to change the app theme', async () => {
-  const { findByRole } = renderWithUser(<MainPage />);
+  const fakeProductsResponse = createFakeProductsResponse(1);
+
+  const { findByRole } = renderWithUser(
+    <MainPage productsResponse={fakeProductsResponse} totalPages={1} />,
+  );
 
   expect(await findByRole('combobox', { name: /theme/i })).toBeInTheDocument();
-});
-
-test("MainPage triggers an API call via RTK Query's useGetProductsQuery hook", async () => {
-  const useGetProductsQuerySpy = vi.spyOn(api, 'useGetProductsQuery');
-
-  renderWithUser(<MainPage />);
-
-  expect(useGetProductsQuerySpy).toBeCalled();
 });
