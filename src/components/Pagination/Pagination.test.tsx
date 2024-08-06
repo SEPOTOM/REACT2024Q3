@@ -7,7 +7,7 @@ import { createFakeRouter } from '@tests/mocks/router';
 import { Pagination } from '@/components';
 
 test('Pagination displays the page number from URL', () => {
-  (useRouter as Mock).mockReturnValueOnce(
+  (useRouter as Mock).mockReturnValue(
     createFakeRouter({
       pathname: '/search/2',
       query: { pageNumber: '2' },
