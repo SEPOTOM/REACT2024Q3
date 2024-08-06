@@ -3,9 +3,9 @@ import { InferGetServerSidePropsType } from 'next';
 import { wrapper } from '@store/store';
 import { getProducts } from '@store/api/apiSlice';
 
-import { MainPage } from '@/views';
+import { calculateTotalPages } from '@utils/numbers';
 
-import { PRODUCTS_PER_PAGE_AMOUNT } from '@/consts';
+import { MainPage } from '@/views';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
@@ -21,9 +21,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       )
       .unwrap();
 
-    const totalPages = Math.ceil(
-      productsResponse ? productsResponse.total / PRODUCTS_PER_PAGE_AMOUNT : 0,
-    );
+    const totalPages = calculateTotalPages(productsResponse);
 
     return {
       props: {
