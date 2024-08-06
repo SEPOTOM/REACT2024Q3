@@ -26,10 +26,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const currentPage = useCurrentPage();
   const router = useRouter();
 
-  const searchParams = new URLSearchParams({
-    q: router.query.q ? String(router.query.q) : '',
+  const searchParamsObject: Record<string, string> = {
     product: String(product.id),
-  });
+  };
+
+  if (router.query.q) {
+    searchParamsObject.q = String(router.query.q);
+  }
+
+  const searchParams = new URLSearchParams(searchParamsObject);
 
   const isChecked = Boolean(checkedProduct);
 
