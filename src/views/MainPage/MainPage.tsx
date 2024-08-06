@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import {
   ErrorButton,
@@ -13,7 +12,11 @@ import {
 
 import { useTheme } from '@/contexts';
 
-import { useCurrentPage, useIsPageLoading, useSearchQuery } from '@/hooks';
+import {
+  useCurrentSearchPageUrl,
+  useIsPageLoading,
+  useSearchQuery,
+} from '@/hooks';
 
 import { MainPageProps } from '@views/MainPage/types';
 
@@ -26,10 +29,7 @@ const MainPage = ({
 }: MainPageProps) => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
   const theme = useTheme();
-  const currentPage = useCurrentPage();
-  const router = useRouter();
-
-  const closeUrl = `/search/${currentPage}${router.query.q ? `?q=${router.query.q}` : ''}`;
+  const currentSearchPageUrl = useCurrentSearchPageUrl();
 
   const handleSearchFormSubmit = (newSearchQuery: string): void => {
     setSearchQuery(newSearchQuery);
@@ -71,7 +71,7 @@ const MainPage = ({
           <div className={styles.mainPageLoader}>
             <StatusMessage>Loading...</StatusMessage>
           </div>
-          <Link href={closeUrl} className={styles.mainPageShadow} />
+          <Link href={currentSearchPageUrl} className={styles.mainPageShadow} />
         </div>
       )}
     </div>

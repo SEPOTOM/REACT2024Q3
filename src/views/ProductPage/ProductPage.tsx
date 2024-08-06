@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { useTheme } from '@/contexts';
 
-import { useCurrentPage, useIsPageLoading } from '@/hooks';
+import { useCurrentSearchPageUrl, useIsPageLoading } from '@/hooks';
 
 import { StatusMessage } from '@/components';
 
@@ -13,11 +12,8 @@ import styles from '@views/ProductPage/ProductPage.module.css';
 
 const ProductPage = ({ detailedProduct }: ProductPageProps) => {
   const theme = useTheme();
-  const currentPage = useCurrentPage();
   const { isDetailsPageLoading, isSearchPageLoading } = useIsPageLoading();
-  const router = useRouter();
-
-  const closeUrl = `/search/${currentPage}${router.query.q ? `?q=${router.query.q}` : ''}`;
+  const currentSearchPageUrl = useCurrentSearchPageUrl();
 
   return isSearchPageLoading ? null : (
       <div
@@ -46,13 +42,19 @@ const ProductPage = ({ detailedProduct }: ProductPageProps) => {
               <p className={styles.productPageFeature}>
                 Price: ${detailedProduct.price}
               </p>
-              <Link href={closeUrl} className={styles.productPageButton}>
+              <Link
+                href={currentSearchPageUrl}
+                className={styles.productPageButton}
+              >
                 Close
               </Link>
             </>
           }
         </div>
-        <Link href={closeUrl} className={styles.productPageShadow} />
+        <Link
+          href={currentSearchPageUrl}
+          className={styles.productPageShadow}
+        />
       </div>
     );
 };
