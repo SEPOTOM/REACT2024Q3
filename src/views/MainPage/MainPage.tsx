@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 import {
   ErrorButton,
   Pagination,
@@ -10,7 +13,7 @@ import {
 
 import { useTheme } from '@/contexts';
 
-import { useIsPageLoading, useSearchQuery } from '@/hooks';
+import { useCurrentPage, useIsPageLoading, useSearchQuery } from '@/hooks';
 
 import { MainPageProps } from '@views/MainPage/types';
 
@@ -23,12 +26,16 @@ const MainPage = ({
 }: MainPageProps) => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
   const theme = useTheme();
+  const currentPage = useCurrentPage();
+  const router = useRouter();
+
+  const closeUrl = `/search/${currentPage}${router.query.q ? `?q=${router.query.q}` : ''}`;
 
   const handleSearchFormSubmit = (newSearchQuery: string): void => {
     setSearchQuery(newSearchQuery);
   };
 
-  const isPageLoading = useIsPageLoading();
+  const { isSearchPageLoading, isDetailsPageLoading } = useIsPageLoading();
 
   return (
     <div className={`${styles.mainPage} ${styles[`mainPage_theme_${theme}`]}`}>
@@ -45,7 +52,7 @@ const MainPage = ({
         </header>
         <main className={styles.main}>
           <div className={`container ${styles.mainInner}`}>
-            {isPageLoading ?
+            {isSearchPageLoading ?
               <StatusMessage>Loading...</StatusMessage>
             : <>
                 <ProductsList products={productsResponse.products} />
@@ -56,7 +63,17 @@ const MainPage = ({
           </div>
         </main>
       </div>
-      {children && <div className={styles.mainPageColumn}>{children}</div>}
+      {children && !isSearchPageLoading && (
+        <div className={styles.mainPageColumn}>{children}</div>
+      )}
+      {isDetailsPageLoading && (
+        <div className={styles.mainPageColumn}>
+          <div className={styles.mainPageLoader}>
+            <StatusMessage>Loading...</StatusMessage>
+          </div>
+          <Link href={closeUrl} className={styles.mainPageShadow} />
+        </div>
+      )}
     </div>
   );
 };

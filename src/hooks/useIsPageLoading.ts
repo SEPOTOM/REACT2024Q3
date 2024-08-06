@@ -1,16 +1,26 @@
 import { useRouter } from 'next/router';
+import { NextFetchEvent } from 'next/server';
 import { useEffect, useState } from 'react';
 
 const useIsPageLoading = () => {
-  const [isPageLoading, setIsPageLoading] = useState(false);
+  const [isSearchPageLoading, setIsSearchPageLoading] = useState(false);
+  const [isDetailsPageLoading, setIsDetailsPageLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    const routeEventStart = () => {
-      setIsPageLoading(true);
+    const routeEventStart = (e: NextFetchEvent) => {
+      if (String(e).includes('product')) {
+        setIsDetailsPageLoading(true);
+      } else {
+        setIsSearchPageLoading(true);
+      }
     };
-    const routeEventEnd = () => {
-      setIsPageLoading(false);
+    const routeEventEnd = (e: NextFetchEvent) => {
+      if (String(e).includes('product')) {
+        setIsDetailsPageLoading(false);
+      } else {
+        setIsSearchPageLoading(false);
+      }
     };
 
     router.events.on('routeChangeStart', routeEventStart);
@@ -23,7 +33,10 @@ const useIsPageLoading = () => {
     };
   }, [router]);
 
-  return isPageLoading;
+  return {
+    isSearchPageLoading,
+    isDetailsPageLoading,
+  };
 };
 
 export default useIsPageLoading;
