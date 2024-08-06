@@ -9,11 +9,12 @@ import {
 import { useReceiveProductMutation } from '@store/api/apiSlice';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { useTheme } from '@/contexts';
-import { useCurrentPage, useSearchQuery } from '@/hooks';
+import { useCurrentPage } from '@/hooks';
 
 import { ProductCardProps } from '@components/ProductCard/types';
 
 import styles from '@components/ProductCard/ProductCard.module.css';
+import { useRouter } from 'next/router';
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const theme = useTheme();
@@ -23,10 +24,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
   );
   const [receiveProduct] = useReceiveProductMutation();
   const currentPage = useCurrentPage();
-  const searchQuery = useSearchQuery();
+  const router = useRouter();
 
   const searchParams = new URLSearchParams({
-    q: searchQuery,
+    q: router.query.q ? String(router.query.q) : '',
     product: String(product.id),
   });
 
