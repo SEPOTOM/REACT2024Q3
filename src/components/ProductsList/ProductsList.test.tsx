@@ -3,16 +3,19 @@ import { renderWithUser } from '@tests/utils';
 import { useRouter } from 'next/router';
 
 import { createFakeProducts } from '@tests/mocks/products';
+import { createFakeRouter } from '@tests/mocks/router';
 
 import { ProductsList } from '@/components';
 
 beforeAll(() => {
-  (useRouter as Mock).mockReturnValue({
-    pathname: '/search/2',
-    query: { pageNumber: '2' },
-    asPath: '/search/2',
-    route: '/search/[pageNumber]',
-  });
+  (useRouter as Mock).mockReturnValue(
+    createFakeRouter({
+      pathname: '/search/2',
+      query: { pageNumber: '2' },
+      asPath: '/search/2',
+      route: '/search/[pageNumber]',
+    }),
+  );
 });
 
 afterAll(() => {

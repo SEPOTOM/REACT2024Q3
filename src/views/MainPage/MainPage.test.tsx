@@ -4,23 +4,21 @@ import { useRouter } from 'next/router';
 
 import { renderWithUser } from '@tests/utils';
 import { createFakeProductsResponse } from '@tests/mocks/products';
+import { createFakeRouter } from '@tests/mocks/router';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
 
 import { MainPage } from '@/views';
 
 beforeAll(() => {
-  (useRouter as Mock).mockReturnValue({
-    pathname: '/search/2',
-    query: { pageNumber: '2' },
-    asPath: '/search/2',
-    route: '/search/[pageNumber]',
-    push: vi.fn(),
-    events: {
-      on: vi.fn(),
-      off: vi.fn(),
-    },
-  });
+  (useRouter as Mock).mockReturnValue(
+    createFakeRouter({
+      pathname: '/search/2',
+      query: { pageNumber: '2' },
+      asPath: '/search/2',
+      route: '/search/[pageNumber]',
+    }),
+  );
 });
 
 afterAll(() => {

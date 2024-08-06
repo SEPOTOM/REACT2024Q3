@@ -7,6 +7,7 @@ import {
   createFakeDetailedProduct,
   createFakeProduct,
 } from '@tests/mocks/products';
+import { createFakeRouter } from '@tests/mocks/router';
 
 import * as api from '@store/api/apiSlice';
 
@@ -15,12 +16,14 @@ import { RootState } from '@store/store';
 import { ProductCard } from '@/components';
 
 beforeAll(() => {
-  (useRouter as Mock).mockReturnValue({
-    pathname: '/search/2',
-    query: { pageNumber: '2' },
-    asPath: '/search/2',
-    route: '/search/[pageNumber]',
-  });
+  (useRouter as Mock).mockReturnValue(
+    createFakeRouter({
+      pathname: '/search/2',
+      query: { pageNumber: '2' },
+      asPath: '/search/2',
+      route: '/search/[pageNumber]',
+    }),
+  );
 });
 
 afterAll(() => {
