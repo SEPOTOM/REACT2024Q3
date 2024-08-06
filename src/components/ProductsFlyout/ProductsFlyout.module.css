@@ -52,7 +52,7 @@
 }
 
 .productsFlyout_theme_dark {
-  .products-flyout__content {
+  .productsFlyoutContent {
     background-color: var(--dark-bg-color);
     border-color: var(--bg-color);
     box-shadow: 1px 1px 10px var(--bg-color);
