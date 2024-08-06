@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { useTheme } from '@/contexts';
 
@@ -27,9 +28,11 @@ const ProductPage = ({ detailedProduct }: ProductPageProps) => {
                 {detailedProduct.title}
               </h2>
               {detailedProduct.images[0] && (
-                <img
+                <Image
                   src={detailedProduct.images[0]}
                   alt={detailedProduct.title}
+                  width={500}
+                  height={500}
                   className={styles.productPageImage}
                 />
               )}
