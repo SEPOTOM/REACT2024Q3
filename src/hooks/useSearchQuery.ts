@@ -2,17 +2,24 @@ import { useRouter } from 'next/router';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const useSearchQuery = (): string => {
+const useSearchQuery = (): [
+  string,
+  React.Dispatch<React.SetStateAction<string>>,
+] => {
+  const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
-  const searchQuery = router.query.q ? String(router.query.q) : '';
 
   useEffect(() => {
     const initialSearchQuery = getSearchQuery();
 
-    if (initialSearchQuery && router.query.q === '') {
-      router.replace(`/search/1?q=${initialSearchQuery}`);
+    if (initialSearchQuery) {
+      setSearchQuery(initialSearchQuery);
+
+      if (router.query.q !== initialSearchQuery) {
+        router.replace(`/search/1?q=${initialSearchQuery}`);
+      }
     }
   }, [router]);
 
@@ -20,7 +27,7 @@ const useSearchQuery = (): string => {
     saveSearchQuery(searchQuery);
   }, [searchQuery]);
 
-  return searchQuery;
+  return [searchQuery, setSearchQuery];
 };
 
 export default useSearchQuery;
