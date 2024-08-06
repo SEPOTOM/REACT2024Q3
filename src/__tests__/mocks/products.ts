@@ -13,7 +13,7 @@ export const createFakeDetailedProduct = (
     description: `Fake detailed description ${productId}`,
     price: 99.99,
     category: `Fake detailed category ${productId}`,
-    images: [`Fake detailed image url ${productId}`],
+    images: [`/Fake detailed image url ${productId}`],
   };
 };
 
