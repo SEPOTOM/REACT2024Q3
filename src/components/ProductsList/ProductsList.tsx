@@ -1,7 +1,7 @@
 import { ProductCard, StatusMessage } from '@/components';
 import { ProductsListProps } from '@components/ProductsList/types';
 
-import '@components/ProductsList/ProductsList.css';
+import styles from '@components/ProductsList/ProductsList.module.css';
 
 const ProductsList = ({ products }: ProductsListProps) => {
   if (products.length === 0) {
@@ -9,7 +9,7 @@ const ProductsList = ({ products }: ProductsListProps) => {
   }
 
   return (
-    <ul className="products-list">
+    <ul className={styles.productsList}>
       {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))}

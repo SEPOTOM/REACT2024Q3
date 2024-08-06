@@ -1,9 +1,11 @@
-.main-page {
+.mainPage {
   flex: 1 1 auto;
   display: flex;
 }
 
-.main-page__column {
+.mainPageColumn {
+  position: relative;
+
   flex: 1 1 50%;
   display: flex;
   flex-direction: column;
@@ -19,7 +21,7 @@
   background-color: var(--bg-color-secondary);
 }
 
-.header__inner {
+.headerInner {
   display: flex;
   justify-content: center;
   column-gap: 2rem;
@@ -30,12 +32,34 @@
   padding: 4rem 1.2rem;
 }
 
-.main__inner {
+.mainInner {
   height: 100%;
 }
 
-.main-page_theme_dark {
-  .main-page__column {
+.mainPageShadow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  z-index: 50;
+
+  width: 100%;
+
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.mainPageLoader {
+  position: fixed;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 50%;
+}
+
+.mainPage_theme_dark {
+  .mainPageColumn {
     background-color: var(--dark-bg-color);
   }
 

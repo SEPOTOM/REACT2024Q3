@@ -1,4 +1,4 @@
-.status-message {
+.statusMessage {
   box-sizing: border-box;
 
   display: flex;
@@ -13,6 +13,6 @@
   color: var(--text-color);
 }
 
-.status-message_theme_dark {
+.statusMessage_theme_dark {
   color: var(--dark-text-color);
 }

@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 import { PaginationButtonProps } from '@components/PaginationButton/types';
 
-import '@components/PaginationButton/PaginationButton.css';
+import '@components/PaginationButton/PaginationButton.module.css';
 
 const PaginationButton = (props: PaginationButtonProps) => {
   const { to, disabled, children, className } = props;
@@ -17,7 +17,7 @@ const PaginationButton = (props: PaginationButtonProps) => {
       >
         {children}
       </button>
-    : <Link to={to} aria-label={ariaLabel} className={className}>
+    : <Link href={to} aria-label={ariaLabel} className={className}>
         {children}
       </Link>;
 };

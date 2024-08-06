@@ -1,19 +1,21 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 import { useTheme } from '@/contexts';
 
-import '@views/NotFoundPage/NotFoundPage.css';
+import styles from '@views/NotFoundPage/NotFoundPage.module.css';
 
 const NotFoundPage = () => {
   const theme = useTheme();
 
   return (
-    <div className={`not-found-page not-found-page_theme_${theme}`}>
-      <span className="not-found-page__status">404</span>
-      <h2 className="not-found-page__title">
+    <div
+      className={`${styles.notFoundPage} ${styles[`notFoundPage_theme_${theme}`]}`}
+    >
+      <span className={styles.notFoundPageStatus}>404</span>
+      <h2 className={styles.notFoundPageTitle}>
         The requested page was not found
       </h2>
-      <Link to="/search/1" className="not-found-page__link">
+      <Link href="/search/1" className={styles.notFoundPageLink}>
         To the main page
       </Link>
     </div>

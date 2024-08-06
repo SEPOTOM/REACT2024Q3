@@ -2,13 +2,16 @@ import { useTheme } from '@/contexts';
 
 import { StatusMessageProps } from '@components/StatusMessage/types';
 
-import '@components/StatusMessage/StatusMessage.css';
+import styles from '@components/StatusMessage/StatusMessage.module.css';
 
 const StatusMessage = ({ children }: StatusMessageProps) => {
   const theme = useTheme();
 
   return (
-    <p role="status" className={`status-message status-message_theme_${theme}`}>
+    <p
+      role="status"
+      className={`${styles.statusMessage} ${styles[`statusMessage_theme_${theme}`]}`}
+    >
       {children}
     </p>
   );

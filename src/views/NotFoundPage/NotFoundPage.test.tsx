@@ -1,11 +1,14 @@
-import { renderRouterWithUser } from '@tests/utils';
+import { renderWithUser } from '@tests/utils';
 
-test('NotFoundPage is displayed for unknown routes', () => {
+import { NotFoundPage } from '@/views';
+
+test('NotFoundPage displays the relevant content', () => {
   window.history.pushState(null, '', '/unknown/route');
 
-  const { getByRole } = renderRouterWithUser();
+  const { getByRole } = renderWithUser(<NotFoundPage />);
 
   expect(
     getByRole('heading', { name: /page was not found/i }),
   ).toBeInTheDocument();
+  expect(getByRole('link', { name: /to the main page/i })).toBeInTheDocument();
 });

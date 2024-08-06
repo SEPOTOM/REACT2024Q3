@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useTheme } from '@/contexts';
 
-import '@components/ErrorButton/ErrorButton.css';
+import styles from '@components/ErrorButton/ErrorButton.module.css';
 
 const ErrorButton = () => {
   const [needError, setNeedError] = useState(false);
@@ -19,7 +19,7 @@ const ErrorButton = () => {
   return (
     <button
       onClick={handleClick}
-      className={`error-button error-button_theme_${theme}`}
+      className={`${styles.errorButton} ${styles[`errorButton_theme_${theme}`]}`}
     >
       Throw test error
     </button>

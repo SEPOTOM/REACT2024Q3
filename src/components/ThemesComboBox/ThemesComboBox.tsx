@@ -6,7 +6,7 @@ import { capitalize } from '@/utils/strings';
 
 import { Themes } from '@/consts';
 
-import '@components/ThemesComboBox/ThemesComboBox.css';
+import styles from '@components/ThemesComboBox/ThemesComboBox.module.css';
 
 const ThemesComboBox = () => {
   const themeSelectId = useId();
@@ -18,15 +18,17 @@ const ThemesComboBox = () => {
   };
 
   return (
-    <div className={`themes-combo-box themes-combo-box_theme_${theme}`}>
-      <label htmlFor={themeSelectId} className="themes-combo-box__label">
+    <div
+      className={`${styles.themesComboBox} ${styles[`themesComboBox_theme_${theme}`]}`}
+    >
+      <label htmlFor={themeSelectId} className={styles.themesComboBoxLabel}>
         Theme:
       </label>
       <select
         id={themeSelectId}
         value={theme}
         onChange={handleSelectChange}
-        className="themes-combo-box__dropdown"
+        className={styles.themesComboBoxDropdown}
       >
         {Object.values(Themes).map((theme) => {
           return (

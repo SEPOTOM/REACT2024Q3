@@ -13,6 +13,7 @@ module.exports = {
     'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
+    'plugin:@next/next/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   overrides: [],
@@ -29,6 +30,7 @@ module.exports = {
     'import',
     'jsx-a11y',
     'prettier',
+    '@next/eslint-plugin-next',
   ],
   settings: {
     'import/parsers': {
@@ -37,7 +39,7 @@ module.exports = {
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
-        project: './tsconfig.app.json',
+        project: './tsconfig.json',
       },
     },
     react: {
@@ -45,10 +47,7 @@ module.exports = {
     },
   },
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': 'off',
     'react-compiler/react-compiler': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
     'import/no-unresolved': 'error',

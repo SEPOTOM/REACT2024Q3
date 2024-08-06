@@ -7,7 +7,7 @@ import {
   ErrorBoundaryState,
 } from '@components/ErrorBoundary/types';
 
-import '@components/ErrorBoundary/ErrorBoundary.css';
+import '@components/ErrorBoundary/ErrorBoundary.module.css';
 
 class ErrorBoundary extends Component<ErrorBoundaryProps> {
   state: Readonly<ErrorBoundaryState> = {

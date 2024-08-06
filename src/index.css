@@ -22,7 +22,7 @@ body {
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
-#root {
+#__next {
   display: flex;
   flex-direction: column;
   height: 100%;

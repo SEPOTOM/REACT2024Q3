@@ -1,18 +1,22 @@
-import { BrowserRouter } from 'react-router-dom';
+import { Mock } from 'vitest';
+import { useRouter } from 'next/router';
 
 import { renderWithUser } from '@tests/utils';
+import { createFakeRouter } from '@tests/mocks/router';
 
 import { Pagination } from '@/components';
 
-test('Pagination updates URL query parameter when page changes', async () => {
-  window.history.pushState(null, '', '/search/1');
-  const { user, getByRole } = renderWithUser(
-    <BrowserRouter>
-      <Pagination totalPages={2} />
-    </BrowserRouter>,
+test('Pagination displays the page number from URL', () => {
+  (useRouter as Mock).mockReturnValue(
+    createFakeRouter({
+      pathname: '/search/2',
+      query: { pageNumber: '2' },
+      asPath: '/search/2',
+      route: '/search/[pageNumber]',
+    }),
   );
 
-  await user.click(getByRole('link', { name: /next page/i }));
+  const { getByRole } = renderWithUser(<Pagination totalPages={5} />);
 
-  expect(window.location.pathname).toBe('/search/2');
+  expect(getByRole('status')).toHaveTextContent(/2/i);
 });

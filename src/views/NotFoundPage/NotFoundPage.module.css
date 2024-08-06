@@ -1,4 +1,4 @@
-.not-found-page {
+.notFoundPage {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -12,37 +12,37 @@
   background-color: var(--bg-color);
 }
 
-.not-found-page__status {
+.notFoundPageStatus {
   font-weight: 700;
   font-size: 10rem;
 }
 
-.not-found-page__title {
+.notFoundPageTitle {
   margin: 0;
 
   font-size: 3rem;
 }
 
-.not-found-page__link {
+.notFoundPageLink {
   font-size: 3rem;
   font-style: italic;
   color: var(--bg-color-secondary);
 }
 
-.not-found-page__link:hover {
+.notFoundPageLink:hover {
   text-decoration: none;
 }
 
-.not-found-page__link:active {
+.notFoundPageLink:active {
   transform: scale(0.9);
 }
 
-.not-found-page_theme_dark {
+.notFoundPage_theme_dark {
   color: var(--dark-text-color);
 
   background-color: var(--dark-bg-color);
 
-  .not-found-page__link {
+  .notFoundPageLink {
     color: var(--dark-bg-color-secondary);
   }
 }

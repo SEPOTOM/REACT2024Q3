@@ -1,4 +1,4 @@
-import { useOutlet } from 'react-router-dom';
+import Link from 'next/link';
 
 import {
   ErrorButton,
@@ -12,30 +12,36 @@ import {
 
 import { useTheme } from '@/contexts';
 
-import { useProducts, useSearchQuery } from '@/hooks';
+import {
+  useCurrentSearchPageUrl,
+  useIsPageLoading,
+  useSearchQuery,
+} from '@/hooks';
 
-import '@views/MainPage/MainPage.css';
+import { MainPageProps } from '@views/MainPage/types';
 
-const MainPage = () => {
+import styles from '@views/MainPage/MainPage.module.css';
+
+const MainPage = ({
+  children,
+  totalPages,
+  productsResponse,
+}: MainPageProps) => {
   const [searchQuery, setSearchQuery] = useSearchQuery();
-  const { productsResponse, totalPages, isFetching, isSuccess } =
-    useProducts(searchQuery);
-  const outlet = useOutlet();
   const theme = useTheme();
+  const currentSearchPageUrl = useCurrentSearchPageUrl();
 
   const handleSearchFormSubmit = (newSearchQuery: string): void => {
     setSearchQuery(newSearchQuery);
   };
 
-  const isProductsFetched = !isFetching && isSuccess && productsResponse;
-  const hasFetchedProducts =
-    !isFetching && isSuccess && (productsResponse?.products ?? []).length > 0;
+  const { isSearchPageLoading, isDetailsPageLoading } = useIsPageLoading();
 
   return (
-    <div className={`main-page main-page_theme_${theme}`}>
-      <div className="main-page__column">
-        <header className="header">
-          <div className="container header__inner">
+    <div className={`${styles.mainPage} ${styles[`mainPage_theme_${theme}`]}`}>
+      <div className={styles.mainPageColumn}>
+        <header className={styles.header}>
+          <div className={`container ${styles.headerInner}`}>
             <ErrorButton />
             <SearchForm
               initialSearchQuery={searchQuery}
@@ -44,18 +50,30 @@ const MainPage = () => {
             <ThemesComboBox />
           </div>
         </header>
-        <main className="main">
-          <div className="container main__inner">
-            {isProductsFetched && (
-              <ProductsList products={productsResponse.products} />
-            )}
-            {hasFetchedProducts && <Pagination totalPages={totalPages} />}
-            {isFetching && <StatusMessage>Loading...</StatusMessage>}
-            {isProductsFetched && <ProductsFlyout />}
+        <main className={styles.main}>
+          <div className={`container ${styles.mainInner}`}>
+            {isSearchPageLoading ?
+              <StatusMessage>Loading...</StatusMessage>
+            : <>
+                <ProductsList products={productsResponse.products} />
+                <Pagination totalPages={totalPages} />
+                <ProductsFlyout />
+              </>
+            }
           </div>
         </main>
       </div>
-      {outlet && <div className="main-page__column">{outlet}</div>}
+      {children && !isSearchPageLoading && (
+        <div className={styles.mainPageColumn}>{children}</div>
+      )}
+      {isDetailsPageLoading && (
+        <div className={styles.mainPageColumn}>
+          <div className={styles.mainPageLoader}>
+            <StatusMessage>Loading...</StatusMessage>
+          </div>
+          <Link href={currentSearchPageUrl} className={styles.mainPageShadow} />
+        </div>
+      )}
     </div>
   );
 };

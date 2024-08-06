@@ -1,57 +1,65 @@
-import { Link, useParams } from 'react-router-dom';
+import Link from 'next/link';
+import Image from 'next/image';
 
 import { useTheme } from '@/contexts';
 
-import { useDetailedProduct } from '@/hooks';
-
-import { validatePage } from '@/utils/validation';
+import { useCurrentSearchPageUrl, useIsPageLoading } from '@/hooks';
 
 import { StatusMessage } from '@/components';
 
-import '@views/ProductPage/ProductPage.css';
+import { ProductPageProps } from '@views/ProductPage/types';
 
-const ProductPage = () => {
-  const { detailedProduct, isFetching, isSuccess } = useDetailedProduct();
-  const { searchPage } = useParams();
+import styles from '@views/ProductPage/ProductPage.module.css';
+
+const ProductPage = ({ detailedProduct }: ProductPageProps) => {
   const theme = useTheme();
+  const { isDetailsPageLoading, isSearchPageLoading } = useIsPageLoading();
+  const currentSearchPageUrl = useCurrentSearchPageUrl();
 
-  const currentPage = validatePage(searchPage);
-
-  const closeUrl = `/search/${currentPage}`;
-
-  const isFetched = !isFetching && isSuccess && detailedProduct;
-
-  return (
-    <div className={`product-page product-page_theme_${theme}`}>
-      <div className="product-page__content">
-        {isFetched ?
-          <>
-            <h2 className="product-page__title">{detailedProduct.title}</h2>
-            {detailedProduct.images[0] && (
-              <img
-                src={detailedProduct.images[0]}
-                alt={detailedProduct.title}
-                className="product-page__image"
-              />
-            )}
-            <p className="product-page__description">
-              {detailedProduct.description}
-            </p>
-            <p className="product-page__feature">
-              Category: {detailedProduct.category}
-            </p>
-            <p className="product-page__feature">
-              Price: ${detailedProduct.price}
-            </p>
-            <Link to={closeUrl} className="product-page__button">
-              Close
-            </Link>
-          </>
-        : <StatusMessage>Loading...</StatusMessage>}
+  return isSearchPageLoading ? null : (
+      <div
+        className={`${styles.productPage} ${styles[`productPage_theme_${theme}`]}`}
+      >
+        <div className={styles.productPageContent}>
+          {isDetailsPageLoading ?
+            <StatusMessage>Loading...</StatusMessage>
+          : <>
+              <h2 className={styles.productPageTitle}>
+                {detailedProduct.title}
+              </h2>
+              {detailedProduct.images[0] && (
+                <Image
+                  src={detailedProduct.images[0]}
+                  alt={detailedProduct.title}
+                  width={500}
+                  height={500}
+                  className={styles.productPageImage}
+                />
+              )}
+              <p className={styles.productPageDescription}>
+                {detailedProduct.description}
+              </p>
+              <p className={styles.productPageFeature}>
+                Category: {detailedProduct.category}
+              </p>
+              <p className={styles.productPageFeature}>
+                Price: ${detailedProduct.price}
+              </p>
+              <Link
+                href={currentSearchPageUrl}
+                className={styles.productPageButton}
+              >
+                Close
+              </Link>
+            </>
+          }
+        </div>
+        <Link
+          href={currentSearchPageUrl}
+          className={styles.productPageShadow}
+        />
       </div>
-      <Link to={closeUrl} className="product-page__shadow" />
-    </div>
-  );
+    );
 };
 
 export default ProductPage;

@@ -1,4 +1,4 @@
-.products-card {
+.productCard {
   position: relative;
 
   background-color: var(--bg-color-alt);
@@ -8,7 +8,7 @@
   cursor: pointer;
 }
 
-.products-card__link {
+.productCardLink {
   display: inline-block;
   padding: 2.4rem;
 
@@ -16,7 +16,7 @@
   text-decoration: none;
 }
 
-.products-card__title {
+.productCardTitle {
   margin: 0 0 1rem 0;
   padding: 0 0 0 40px;
 
@@ -24,14 +24,14 @@
   line-height: 130%;
 }
 
-.products-card__text {
+.productCardText {
   margin: 0;
 
   font-size: 2.4rem;
   line-height: 150%;
 }
 
-.products-card__checkbox {
+.productCardCheckbox {
   position: absolute;
   top: 28px;
   left: 24px;
@@ -41,12 +41,12 @@
   margin: 0;
 }
 
-.products-card_theme_dark {
+.productCard_theme_dark {
   background-color: var(--dark-bg-color-alt);
 
   box-shadow: 0.4rem 0.4rem 0.8rem var(--dark-bg-color-secondary);
 
-  .products-card__link {
+  .productCardLink {
     color: var(--dark-text-color);
   }
 }

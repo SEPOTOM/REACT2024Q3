@@ -1,38 +1,49 @@
 import { FormEvent, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 
 import { useTheme } from '@/contexts';
 
 import { SearchFormProps } from '@components/SearchForm/types';
 
-import '@components/SearchForm/SearchForm.css';
+import styles from '@components/SearchForm/SearchForm.module.css';
 
 const SearchForm = ({ initialSearchQuery, onFormSubmit }: SearchFormProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const theme = useTheme();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (inputRef.current) {
-      onFormSubmit(inputRef.current.value);
-      navigate('/search/1');
+      const newSearchQuery = inputRef.current.value;
+      const query: NextParsedUrlQuery = {};
+
+      if (newSearchQuery) {
+        query.q = newSearchQuery;
+      }
+
+      onFormSubmit(newSearchQuery);
+      router.push({
+        pathname: '/search/1',
+        query,
+      });
     }
   };
 
   return (
     <form
       onSubmit={handleFormSubmit}
-      className={`search-form search-form_theme_${theme}`}
+      className={`${styles.searchForm} ${styles[`searchForm_theme_${theme}`]}`}
     >
       <input
         type="search"
         defaultValue={initialSearchQuery}
         ref={inputRef}
-        className="search-form__input"
+        className={styles.searchFormInput}
       />
-      <button type="submit" className="search-form__button">
+      <button type="submit" className={styles.searchFormButton}>
         Search
       </button>
     </form>
