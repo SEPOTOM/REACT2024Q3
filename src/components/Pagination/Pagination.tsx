@@ -16,7 +16,7 @@ const Pagination = ({ totalPages }: PaginationProps) => {
   const currentPage = useCurrentPage();
   const searchParams = useSearchParams();
 
-  const searchQuery = searchParams?.get('q') || '';
+  const searchQuery = `?${searchParams?.toString()}`;
 
   const disablePrevious = currentPage === 1;
   const disableNext = currentPage === totalPages;
