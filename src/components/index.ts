@@ -10,6 +10,7 @@ import PaginationButton from '@components/PaginationButton/PaginationButton';
 import ThemesComboBox from '@/components/ThemesComboBox/ThemesComboBox';
 import ProductsFlyout from '@components/ProductsFlyout/ProductsFlyout';
 import SearchHeader from '@components/SearchHeader/SearchHeader';
+import DetailsPageShadow from '@components/DetailsPageShadow/DetailsPageShadow';
 
 export {
   SearchForm,
@@ -24,4 +25,5 @@ export {
   ThemesComboBox,
   ProductsFlyout,
   SearchHeader,
+  DetailsPageShadow,
 };
