@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import {
   productChecked,
@@ -16,7 +17,6 @@ import { useCurrentPage } from '@/hooks';
 import { ProductCardProps } from '@components/ProductCard/types';
 
 import styles from '@components/ProductCard/ProductCard.module.css';
-import { useRouter } from 'next/router';
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const theme = useTheme();
@@ -26,17 +26,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   );
   const [receiveProduct] = useReceiveProductMutation();
   const currentPage = useCurrentPage();
-  const router = useRouter();
-
-  const searchParamsObject: Record<string, string> = {
-    product: String(product.id),
-  };
-
-  if (router.query.q) {
-    searchParamsObject.q = String(router.query.q);
-  }
-
-  const searchParams = new URLSearchParams(searchParamsObject);
+  const searchParams = useSearchParams();
 
   const isChecked = Boolean(checkedProduct);
 
@@ -59,7 +49,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       className={`${styles.productCard} ${styles[`productCard_theme_${theme}`]}`}
     >
       <Link
-        href={`/search/${currentPage}/details?${searchParams.toString()}`}
+        href={`/search/${currentPage}/details?${searchParams?.toString()}`}
         className={styles.productCardLink}
       >
         <h2 className={styles.productCardTitle}>{product.title}</h2>
