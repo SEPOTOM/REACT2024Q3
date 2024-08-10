@@ -1,3 +1,5 @@
+'use client';
+
 import useSearchQuery from '@/hooks/useSearchQuery';
 import useCurrentPage from '@/hooks/useCurrentPage';
 import useIsPageLoading from '@/hooks/useIsPageLoading';
