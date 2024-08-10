@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useTheme } from '@/contexts';
 import { useSearchPageUrl } from '@/hooks';
 
+import { DetailsPageShadow } from '@/components';
 import { ProductPageProps } from '@views/ProductPage/types';
 
 import styles from '@views/ProductPage/ProductPage.module.css';
@@ -42,7 +43,7 @@ const ProductPage = ({ detailedProduct }: ProductPageProps) => {
           Close
         </Link>
       </div>
-      <Link href={searchPageUrl} className={styles.productPageShadow} />
+      <DetailsPageShadow />
     </div>
   );
 };
