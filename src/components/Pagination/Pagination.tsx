@@ -3,12 +3,13 @@
 import { useSearchParams } from 'next/navigation';
 
 import { useTheme } from '@/contexts';
+import { useCurrentPage } from '@/hooks';
 
 import { PaginationButton } from '@/components';
+
 import { PaginationProps } from '@components/Pagination/types';
 
 import styles from '@components/Pagination/Pagination.module.css';
-import { useCurrentPage } from '@/hooks';
 
 const Pagination = ({ totalPages }: PaginationProps) => {
   const theme = useTheme();
