@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 import { useTheme } from '@/contexts';
 
@@ -13,9 +13,9 @@ import { useCurrentPage } from '@/hooks';
 const Pagination = ({ totalPages }: PaginationProps) => {
   const theme = useTheme();
   const currentPage = useCurrentPage();
-  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const searchQuery = router.query.q ? `?q=${router.query.q}` : '';
+  const searchQuery = searchParams?.get('q') || '';
 
   const disablePrevious = currentPage === 1;
   const disableNext = currentPage === totalPages;
