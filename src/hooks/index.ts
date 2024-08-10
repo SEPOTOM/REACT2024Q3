@@ -2,5 +2,6 @@
 
 import useSearchQuery from '@/hooks/useSearchQuery';
 import useCurrentPage from '@/hooks/useCurrentPage';
+import useSearchPageUrl from '@/hooks/useSearchPageUrl';
 
-export { useSearchQuery, useCurrentPage };
+export { useSearchQuery, useCurrentPage, useSearchPageUrl };
