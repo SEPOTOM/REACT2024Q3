@@ -2,7 +2,7 @@ import { getProductsBySearchQuery } from '@services/api';
 
 import { calculateTotalPages } from '@utils/numbers';
 
-import { MainPage } from '@/views';
+import { Pagination, ProductsFlyout, ProductsList } from '@/components';
 
 import { SearchPageProps } from '@app/search/[pageNumber]/types';
 
@@ -18,7 +18,11 @@ const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
   const totalPages = calculateTotalPages(productsResponse);
 
   return (
-    <MainPage productsResponse={productsResponse} totalPages={totalPages} />
+    <>
+      <ProductsList products={productsResponse.products} />
+      <Pagination totalPages={totalPages} />
+      <ProductsFlyout />
+    </>
   );
 };
 
