@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
 
@@ -10,6 +10,7 @@ const useSearchQuery = (): [
 ] => {
   const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const initialSearchQuery = getSearchQuery();
@@ -17,11 +18,11 @@ const useSearchQuery = (): [
     if (initialSearchQuery) {
       setSearchQuery(initialSearchQuery);
 
-      if (router.query.q !== initialSearchQuery) {
+      if (searchParams?.get('q') !== initialSearchQuery) {
         router.replace(`/search/1?q=${initialSearchQuery}`);
       }
     }
-  }, [router]);
+  }, [router, searchParams]);
 
   useEffect(() => {
     saveSearchQuery(searchQuery);
