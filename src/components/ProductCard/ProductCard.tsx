@@ -28,6 +28,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const currentPage = useCurrentPage();
   const searchParams = useSearchParams();
 
+  const customSearchParams = new URLSearchParams(searchParams || {});
+  customSearchParams.append('product', String(product.id));
+
   const isChecked = Boolean(checkedProduct);
 
   const handleChange = async () => {
@@ -49,7 +52,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       className={`${styles.productCard} ${styles[`productCard_theme_${theme}`]}`}
     >
       <Link
-        href={`/search/${currentPage}/details?${searchParams?.toString()}`}
+        href={`/search/${currentPage}/details?${customSearchParams?.toString()}`}
         className={styles.productCardLink}
       >
         <h2 className={styles.productCardTitle}>{product.title}</h2>
