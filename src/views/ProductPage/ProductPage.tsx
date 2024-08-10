@@ -2,10 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 
 import { useTheme } from '@/contexts';
-import { useCurrentPage } from '@/hooks';
+import { useSearchPageUrl } from '@/hooks';
 
 import { ProductPageProps } from '@views/ProductPage/types';
 
@@ -13,14 +12,7 @@ import styles from '@views/ProductPage/ProductPage.module.css';
 
 const ProductPage = ({ detailedProduct }: ProductPageProps) => {
   const theme = useTheme();
-  const currentPage = useCurrentPage();
-  const searchParams = useSearchParams();
-
-  const customSearchParams = new URLSearchParams(searchParams || {});
-  customSearchParams.delete('product');
-  const queryString = customSearchParams.toString();
-
-  const closeUrl = `/search/${currentPage}${queryString ? `?${queryString}` : ''}`;
+  const searchPageUrl = useSearchPageUrl();
 
   return (
     <div
@@ -46,11 +38,11 @@ const ProductPage = ({ detailedProduct }: ProductPageProps) => {
         <p className={styles.productPageFeature}>
           Price: ${detailedProduct.price}
         </p>
-        <Link href={closeUrl} className={styles.productPageButton}>
+        <Link href={searchPageUrl} className={styles.productPageButton}>
           Close
         </Link>
       </div>
-      <Link href={closeUrl} className={styles.productPageShadow} />
+      <Link href={searchPageUrl} className={styles.productPageShadow} />
     </div>
   );
 };
