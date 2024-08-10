@@ -1,12 +1,14 @@
-import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 import { useCurrentPage } from '@/hooks';
 
 const useCurrentSearchPageUrl = () => {
   const currentPage = useCurrentPage();
-  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  return `/search/${currentPage}${router.query.q ? `?q=${router.query.q}` : ''}`;
+  const queryString = searchParams?.toString();
+
+  return `/search/${currentPage}${queryString ? `?${queryString}` : ''}`;
 };
 
 export default useCurrentSearchPageUrl;
