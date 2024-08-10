@@ -1,3 +1,5 @@
+'use client';
+
 import { FormEvent, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
