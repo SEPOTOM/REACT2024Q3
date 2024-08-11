@@ -2,16 +2,10 @@ import { getProductsBySearchQuery } from '@services/api';
 
 import { calculateTotalPages } from '@utils/numbers';
 
-import {
-  Pagination,
-  ProductsFlyout,
-  ProductsList,
-  SearchHeader,
-} from '@/components';
+import { Pagination, ProductsFlyout, ProductsList } from '@/components';
+import { SearchPageColumns } from '@/views';
 
 import { SearchPageProps } from '@app/search/[pageNumber]/types';
-
-import styles from '@views/MainPage/MainPage.module.css';
 
 const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
   const { pageNumber } = params;
@@ -25,16 +19,15 @@ const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
   const totalPages = calculateTotalPages(productsResponse);
 
   return (
-    <div className={styles.mainPageColumn}>
-      <SearchHeader />
-      <main className={styles.main}>
-        <div className={`container ${styles.mainInner}`}>
+    <SearchPageColumns
+      main={
+        <>
           <ProductsList products={productsResponse.products} />
           <Pagination totalPages={totalPages} />
           <ProductsFlyout />
-        </div>
-      </main>
-    </div>
+        </>
+      }
+    />
   );
 };
 
