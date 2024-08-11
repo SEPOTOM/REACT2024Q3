@@ -1,12 +1,14 @@
 'use client';
 
+import { useTheme } from '@/contexts';
 import { useSearchQuery } from '@/hooks';
 
 import { ErrorButton, SearchForm, ThemesComboBox } from '@/components';
 
-import styles from '@views/MainPage/MainPage.module.css';
+import styles from '@components/SearchHeader/SearchHeader.module.css';
 
 const SearchHeader = () => {
+  const theme = useTheme();
   const [searchQuery, setSearchQuery] = useSearchQuery();
 
   const handleSearchFormSubmit = (newSearchQuery: string): void => {
@@ -14,8 +16,10 @@ const SearchHeader = () => {
   };
 
   return (
-    <header className={styles.header}>
-      <div className={`container ${styles.headerInner}`}>
+    <header
+      className={`${styles.searchHeader} ${styles[`searchHeader_theme_${theme}`]}`}
+    >
+      <div className={`container ${styles.searchHeaderInner}`}>
         <ErrorButton />
         <SearchForm
           initialSearchQuery={searchQuery}
