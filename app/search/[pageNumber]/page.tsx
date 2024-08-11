@@ -7,7 +7,7 @@ import { SearchPageColumns } from '@/views';
 
 import { SearchPageProps } from '@app/search/[pageNumber]/types';
 
-const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
+const Page = async ({ params, searchParams }: SearchPageProps) => {
   const { pageNumber } = params;
   const { q } = searchParams;
 
@@ -31,4 +31,4 @@ const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
   );
 };
 
-export default SearchPage;
+export default Page;
