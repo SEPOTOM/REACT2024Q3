@@ -2,17 +2,10 @@ import { getProductById, getProductsBySearchQuery } from '@services/api';
 
 import { calculateTotalPages } from '@utils/numbers';
 
-import { ProductPage } from '@/views';
-import {
-  Pagination,
-  ProductsFlyout,
-  ProductsList,
-  SearchHeader,
-} from '@/components';
+import { Pagination, ProductsFlyout, ProductsList } from '@/components';
+import { ProductPage, SearchPageColumns } from '@/views';
 
 import { DetailsPageProps } from '@app/search/[pageNumber]/details/types';
-
-import styles from '@views/MainPage/MainPage.module.css';
 
 const DetailsPage = async ({ params, searchParams }: DetailsPageProps) => {
   const { pageNumber } = params;
@@ -32,21 +25,16 @@ const DetailsPage = async ({ params, searchParams }: DetailsPageProps) => {
   const totalPages = calculateTotalPages(productsResponse);
 
   return (
-    <>
-      <div className={styles.mainPageColumn}>
-        <SearchHeader />
-        <main className={styles.main}>
-          <div className={`container ${styles.mainInner}`}>
-            <ProductsList products={productsResponse.products} />
-            <Pagination totalPages={totalPages} />
-            <ProductsFlyout />
-          </div>
-        </main>
-      </div>
-      <div className={styles.mainPageColumn}>
-        <ProductPage detailedProduct={detailedProduct} />
-      </div>
-    </>
+    <SearchPageColumns
+      main={
+        <>
+          <ProductsList products={productsResponse.products} />
+          <Pagination totalPages={totalPages} />
+          <ProductsFlyout />
+        </>
+      }
+      aside={<ProductPage detailedProduct={detailedProduct} />}
+    />
   );
 };
 
