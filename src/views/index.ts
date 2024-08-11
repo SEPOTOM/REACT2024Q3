@@ -1,6 +1,6 @@
-import MainPage from '@views/MainPage/MainPage';
+import SearchPage from '@/views/SearchPage/SearchPage';
 import NotFoundPage from '@views/NotFoundPage/NotFoundPage';
 import ProductPage from '@views/ProductPage/ProductPage';
 import SearchPageColumns from '@views/SearchPageColumns/SearchPageColumns';
 
-export { MainPage, NotFoundPage, ProductPage, SearchPageColumns };
+export { SearchPage, NotFoundPage, ProductPage, SearchPageColumns };

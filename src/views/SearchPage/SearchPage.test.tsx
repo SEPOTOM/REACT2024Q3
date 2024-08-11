@@ -8,7 +8,7 @@ import { createFakeRouter } from '@tests/mocks/router';
 
 import { getSearchQuery, saveSearchQuery } from '@utils/localStorage';
 
-import { MainPage } from '@/views';
+import { SearchPage } from '@/views';
 
 beforeAll(() => {
   (useRouter as Mock).mockReturnValue(
@@ -29,7 +29,7 @@ test('MainPage saves the entered search query to the local storage when the Sear
   localStorage.clear();
   const fakeProductsResponse = createFakeProductsResponse(5);
   const { user, getByRole } = renderWithUser(
-    <MainPage productsResponse={fakeProductsResponse} totalPages={1} />,
+    <SearchPage productsResponse={fakeProductsResponse} totalPages={1} />,
   );
 
   await user.type(getByRole('searchbox'), 'Test query');
@@ -44,7 +44,7 @@ test('MainPage retrieves the search query from the local storage upon mounting',
   const fakeProductsResponse = createFakeProductsResponse(15);
 
   const { getByRole } = renderWithUser(
-    <MainPage productsResponse={fakeProductsResponse} totalPages={2} />,
+    <SearchPage productsResponse={fakeProductsResponse} totalPages={2} />,
   );
 
   await waitFor(() => {
@@ -56,7 +56,7 @@ test('Main page has a combobox to change the app theme', async () => {
   const fakeProductsResponse = createFakeProductsResponse(1);
 
   const { findByRole } = renderWithUser(
-    <MainPage productsResponse={fakeProductsResponse} totalPages={1} />,
+    <SearchPage productsResponse={fakeProductsResponse} totalPages={1} />,
   );
 
   expect(await findByRole('combobox', { name: /theme/i })).toBeInTheDocument();

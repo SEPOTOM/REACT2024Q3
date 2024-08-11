@@ -2,9 +2,9 @@
 
 import { Pagination, ProductsFlyout, ProductsList } from '@/components';
 
-import { MainPageProps } from '@views/MainPage/types';
+import { SearchPageProps } from '@/views/SearchPage/types';
 
-const MainPage = ({ totalPages, productsResponse }: MainPageProps) => {
+const SearchPage = ({ totalPages, productsResponse }: SearchPageProps) => {
   return (
     <>
       <ProductsList products={productsResponse.products} />
@@ -14,4 +14,4 @@ const MainPage = ({ totalPages, productsResponse }: MainPageProps) => {
   );
 };
 
-export default MainPage;
+export default SearchPage;
