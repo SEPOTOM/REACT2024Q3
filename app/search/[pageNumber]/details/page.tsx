@@ -2,8 +2,7 @@ import { getProductById, getProductsBySearchQuery } from '@services/api';
 
 import { calculateTotalPages } from '@utils/numbers';
 
-import { Pagination, ProductsFlyout, ProductsList } from '@/components';
-import { ProductPage, SearchPageColumns } from '@/views';
+import { ProductPage, SearchPage, SearchPageColumns } from '@/views';
 
 import { DetailsPageProps } from '@app/search/[pageNumber]/details/types';
 
@@ -27,11 +26,10 @@ const DetailsPage = async ({ params, searchParams }: DetailsPageProps) => {
   return (
     <SearchPageColumns
       main={
-        <>
-          <ProductsList products={productsResponse.products} />
-          <Pagination totalPages={totalPages} />
-          <ProductsFlyout />
-        </>
+        <SearchPage
+          productsResponse={productsResponse}
+          totalPages={totalPages}
+        />
       }
       aside={<ProductPage detailedProduct={detailedProduct} />}
     />
