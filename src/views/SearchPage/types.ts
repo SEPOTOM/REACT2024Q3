@@ -1,9 +1,6 @@
-import { ReactNode } from 'react';
-
 import { SearchProductsResponse } from '@services/types';
 
-export interface MainPageProps {
-  children?: ReactNode;
+export interface SearchPageProps {
   totalPages: number;
   productsResponse: SearchProductsResponse;
 }

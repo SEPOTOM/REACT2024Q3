@@ -1,19 +1,22 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useSearchParams } from 'next/navigation';
 
 import { useTheme } from '@/contexts';
+import { useCurrentPage } from '@/hooks';
 
 import { PaginationButton } from '@/components';
+
 import { PaginationProps } from '@components/Pagination/types';
 
 import styles from '@components/Pagination/Pagination.module.css';
-import { useCurrentPage } from '@/hooks';
 
 const Pagination = ({ totalPages }: PaginationProps) => {
   const theme = useTheme();
   const currentPage = useCurrentPage();
-  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const searchQuery = router.query.q ? `?q=${router.query.q}` : '';
+  const searchQuery = `?${searchParams?.toString()}`;
 
   const disablePrevious = currentPage === 1;
   const disableNext = currentPage === totalPages;

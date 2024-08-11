@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 
 import { validatePage } from '@utils/validation';
 
 const useCurrentPage = () => {
-  const router = useRouter();
+  const params = useParams();
 
-  const { pageNumber } = router.query;
+  const { pageNumber } = params || {};
   const currentPage = validatePage(pageNumber);
 
   return currentPage;

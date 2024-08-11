@@ -1,11 +1,9 @@
 import { renderWithUser } from '@tests/utils';
 
-import { NotFoundPage } from '@/views';
+import NotFound from '@app/not-found';
 
-test('NotFoundPage displays the relevant content', () => {
-  window.history.pushState(null, '', '/unknown/route');
-
-  const { getByRole } = renderWithUser(<NotFoundPage />);
+test('Not found route displays the relevant content', () => {
+  const { getByRole } = renderWithUser(<NotFound />);
 
   expect(
     getByRole('heading', { name: /page was not found/i }),

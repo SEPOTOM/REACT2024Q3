@@ -1,0 +1,31 @@
+.searchPageColumns {
+  flex: 1 1 auto;
+  display: flex;
+  min-height: 100%;
+}
+
+.searchPageColumnsColumn {
+  position: relative;
+
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+
+  background-color: var(--bg-color);
+}
+
+.searchPageColumnsMain {
+  flex: 1 1 auto;
+  padding: 4rem 1.2rem;
+}
+
+.searchPageColumnsMainInner {
+  height: 100%;
+}
+
+.searchPageColumns_theme_dark {
+  .searchPageColumnsColumn {
+    background-color: var(--dark-bg-color);
+  }
+}

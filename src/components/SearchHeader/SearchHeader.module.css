@@ -1,0 +1,15 @@
+.searchHeader {
+  padding: 3rem 1.2rem;
+
+  background-color: var(--bg-color-secondary);
+}
+
+.searchHeaderInner {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
+}
+
+.searchHeader_theme_dark {
+  background-color: var(--dark-bg-color-secondary);
+}

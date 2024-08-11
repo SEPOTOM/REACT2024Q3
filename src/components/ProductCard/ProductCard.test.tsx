@@ -1,34 +1,17 @@
-import type { Mock } from 'vitest';
 import { waitFor } from '@testing-library/react';
-import { useRouter } from 'next/router';
 
 import { renderWithUser } from '@tests/utils';
+
 import {
   createFakeDetailedProduct,
   createFakeProduct,
 } from '@tests/mocks/products';
-import { createFakeRouter } from '@tests/mocks/router';
 
 import * as api from '@store/api/apiSlice';
 
 import { RootState } from '@store/store';
 
 import { ProductCard } from '@/components';
-
-beforeAll(() => {
-  (useRouter as Mock).mockReturnValue(
-    createFakeRouter({
-      pathname: '/search/2',
-      query: { pageNumber: '2' },
-      asPath: '/search/2',
-      route: '/search/[pageNumber]',
-    }),
-  );
-});
-
-afterAll(() => {
-  vi.resetAllMocks();
-});
 
 test('ProductCard renders the relevant card data', () => {
   const fakeProduct = createFakeProduct(1);

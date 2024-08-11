@@ -1,20 +1,12 @@
 import { Mock } from 'vitest';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 
 import { renderWithUser } from '@tests/utils';
-import { createFakeRouter } from '@tests/mocks/router';
 
 import { Pagination } from '@/components';
 
 test('Pagination displays the page number from URL', () => {
-  (useRouter as Mock).mockReturnValue(
-    createFakeRouter({
-      pathname: '/search/2',
-      query: { pageNumber: '2' },
-      asPath: '/search/2',
-      route: '/search/[pageNumber]',
-    }),
-  );
+  (useParams as Mock).mockReturnValueOnce({ pageNumber: '2' });
 
   const { getByRole } = renderWithUser(<Pagination totalPages={5} />);
 

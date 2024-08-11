@@ -1,7 +1,7 @@
 import { NotFoundPage } from '@/views';
 
-const Custom404 = () => {
+const NotFound = () => {
   return <NotFoundPage />;
 };
 
-export default Custom404;
+export default NotFound;

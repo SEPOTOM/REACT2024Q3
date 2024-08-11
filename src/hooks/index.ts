@@ -1,11 +1,7 @@
+'use client';
+
 import useSearchQuery from '@/hooks/useSearchQuery';
 import useCurrentPage from '@/hooks/useCurrentPage';
-import useIsPageLoading from '@/hooks/useIsPageLoading';
-import useCurrentSearchPageUrl from '@/hooks/useCurrentSearchPageUrl';
+import useSearchPageUrl from '@/hooks/useSearchPageUrl';
 
-export {
-  useSearchQuery,
-  useCurrentPage,
-  useIsPageLoading,
-  useCurrentSearchPageUrl,
-};
+export { useSearchQuery, useCurrentPage, useSearchPageUrl };

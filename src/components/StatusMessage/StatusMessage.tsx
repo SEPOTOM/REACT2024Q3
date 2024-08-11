@@ -1,3 +1,5 @@
+'use client';
+
 import { useTheme } from '@/contexts';
 
 import { StatusMessageProps } from '@components/StatusMessage/types';
