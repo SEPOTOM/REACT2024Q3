@@ -71,18 +71,6 @@
   transform: scale(0.9);
 }
 
-.productPageShadow {
-  position: absolute;
-  top: 0;
-  left: -100%;
-  bottom: 0;
-  z-index: 50;
-
-  width: 100%;
-
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 .productPage_theme_dark {
   color: var(--dark-text-color);
 

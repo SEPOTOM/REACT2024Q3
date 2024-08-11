@@ -4,12 +4,12 @@ import Link from 'next/link';
 
 import { useSearchPageUrl } from '@/hooks';
 
-import styles from '@views/ProductPage/ProductPage.module.css';
+import styles from '@components/DetailsPageShadow/DetailsPageShadow.module.css';
 
 const DetailsPageShadow = () => {
   const searchPageUrl = useSearchPageUrl();
 
-  return <Link href={searchPageUrl} className={styles.productPageShadow} />;
+  return <Link href={searchPageUrl} className={styles.detailsPageShadow} />;
 };
 
 export default DetailsPageShadow;
