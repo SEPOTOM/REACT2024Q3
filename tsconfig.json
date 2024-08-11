@@ -43,7 +43,6 @@
       "@utils/*": ["src/utils/*"],
       "@views/*": ["src/views/*"],
       "@tests/*": ["src/__tests__/*"],
-      "@pages/*": ["pages/*"],
       "@app/*": ["app/*"]
     }
   },
@@ -51,7 +50,6 @@
     "./src",
     "./dist/types/**/*.ts",
     "./next-env.d.ts",
-    "./pages",
     "./app",
     ".next/types/**/*.ts"
   ],
