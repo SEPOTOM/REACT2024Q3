@@ -1,18 +1,8 @@
-import { SearchHeader, StatusMessage } from '@/components';
-
-import styles from '@views/MainPage/MainPage.module.css';
+import { StatusMessage } from '@/components';
+import { SearchPageColumns } from '@/views';
 
 const SearchLoading = () => {
-  return (
-    <div className={styles.mainPageColumn}>
-      <SearchHeader />
-      <main className={styles.main}>
-        <div className={`container ${styles.mainInner}`}>
-          <StatusMessage>Loading...</StatusMessage>
-        </div>
-      </main>
-    </div>
-  );
+  return <SearchPageColumns main={<StatusMessage>Loading...</StatusMessage>} />;
 };
 
 export default SearchLoading;
