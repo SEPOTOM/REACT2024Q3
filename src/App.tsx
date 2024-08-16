@@ -9,6 +9,10 @@ const router = createBrowserRouter([
     path: '/controlled',
     element: <div>ControlledForm</div>,
   },
+  {
+    path: '/uncontrolled',
+    element: <div>UncontrolledForm</div>,
+  },
 ]);
 
 function App() {
