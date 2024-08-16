@@ -5,6 +5,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <div>MainPage</div>,
   },
+  {
+    path: '/controlled',
+    element: <div>ControlledForm</div>,
+  },
 ]);
 
 function App() {
