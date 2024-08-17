@@ -1,15 +1,20 @@
 import { useId } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { FormField } from '@/components';
+
+import { FormData, schema } from '@/utils';
 
 import styles from '@views/ControlledForm/ControlledForm.module.css';
 
 const ControlledForm = () => {
   const id = useId();
-  const { handleSubmit } = useForm();
+  const { handleSubmit } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
 
-  const onSubmit: SubmitHandler<object> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
   };
 
