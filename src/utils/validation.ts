@@ -6,6 +6,9 @@ import { selectCountries } from '@store/countries/countriesSlice';
 
 const countries = selectCountries(store.getState());
 
+const HALF_MB = 524288;
+const PICTURE_FORMATS = ['image/jpeg', 'image/png'];
+
 export const schema = yup.object({
   username: yup
     .string()
@@ -49,6 +52,20 @@ export const schema = yup.object({
     .string()
     .required('Country is required')
     .oneOf(countries, 'You must choose a country from the list'),
+  picture: yup
+    .mixed<FileList>()
+    .test('required', 'Picture is required', (value) => value?.length !== 0)
+    .test(
+      'is-less-than-0.5MB',
+      'Picture size should not exceed 0.5MB',
+      (value) => !value || (value[0] && value[0].size <= HALF_MB),
+    )
+    .test(
+      'is-correct-format',
+      'Unsupported format, only PNG and JPEG are allowed',
+      (value) =>
+        !value || (value[0] && PICTURE_FORMATS.includes(value[0].type)),
+    ),
 });
 
 export type FormData = yup.InferType<typeof schema>;
