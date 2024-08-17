@@ -29,6 +29,13 @@ export const schema = yup.object({
     .string()
     .required('Confirm Password is required')
     .oneOf([yup.ref('password')], 'Confirm Passwords must match'),
+  gender: yup
+    .string()
+    .required('Gender is required')
+    .oneOf(
+      ['male', 'female', 'other'],
+      'Gender must be one of: male, female, other',
+    ),
 });
 
 export type FormData = yup.InferType<typeof schema>;
