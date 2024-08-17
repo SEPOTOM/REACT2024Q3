@@ -81,7 +81,7 @@ const ControlledForm = () => {
         </FormField>
         <fieldset className={styles.controlledFormRow}>
           <legend className={styles.controlledFormSubtitle}>Gender</legend>
-          <FormField label="Male" htmlFor={`${id}-male`} horizontal>
+          <FormField label="Male" htmlFor={`${id}-male`} horizontal noError>
             <input
               {...register('gender')}
               type="radio"
@@ -89,7 +89,7 @@ const ControlledForm = () => {
               value={'male'}
             />
           </FormField>
-          <FormField label="Female" htmlFor={`${id}-female`} horizontal>
+          <FormField label="Female" htmlFor={`${id}-female`} horizontal noError>
             <input
               {...register('gender')}
               type="radio"
@@ -97,7 +97,7 @@ const ControlledForm = () => {
               value={'female'}
             />
           </FormField>
-          <FormField label="Other" htmlFor={`${id}-other`} horizontal>
+          <FormField label="Other" htmlFor={`${id}-other`} horizontal noError>
             <input
               {...register('gender')}
               type="radio"
