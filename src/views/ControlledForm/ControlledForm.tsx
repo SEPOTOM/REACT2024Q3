@@ -10,7 +10,11 @@ import styles from '@views/ControlledForm/ControlledForm.module.css';
 
 const ControlledForm = () => {
   const id = useId();
-  const { handleSubmit } = useForm<FormData>({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
 
@@ -25,8 +29,12 @@ const ControlledForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className={styles.controlledFormContent}
       >
-        <FormField label="Username:" htmlFor={`${id}-username`}>
-          <input name="username" type="text" id={`${id}-username`} required />
+        <FormField
+          label="Username:"
+          htmlFor={`${id}-username`}
+          errorMessage={errors.username?.message}
+        >
+          <input {...register('username')} type="text" id={`${id}-username`} />
         </FormField>
         <FormField label="Age:" htmlFor={`${id}-age`}>
           <input name="age" type="number" id={`${id}-age`} required />
