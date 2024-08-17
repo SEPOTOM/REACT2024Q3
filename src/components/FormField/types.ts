@@ -6,4 +6,5 @@ export interface FormFieldProps {
   children: ReactNode;
   errorMessage?: string;
   horizontal?: boolean;
+  noError?: boolean;
 }

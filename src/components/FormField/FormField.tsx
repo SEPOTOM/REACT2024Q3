@@ -10,6 +10,7 @@ const FormField = ({
   children,
   errorMessage,
   horizontal,
+  noError,
 }: FormFieldProps) => {
   return (
     <div className={styles.formField}>
@@ -21,7 +22,7 @@ const FormField = ({
         </label>
         {children}
       </div>
-      <ErrorMessage message={errorMessage} />
+      {!noError && <ErrorMessage message={errorMessage} />}
     </div>
   );
 };
