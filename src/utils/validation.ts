@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import { store } from '@store/store';
 
 import { selectCountries } from '@store/countries/countriesSlice';
+import { Regexps } from '@/consts';
 
 const countries = selectCountries(store.getState());
 
@@ -27,11 +28,17 @@ export const schema = yup.object({
   password: yup
     .string()
     .required('Password is required')
-    .matches(/\d/, 'Password must contain at least one number')
-    .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
-    .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .matches(Regexps.NUMBER, 'Password must contain at least one number')
     .matches(
-      /[@$!%*?&]/,
+      Regexps.LOWERCASE,
+      'Password must contain at least one lowercase letter',
+    )
+    .matches(
+      Regexps.UPPERCASE,
+      'Password must contain at least one uppercase letter',
+    )
+    .matches(
+      Regexps.SPECIAL_SYMBOLS,
       'Password must contain at least one special character - @$!%*?&',
     ),
   confirmPassword: yup
