@@ -4,7 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { ErrorMessage, FormField, PasswordStrength } from '@/components';
 
+import { useAppSelector } from '@/hooks';
+
 import { FormData, schema } from '@/utils';
+import { selectCountries } from '@store/countries/countriesSlice';
 
 import styles from '@views/ControlledForm/ControlledForm.module.css';
 
@@ -19,6 +22,7 @@ const ControlledForm = () => {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
+  const countries = useAppSelector(selectCountries);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
@@ -128,7 +132,17 @@ const ControlledForm = () => {
           htmlFor={`${id}-country`}
           errorMessage={errors.country?.message}
         >
-          <input {...register('country')} type="text" id={`${id}-country`} />
+          <input
+            {...register('country')}
+            type="text"
+            id={`${id}-country`}
+            list={`${id}-countries`}
+          />
+          <datalist id={`${id}-countries`}>
+            {countries.map((country) => (
+              <option value={country} key={country} />
+            ))}
+          </datalist>
         </FormField>
         <button
           type="submit"
