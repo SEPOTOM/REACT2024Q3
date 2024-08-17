@@ -111,8 +111,9 @@ const ControlledForm = () => {
           label="I accept Terms and Conditions agreement"
           htmlFor={`${id}-t&c`}
           horizontal
+          errorMessage={errors['t&c']?.message}
         >
-          <input name="t&c" type="checkbox" id={`${id}-t&c`} required />
+          <input {...register('t&c')} type="checkbox" id={`${id}-t&c`} />
         </FormField>
         <FormField
           label="Select a picture:"
