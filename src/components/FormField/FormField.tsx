@@ -12,13 +12,15 @@ const FormField = ({
   horizontal,
 }: FormFieldProps) => {
   return (
-    <div
-      className={`${styles.formField} ${horizontal && styles.formFieldHorizontal}`}
-    >
-      <label htmlFor={htmlFor} className={styles.formFieldLabel}>
-        {label}
-      </label>
-      {children}
+    <div className={styles.formField}>
+      <div
+        className={`${styles.formField} ${horizontal && styles.formFieldHorizontal}`}
+      >
+        <label htmlFor={htmlFor} className={styles.formFieldLabel}>
+          {label}
+        </label>
+        {children}
+      </div>
       <ErrorMessage message={errorMessage} />
     </div>
   );
