@@ -13,6 +13,7 @@ const ControlledForm = () => {
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
@@ -22,6 +23,11 @@ const ControlledForm = () => {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
   };
+
+  const password = watch('password');
+  const confirmPassword = watch('confirmPassword');
+  const matchError =
+    password !== confirmPassword ? 'Confirm Passwords must match' : '';
 
   return (
     <main className={`container ${styles.controlledForm}`}>
@@ -62,12 +68,15 @@ const ControlledForm = () => {
             id={`${id}-password`}
           />
         </FormField>
-        <FormField label="Confirm password:" htmlFor={`${id}-confirmPassword`}>
+        <FormField
+          label="Confirm password:"
+          htmlFor={`${id}-confirmPassword`}
+          errorMessage={errors.confirmPassword?.message ?? matchError}
+        >
           <input
-            name="confirmPassword"
+            {...register('confirmPassword')}
             type="password"
             id={`${id}-confirmPassword`}
-            required
           />
         </FormField>
         <fieldset className={styles.controlledFormRow}>
