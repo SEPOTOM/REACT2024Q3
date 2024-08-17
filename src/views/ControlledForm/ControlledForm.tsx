@@ -37,8 +37,12 @@ const ControlledForm = () => {
         >
           <input {...register('username')} type="text" id={`${id}-username`} />
         </FormField>
-        <FormField label="Age:" htmlFor={`${id}-age`}>
-          <input name="age" type="number" id={`${id}-age`} required />
+        <FormField
+          label="Age:"
+          htmlFor={`${id}-age`}
+          errorMessage={errors.age?.message}
+        >
+          <input {...register('age')} type="number" id={`${id}-age`} />
         </FormField>
         <FormField label="Email:" htmlFor={`${id}-email`}>
           <input name="email" type="email" id={`${id}-email`} required />
