@@ -1,5 +1,7 @@
 import { FormFieldProps } from '@components/FormField/types';
 
+import styles from '@components/FormField/FormField.module.css';
+
 const FormField = ({
   label,
   htmlFor,
@@ -7,10 +9,12 @@ const FormField = ({
   errorMessage,
 }: FormFieldProps) => {
   return (
-    <div>
-      <label htmlFor={htmlFor}>{label}</label>
+    <div className={styles.formField}>
+      <label htmlFor={htmlFor} className={styles.formFieldLabel}>
+        {label}
+      </label>
       {children}
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p className={styles.formFieldError}>{errorMessage}</p>}
     </div>
   );
 };
