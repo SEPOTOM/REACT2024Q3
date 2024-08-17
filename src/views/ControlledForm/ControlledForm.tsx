@@ -26,8 +26,7 @@ const ControlledForm = () => {
 
   const password = watch('password');
   const confirmPassword = watch('confirmPassword');
-  const matchError =
-    password !== confirmPassword ? 'Confirm Passwords must match' : '';
+  const matchError = password !== confirmPassword ? 'Passwords must match' : '';
 
   return (
     <main className={`container ${styles.controlledForm}`}>

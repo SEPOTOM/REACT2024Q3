@@ -44,7 +44,7 @@ export const schema = yup.object({
   confirmPassword: yup
     .string()
     .required('Confirm Password is required')
-    .oneOf([yup.ref('password')], 'Confirm Passwords must match'),
+    .oneOf([yup.ref('password')], 'Passwords must match'),
   gender: yup
     .string()
     .required('Gender is required')
