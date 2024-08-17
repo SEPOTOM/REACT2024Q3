@@ -16,6 +16,7 @@ const ControlledForm = () => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    mode: 'onChange',
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
