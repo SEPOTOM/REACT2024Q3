@@ -25,6 +25,10 @@ export const schema = yup.object({
       /[@$!%*?&]/,
       'Password must contain at least one special character - @$!%*?&',
     ),
+  confirmPassword: yup
+    .string()
+    .required('Confirm Password is required')
+    .oneOf([yup.ref('password')], 'Confirm Passwords must match'),
 });
 
 export type FormData = yup.InferType<typeof schema>;
