@@ -14,7 +14,7 @@ const FormField = ({
         {label}
       </label>
       {children}
-      {errorMessage && <p className={styles.formFieldError}>{errorMessage}</p>}
+      <p className={styles.formFieldError}>{errorMessage}</p>
     </div>
   );
 };
