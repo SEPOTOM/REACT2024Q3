@@ -83,32 +83,30 @@ const ControlledForm = () => {
           <legend className={styles.controlledFormSubtitle}>Gender</legend>
           <FormField label="Male" htmlFor={`${id}-male`} horizontal>
             <input
-              name="gender"
+              {...register('gender')}
               type="radio"
               id={`${id}-male`}
               value={'male'}
-              required
             />
           </FormField>
           <FormField label="Female" htmlFor={`${id}-female`} horizontal>
             <input
-              name="gender"
+              {...register('gender')}
               type="radio"
               id={`${id}-female`}
               value={'female'}
-              required
             />
           </FormField>
           <FormField label="Other" htmlFor={`${id}-other`} horizontal>
             <input
-              name="gender"
+              {...register('gender')}
               type="radio"
               id={`${id}-other`}
               value={'other'}
-              required
             />
           </FormField>
         </fieldset>
+        <p>{errors.gender?.message}</p>
         <FormField
           label="I accept Terms and Conditions agreement"
           htmlFor={`${id}-t&c`}
