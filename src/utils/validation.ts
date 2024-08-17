@@ -36,6 +36,9 @@ export const schema = yup.object({
       ['male', 'female', 'other'],
       'Gender must be one of: male, female, other',
     ),
+  't&c': yup
+    .boolean()
+    .oneOf([true], 'You must accept Terms and Conditions agreement'),
 });
 
 export type FormData = yup.InferType<typeof schema>;
