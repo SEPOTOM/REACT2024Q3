@@ -38,7 +38,7 @@ const ControlledForm = () => {
         </FormField>
         <fieldset className={styles.controlledFormRow}>
           <legend className={styles.controlledFormSubtitle}>Gender</legend>
-          <FormField label="Male" htmlFor={`${id}-male`}>
+          <FormField label="Male" htmlFor={`${id}-male`} horizontal>
             <input
               type="radio"
               name="gender"
@@ -47,7 +47,7 @@ const ControlledForm = () => {
               required
             />
           </FormField>
-          <FormField label="Female" htmlFor={`${id}-female`}>
+          <FormField label="Female" htmlFor={`${id}-female`} horizontal>
             <input
               type="radio"
               name="gender"
@@ -56,7 +56,7 @@ const ControlledForm = () => {
               required
             />
           </FormField>
-          <FormField label="Other" htmlFor={`${id}-other`}>
+          <FormField label="Other" htmlFor={`${id}-other`} horizontal>
             <input
               type="radio"
               name="gender"
@@ -69,10 +69,15 @@ const ControlledForm = () => {
         <FormField
           label="I accept Terms and Conditions agreement"
           htmlFor={`${id}-t&c`}
+          horizontal
         >
           <input type="checkbox" name="t&c" id={`${id}-t&c`} required />
         </FormField>
-        <FormField label="Select a picture:" htmlFor={`${id}-picture`}>
+        <FormField
+          label="Select a picture:"
+          htmlFor={`${id}-picture`}
+          horizontal
+        >
           <input type="file" name="picture" id={`${id}-picture`} required />
         </FormField>
         <FormField label="Country:" htmlFor={`${id}-country`}>
