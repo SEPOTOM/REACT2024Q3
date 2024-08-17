@@ -122,8 +122,12 @@ const ControlledForm = () => {
         >
           <input name="picture" type="file" id={`${id}-picture`} required />
         </FormField>
-        <FormField label="Country:" htmlFor={`${id}-country`}>
-          <input name="country" type="text" id={`${id}-country`} required />
+        <FormField
+          label="Country:"
+          htmlFor={`${id}-country`}
+          errorMessage={errors.country?.message}
+        >
+          <input {...register('country')} type="text" id={`${id}-country`} />
         </FormField>
         <button type="submit" className={styles.controlledFormButton}>
           Submit
