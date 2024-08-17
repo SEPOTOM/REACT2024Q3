@@ -2,7 +2,7 @@ import { useId } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { FormField } from '@/components';
+import { ErrorMessage, FormField } from '@/components';
 
 import { FormData, schema } from '@/utils';
 
@@ -106,7 +106,7 @@ const ControlledForm = () => {
             />
           </FormField>
         </fieldset>
-        <p>{errors.gender?.message}</p>
+        <ErrorMessage message={errors.gender?.message} />
         <FormField
           label="I accept Terms and Conditions agreement"
           htmlFor={`${id}-t&c`}
