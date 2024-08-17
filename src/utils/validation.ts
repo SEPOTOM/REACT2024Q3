@@ -1,5 +1,11 @@
 import * as yup from 'yup';
 
+import { store } from '@store/store';
+
+import { selectCountries } from '@store/countries/countriesSlice';
+
+const countries = selectCountries(store.getState());
+
 export const schema = yup.object({
   username: yup
     .string()
@@ -39,6 +45,10 @@ export const schema = yup.object({
   't&c': yup
     .boolean()
     .oneOf([true], 'You must accept Terms and Conditions agreement'),
+  country: yup
+    .string()
+    .required('Country is required')
+    .oneOf(countries, 'You must choose a country from the list'),
 });
 
 export type FormData = yup.InferType<typeof schema>;
