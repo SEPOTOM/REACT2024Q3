@@ -11,6 +11,10 @@ export const schema = yup.object({
     .required('Age is required')
     .positive('Age must be a positive number')
     .integer('Age must be an integer'),
+  email: yup
+    .string()
+    .required('Email is required')
+    .email('Invalid email format'),
 });
 
 export type FormData = yup.InferType<typeof schema>;
