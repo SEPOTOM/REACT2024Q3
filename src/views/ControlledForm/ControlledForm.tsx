@@ -14,7 +14,7 @@ const ControlledForm = () => {
     handleSubmit,
     register,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -130,7 +130,11 @@ const ControlledForm = () => {
         >
           <input {...register('country')} type="text" id={`${id}-country`} />
         </FormField>
-        <button type="submit" className={styles.controlledFormButton}>
+        <button
+          type="submit"
+          disabled={!(isValid && matchError === '')}
+          className={styles.controlledFormButton}
+        >
           Submit
         </button>
       </form>
