@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { FormField } from '@/components';
 
@@ -6,32 +7,40 @@ import styles from '@views/ControlledForm/ControlledForm.module.css';
 
 const ControlledForm = () => {
   const id = useId();
+  const { handleSubmit } = useForm();
+
+  const onSubmit: SubmitHandler<object> = (data) => {
+    console.log(data);
+  };
 
   return (
     <main className={`container ${styles.controlledForm}`}>
       <h1 className={styles.controlledFormTitle}>Controlled Form</h1>
-      <form className={styles.controlledFormContent}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.controlledFormContent}
+      >
         <FormField label="Username:" htmlFor={`${id}-username`}>
-          <input type="text" name="username" id={`${id}-username`} required />
+          <input name="username" type="text" id={`${id}-username`} required />
         </FormField>
         <FormField label="Age:" htmlFor={`${id}-age`}>
-          <input type="number" name="age" id={`${id}-age`} required />
+          <input name="age" type="number" id={`${id}-age`} required />
         </FormField>
         <FormField label="Email:" htmlFor={`${id}-email`}>
-          <input type="email" name="email" id={`${id}-email`} required />
+          <input name="email" type="email" id={`${id}-email`} required />
         </FormField>
         <FormField label="Password:" htmlFor={`${id}-password`}>
           <input
-            type="password"
             name="password"
+            type="password"
             id={`${id}-password`}
             required
           />
         </FormField>
         <FormField label="Confirm password:" htmlFor={`${id}-confirmPassword`}>
           <input
-            type="password"
             name="confirmPassword"
+            type="password"
             id={`${id}-confirmPassword`}
             required
           />
@@ -40,8 +49,8 @@ const ControlledForm = () => {
           <legend className={styles.controlledFormSubtitle}>Gender</legend>
           <FormField label="Male" htmlFor={`${id}-male`} horizontal>
             <input
-              type="radio"
               name="gender"
+              type="radio"
               id={`${id}-male`}
               value={'male'}
               required
@@ -49,8 +58,8 @@ const ControlledForm = () => {
           </FormField>
           <FormField label="Female" htmlFor={`${id}-female`} horizontal>
             <input
-              type="radio"
               name="gender"
+              type="radio"
               id={`${id}-female`}
               value={'female'}
               required
@@ -58,8 +67,8 @@ const ControlledForm = () => {
           </FormField>
           <FormField label="Other" htmlFor={`${id}-other`} horizontal>
             <input
-              type="radio"
               name="gender"
+              type="radio"
               id={`${id}-other`}
               value={'other'}
               required
@@ -71,17 +80,17 @@ const ControlledForm = () => {
           htmlFor={`${id}-t&c`}
           horizontal
         >
-          <input type="checkbox" name="t&c" id={`${id}-t&c`} required />
+          <input name="t&c" type="checkbox" id={`${id}-t&c`} required />
         </FormField>
         <FormField
           label="Select a picture:"
           htmlFor={`${id}-picture`}
           horizontal
         >
-          <input type="file" name="picture" id={`${id}-picture`} required />
+          <input name="picture" type="file" id={`${id}-picture`} required />
         </FormField>
         <FormField label="Country:" htmlFor={`${id}-country`}>
-          <input type="text" name="country" id={`${id}-country`} required />
+          <input name="country" type="text" id={`${id}-country`} required />
         </FormField>
         <button type="submit" className={styles.controlledFormButton}>
           Submit
