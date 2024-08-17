@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 
 import { store } from '@store/store';
 
+import { ControlledForm } from '@/views';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -10,7 +12,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/controlled',
-    element: <div>ControlledForm</div>,
+    element: <ControlledForm />,
   },
   {
     path: '/uncontrolled',
