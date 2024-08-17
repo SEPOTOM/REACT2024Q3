@@ -2,7 +2,7 @@ import { useId } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { ErrorMessage, FormField } from '@/components';
+import { ErrorMessage, FormField, PasswordStrength } from '@/components';
 
 import { FormData, schema } from '@/utils';
 
@@ -67,6 +67,7 @@ const ControlledForm = () => {
             type="password"
             id={`${id}-password`}
           />
+          <PasswordStrength password={password} />
         </FormField>
         <FormField
           label="Confirm password:"
