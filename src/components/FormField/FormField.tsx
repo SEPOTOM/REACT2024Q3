@@ -7,9 +7,12 @@ const FormField = ({
   htmlFor,
   children,
   errorMessage,
+  horizontal,
 }: FormFieldProps) => {
   return (
-    <div className={styles.formField}>
+    <div
+      className={`${styles.formField} ${horizontal && styles.formFieldHorizontal}`}
+    >
       <label htmlFor={htmlFor} className={styles.formFieldLabel}>
         {label}
       </label>
