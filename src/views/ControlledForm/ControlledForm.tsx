@@ -119,8 +119,9 @@ const ControlledForm = () => {
           label="Select a picture:"
           htmlFor={`${id}-picture`}
           horizontal
+          errorMessage={errors.picture?.message}
         >
-          <input name="picture" type="file" id={`${id}-picture`} required />
+          <input {...register('picture')} type="file" id={`${id}-picture`} />
         </FormField>
         <FormField
           label="Country:"
