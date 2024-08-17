@@ -51,12 +51,15 @@ const ControlledForm = () => {
         >
           <input {...register('email')} type="email" id={`${id}-email`} />
         </FormField>
-        <FormField label="Password:" htmlFor={`${id}-password`}>
+        <FormField
+          label="Password:"
+          htmlFor={`${id}-password`}
+          errorMessage={errors.password?.message}
+        >
           <input
-            name="password"
+            {...register('password')}
             type="password"
             id={`${id}-password`}
-            required
           />
         </FormField>
         <FormField label="Confirm password:" htmlFor={`${id}-confirmPassword`}>
