@@ -1,0 +1,38 @@
+.controlledForm {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.controlledFormTitle {
+  margin: 0 0 2rem 0;
+
+  font-size: 5rem;
+  line-height: 120%;
+}
+
+.controlledFormContent {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.6rem;
+}
+
+.controlledFormRow {
+  display: flex;
+  align-items: center;
+  column-gap: 2rem;
+}
+
+.controlledFormSubtitle {
+  font-size: 3rem;
+  line-height: 130%;
+}
+
+.controlledFormButton {
+  font-size: 2.6rem;
+  line-height: 130%;
+
+  cursor: pointer;
+}

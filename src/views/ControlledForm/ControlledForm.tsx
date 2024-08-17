@@ -2,13 +2,15 @@ import { useId } from 'react';
 
 import { FormField } from '@/components';
 
+import styles from '@views/ControlledForm/ControlledForm.module.css';
+
 const ControlledForm = () => {
   const id = useId();
 
   return (
-    <main>
-      <h1>Controlled Form</h1>
-      <form>
+    <main className={`container ${styles.controlledForm}`}>
+      <h1 className={styles.controlledFormTitle}>Controlled Form</h1>
+      <form className={styles.controlledFormContent}>
         <FormField label="Username:" htmlFor={`${id}-username`}>
           <input type="text" name="username" id={`${id}-username`} required />
         </FormField>
@@ -34,8 +36,8 @@ const ControlledForm = () => {
             required
           />
         </FormField>
-        <fieldset>
-          <legend>Gender</legend>
+        <fieldset className={styles.controlledFormRow}>
+          <legend className={styles.controlledFormSubtitle}>Gender</legend>
           <FormField label="Male" htmlFor={`${id}-male`}>
             <input
               type="radio"
@@ -76,7 +78,9 @@ const ControlledForm = () => {
         <FormField label="Country:" htmlFor={`${id}-country`}>
           <input type="text" name="country" id={`${id}-country`} required />
         </FormField>
-        <button type="submit">Submit</button>
+        <button type="submit" className={styles.controlledFormButton}>
+          Submit
+        </button>
       </form>
     </main>
   );
