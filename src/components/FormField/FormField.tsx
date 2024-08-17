@@ -1,3 +1,5 @@
+import { ErrorMessage } from '@/components';
+
 import { FormFieldProps } from '@components/FormField/types';
 
 import styles from '@components/FormField/FormField.module.css';
@@ -17,7 +19,7 @@ const FormField = ({
         {label}
       </label>
       {children}
-      <p className={styles.formFieldError}>{errorMessage}</p>
+      <ErrorMessage message={errorMessage} />
     </div>
   );
 };
