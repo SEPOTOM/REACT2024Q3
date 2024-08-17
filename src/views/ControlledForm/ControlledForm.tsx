@@ -44,8 +44,12 @@ const ControlledForm = () => {
         >
           <input {...register('age')} type="number" id={`${id}-age`} />
         </FormField>
-        <FormField label="Email:" htmlFor={`${id}-email`}>
-          <input name="email" type="email" id={`${id}-email`} required />
+        <FormField
+          label="Email:"
+          htmlFor={`${id}-email`}
+          errorMessage={errors.email?.message}
+        >
+          <input {...register('email')} type="email" id={`${id}-email`} />
         </FormField>
         <FormField label="Password:" htmlFor={`${id}-password`}>
           <input
