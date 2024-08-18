@@ -1,4 +1,4 @@
-.controlledForm {
+.form {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -6,32 +6,32 @@
   align-items: center;
 }
 
-.controlledFormTitle {
+.title {
   margin: 0 0 2rem 0;
 
   font-size: 5rem;
   line-height: 120%;
 }
 
-.controlledFormContent {
+.content {
   display: flex;
   flex-direction: column;
   row-gap: 1.6rem;
 }
 
-.controlledFormRow {
+.row {
   display: flex;
   align-items: center;
   column-gap: 2rem;
   margin-bottom: -0.6rem;
 }
 
-.controlledFormSubtitle {
+.subtitle {
   font-size: 3rem;
   line-height: 130%;
 }
 
-.controlledFormButton {
+.button {
   font-size: 2.6rem;
   line-height: 130%;
 

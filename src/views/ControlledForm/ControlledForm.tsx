@@ -19,7 +19,7 @@ import {
 } from '@/utils';
 import { addControlledFormEntry } from '@store/formsEntries/formsEntriesSlice';
 
-import styles from '@views/ControlledForm/ControlledForm.module.css';
+import styles from '@/styles/Form.module.css';
 
 const ControlledForm = () => {
   const id = useId();
@@ -46,12 +46,9 @@ const ControlledForm = () => {
   const matchError = password !== confirmPassword ? 'Passwords must match' : '';
 
   return (
-    <main className={`container ${styles.controlledForm}`}>
-      <h1 className={styles.controlledFormTitle}>Controlled Form</h1>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className={styles.controlledFormContent}
-      >
+    <main className={`container ${styles.form}`}>
+      <h1 className={styles.title}>Controlled Form</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.content}>
         <FormField
           label="Username:"
           htmlFor={`${id}-username`}
@@ -96,8 +93,8 @@ const ControlledForm = () => {
             id={`${id}-confirmPassword`}
           />
         </FormField>
-        <fieldset className={styles.controlledFormRow}>
-          <legend className={styles.controlledFormSubtitle}>Gender</legend>
+        <fieldset className={styles.row}>
+          <legend className={styles.subtitle}>Gender</legend>
           <FormField label="Male" htmlFor={`${id}-male`} horizontal noError>
             <input
               {...register('gender')}
@@ -156,7 +153,7 @@ const ControlledForm = () => {
         <button
           type="submit"
           disabled={!(isValid && matchError === '')}
-          className={styles.controlledFormButton}
+          className={styles.button}
         >
           Submit
         </button>

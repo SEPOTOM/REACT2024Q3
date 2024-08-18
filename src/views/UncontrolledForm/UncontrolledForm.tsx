@@ -18,7 +18,7 @@ import {
 } from '@/utils';
 import { addUncontrolledFormEntry } from '@store/formsEntries/formsEntriesSlice';
 
-import styles from '@views/ControlledForm/ControlledForm.module.css';
+import styles from '@/styles/Form.module.css';
 
 const UncontrolledForm = () => {
   const id = useId();
@@ -72,9 +72,9 @@ const UncontrolledForm = () => {
   };
 
   return (
-    <main className={`container ${styles.controlledForm}`}>
-      <h1 className={styles.controlledFormTitle}>Uncontrolled Form</h1>
-      <form onSubmit={handleSubmit} className={styles.controlledFormContent}>
+    <main className={`container ${styles.form}`}>
+      <h1 className={styles.title}>Uncontrolled Form</h1>
+      <form onSubmit={handleSubmit} className={styles.content}>
         <FormField
           label="Username:"
           htmlFor={`${id}-username`}
@@ -116,8 +116,8 @@ const UncontrolledForm = () => {
             id={`${id}-confirmPassword`}
           />
         </FormField>
-        <fieldset className={styles.controlledFormRow}>
-          <legend className={styles.controlledFormSubtitle}>Gender</legend>
+        <fieldset className={styles.row}>
+          <legend className={styles.subtitle}>Gender</legend>
           <FormField label="Male" htmlFor={`${id}-male`} horizontal noError>
             <input
               name="gender"
@@ -173,7 +173,7 @@ const UncontrolledForm = () => {
           />
           <CountriesDatalist id={`${id}-countries`} />
         </FormField>
-        <button type="submit" className={styles.controlledFormButton}>
+        <button type="submit" className={styles.button}>
           Submit
         </button>
       </form>
