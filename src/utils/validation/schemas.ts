@@ -1,50 +1,20 @@
 import * as yup from 'yup';
 
-import { store } from '@store/store';
+import { store } from '@/store/store';
 
 import { selectCountries } from '@store/countries/countriesSlice';
+
+import {
+  ControlledFormData,
+  CustomFormData,
+  Genders,
+  UncontrolledFormData,
+} from '@utils/validation/types';
+
 import { Regexps } from '@/consts';
+import { HALF_MB, PICTURE_FORMATS } from '@/utils/validation/consts';
 
 const countries = selectCountries(store.getState());
-
-const HALF_MB = 524288;
-const PICTURE_FORMATS = ['image/jpeg', 'image/png'];
-
-enum Genders {
-  MALE = 'male',
-  FEMALE = 'female',
-  OTHER = 'other',
-}
-export interface CustomFormData {
-  username: string;
-  age: number;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  gender: Genders;
-  't&c': boolean;
-  country: (typeof countries)[number];
-}
-
-export interface ControlledFormData extends CustomFormData {
-  picture: FileList;
-}
-
-export interface UncontrolledFormData extends CustomFormData {
-  picture: File;
-}
-
-export interface FormErrors {
-  username: string;
-  age: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  gender: string;
-  't&c': string;
-  country: string;
-  picture: string;
-}
 
 export const schema: yup.ObjectSchema<CustomFormData> = yup.object({
   username: yup
@@ -139,48 +109,3 @@ export const uncontrolledFormSchema: yup.ObjectSchema<UncontrolledFormData> =
         ),
     })
     .concat(schema);
-
-export const validateForm = async (
-  formData: FormData,
-): Promise<{
-  errors: FormErrors;
-  isValid: boolean;
-}> => {
-  const errors: FormErrors = {
-    username: '',
-    age: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    country: '',
-    't&c': '',
-    picture: '',
-    gender: '',
-  };
-  let isValid = true;
-
-  const formDataObject = Object.fromEntries(formData.entries());
-
-  try {
-    await uncontrolledFormSchema.validate(formDataObject, {
-      abortEarly: false,
-    });
-  } catch (err) {
-    if (err instanceof yup.ValidationError) {
-      isValid = false;
-
-      err.inner.forEach((error) => {
-        if (error.path) {
-          errors[error.path as keyof FormErrors] = error.message;
-        }
-      });
-    } else {
-      throw err;
-    }
-  }
-
-  return {
-    isValid,
-    errors,
-  };
-};

@@ -6,7 +6,7 @@ import {
   controlledFormSchema,
   ControlledFormData,
   UncontrolledFormData,
-} from '@utils/validation';
+} from '@utils/validation/index';
 import { formDataToFormEntry } from '@utils/converters';
 
 export { schema, formDataToFormEntry, validateForm, controlledFormSchema };
