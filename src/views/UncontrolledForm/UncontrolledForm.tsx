@@ -102,7 +102,7 @@ const UncontrolledForm = () => {
         >
           <input
             name="email"
-            type="email"
+            type="text"
             id={`${id}-email`}
             className={styles.textField}
           />
