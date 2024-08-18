@@ -9,36 +9,48 @@ import {
   selectUncontrolledFormEntries,
 } from '@store/formsEntries/formsEntriesSlice';
 
+import styles from '@views/MainPage/MainPage.module.css';
+
 const MainPage = () => {
   const controlledFormEntries = useAppSelector(selectControlledFormEntries);
   const uncontrolledFormEntries = useAppSelector(selectUncontrolledFormEntries);
 
   return (
     <div>
-      <header>
+      <header className={styles.header}>
         <nav>
-          <ul>
+          <ul className={styles.navList}>
             <li>
-              <Link to="/controlled">Controlled Form</Link>
+              <Link to="/controlled" className={styles.navLink}>
+                Controlled Form
+              </Link>
             </li>
             <li>
-              <Link to="/uncontrolled">Uncontrolled Form</Link>
+              <Link to="/uncontrolled" className={styles.navLink}>
+                Uncontrolled Form
+              </Link>
             </li>
           </ul>
         </nav>
       </header>
-      <main>
-        <section>
-          <h2>Controlled Form Entries</h2>
+      <main className={styles.main}>
+        <section className={styles.mainColumn}>
+          <h2 className={styles.title}>Controlled Form Entries</h2>
           {controlledFormEntries.length > 0 ?
             <EntriesList entries={controlledFormEntries} />
-          : <p>Controlled Form Entries do not exist yet...</p>}
+          : <p className={styles.text}>
+              Controlled Form Entries do not exist yet...
+            </p>
+          }
         </section>
-        <section>
-          <h2>Uncontrolled Form Entries</h2>
+        <section className={styles.mainColumn}>
+          <h2 className={styles.title}>Uncontrolled Form Entries</h2>
           {uncontrolledFormEntries.length > 0 ?
             <EntriesList entries={uncontrolledFormEntries} />
-          : <p>Uncontrolled Form Entries do not exist yet...</p>}
+          : <p className={styles.text}>
+              Uncontrolled Form Entries do not exist yet...
+            </p>
+          }
         </section>
       </main>
     </div>

@@ -1,0 +1,53 @@
+.header {
+  padding: 2rem;
+
+  border-bottom: 2px solid black;
+}
+
+.navList {
+  display: flex;
+  justify-content: center;
+  column-gap: 2rem;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.navLink {
+  font-size: 3rem;
+  line-height: 130%;
+}
+
+.navLink:hover {
+  text-decoration: none;
+}
+
+.main {
+  display: flex;
+  padding: 2rem;
+}
+
+.mainColumn {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  padding: 0 2rem;
+}
+
+.title {
+  margin: 0 0 2rem 0;
+
+  font-size: 4rem;
+  line-height: 120%;
+}
+
+.text {
+  margin: 0;
+
+  font-size: 2.6rem;
+  line-height: 130%;
+  font-style: italic;
+}
