@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useId, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   CountriesDatalist,
@@ -7,7 +8,15 @@ import {
   PasswordStrength,
 } from '@/components';
 
-import { FormErrors, validateForm } from '@/utils';
+import { useAppDispatch } from '@/hooks';
+
+import {
+  FormErrors,
+  UncontrolledFormData,
+  formDataToFormEntry,
+  validateForm,
+} from '@/utils';
+import { addUncontrolledFormEntry } from '@store/formsEntries/formsEntriesSlice';
 
 import styles from '@views/ControlledForm/ControlledForm.module.css';
 
@@ -26,6 +35,8 @@ const UncontrolledForm = () => {
   });
   const [password, setPassword] = useState('');
   const passwordRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -44,9 +55,19 @@ const UncontrolledForm = () => {
 
     if (e.target instanceof HTMLFormElement) {
       const formData = new FormData(e.target);
-      const { errors } = await validateForm(formData);
+      const { errors, isValid } = await validateForm(formData);
 
-      setErrors(errors);
+      if (isValid) {
+        const formDataObject = Object.fromEntries(
+          formData.entries(),
+        ) as unknown as UncontrolledFormData;
+        const formEntry = await formDataToFormEntry(formDataObject);
+
+        dispatch(addUncontrolledFormEntry(formEntry));
+        navigate('/');
+      } else {
+        setErrors(errors);
+      }
     }
   };
 
