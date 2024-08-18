@@ -254,6 +254,8 @@ const initialState = [
   'Åland Islands',
 ] as const;
 
+export type Countries = typeof initialState;
+
 const countriesSlice = createSlice({
   name: 'countries',
   initialState,
