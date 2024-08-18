@@ -4,10 +4,14 @@ import { EntriesList } from '@/components';
 
 import { useAppSelector } from '@/hooks';
 
-import { selectControlledFormEntries } from '@store/formsEntries/formsEntriesSlice';
+import {
+  selectControlledFormEntries,
+  selectUncontrolledFormEntries,
+} from '@store/formsEntries/formsEntriesSlice';
 
 const MainPage = () => {
   const controlledFormEntries = useAppSelector(selectControlledFormEntries);
+  const uncontrolledFormEntries = useAppSelector(selectUncontrolledFormEntries);
 
   return (
     <div>
@@ -29,6 +33,12 @@ const MainPage = () => {
           {controlledFormEntries.length > 0 ?
             <EntriesList entries={controlledFormEntries} />
           : <p>Controlled Form Entries do not exist yet...</p>}
+        </section>
+        <section>
+          <h2>Uncontrolled Form Entries</h2>
+          {uncontrolledFormEntries.length > 0 ?
+            <EntriesList entries={uncontrolledFormEntries} />
+          : <p>Uncontrolled Form Entries do not exist yet...</p>}
         </section>
       </main>
     </div>
