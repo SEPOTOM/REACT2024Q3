@@ -1,34 +1,69 @@
-import { FormEvent, useId } from 'react';
+import { FormEvent, useId, useState } from 'react';
 
-import { CountriesDatalist, FormField } from '@/components';
+import { CountriesDatalist, ErrorMessage, FormField } from '@/components';
+
+import { FormErrors, validateForm } from '@/utils';
 
 import styles from '@views/ControlledForm/ControlledForm.module.css';
 
 const UncontrolledForm = () => {
   const id = useId();
+  const [errors, setErrors] = useState<FormErrors>({
+    username: '',
+    age: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    country: '',
+    't&c': '',
+    picture: '',
+    gender: '',
+  });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(e);
+
+    if (e.target instanceof HTMLFormElement) {
+      const formData = new FormData(e.target);
+      const { errors } = await validateForm(formData);
+
+      setErrors(errors);
+    }
   };
 
   return (
     <main className={`container ${styles.controlledForm}`}>
       <h1 className={styles.controlledFormTitle}>Uncontrolled Form</h1>
       <form onSubmit={handleSubmit} className={styles.controlledFormContent}>
-        <FormField label="Username:" htmlFor={`${id}-username`}>
+        <FormField
+          label="Username:"
+          htmlFor={`${id}-username`}
+          errorMessage={errors.username}
+        >
           <input name="username" type="text" id={`${id}-username`} />
         </FormField>
-        <FormField label="Age:" htmlFor={`${id}-age`}>
+        <FormField label="Age:" htmlFor={`${id}-age`} errorMessage={errors.age}>
           <input name="age" type="number" id={`${id}-age`} />
         </FormField>
-        <FormField label="Email:" htmlFor={`${id}-email`}>
+        <FormField
+          label="Email:"
+          htmlFor={`${id}-email`}
+          errorMessage={errors.email}
+        >
           <input name="email" type="email" id={`${id}-email`} />
         </FormField>
-        <FormField label="Password:" htmlFor={`${id}-password`}>
+        <FormField
+          label="Password:"
+          htmlFor={`${id}-password`}
+          errorMessage={errors.password}
+        >
           <input name="password" type="password" id={`${id}-password`} />
         </FormField>
-        <FormField label="Confirm password:" htmlFor={`${id}-confirmPassword`}>
+        <FormField
+          label="Confirm password:"
+          htmlFor={`${id}-confirmPassword`}
+          errorMessage={errors.confirmPassword}
+        >
           <input
             name="confirmPassword"
             type="password"
@@ -62,10 +97,12 @@ const UncontrolledForm = () => {
             />
           </FormField>
         </fieldset>
+        <ErrorMessage message={errors.gender} />
         <FormField
           label="I accept Terms and Conditions agreement"
           htmlFor={`${id}-t&c`}
           horizontal
+          errorMessage={errors['t&c']}
         >
           <input name="t&c" type="checkbox" id={`${id}-t&c`} />
         </FormField>
@@ -73,10 +110,15 @@ const UncontrolledForm = () => {
           label="Select a picture:"
           htmlFor={`${id}-picture`}
           horizontal
+          errorMessage={errors.picture}
         >
           <input name="picture" type="file" id={`${id}-picture`} />
         </FormField>
-        <FormField label="Country:" htmlFor={`${id}-country`}>
+        <FormField
+          label="Country:"
+          htmlFor={`${id}-country`}
+          errorMessage={errors.country}
+        >
           <input
             name="country"
             type="text"
