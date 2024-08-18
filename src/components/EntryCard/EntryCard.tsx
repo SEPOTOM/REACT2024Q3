@@ -13,10 +13,11 @@ const EntryCard = ({ entry }: EntryCardProps) => {
     't&c': isTermsAccepted,
     country,
     picture,
+    isNew,
   } = entry;
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${isNew ? styles.cardNew : ''}`}>
       <div className={styles.cardColumn}>
         <p className={styles.text}>
           <span className={styles.label}>Username:</span> {username}

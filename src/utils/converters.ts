@@ -16,5 +16,6 @@ export const formDataToFormEntry = async (
         resolve(typeof reader.result === 'string' ? reader.result : '');
       };
     }),
+    isNew: true,
   };
 };

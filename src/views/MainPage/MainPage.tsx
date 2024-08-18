@@ -2,18 +2,31 @@ import { Link } from 'react-router-dom';
 
 import { EntriesList } from '@/components';
 
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import {
+  markEntriesAsOld,
   selectControlledFormEntries,
   selectUncontrolledFormEntries,
 } from '@store/formsEntries/formsEntriesSlice';
 
 import styles from '@views/MainPage/MainPage.module.css';
+import { useEffect } from 'react';
 
 const MainPage = () => {
   const controlledFormEntries = useAppSelector(selectControlledFormEntries);
   const uncontrolledFormEntries = useAppSelector(selectUncontrolledFormEntries);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    console.log(1);
+    const timeoutId = setTimeout(() => {
+      console.log(2);
+      dispatch(markEntriesAsOld());
+    }, 2000);
+
+    return () => clearTimeout(timeoutId);
+  }, [dispatch]);
 
   return (
     <div>

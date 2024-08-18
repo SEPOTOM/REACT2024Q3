@@ -115,12 +115,8 @@ export const controlledFormSchema: yup.ObjectSchema<ControlledFormData> = yup
       .test(
         'is-correct-format',
         'Unsupported format, only PNG and JPEG are allowed',
-        (value) => {
-          console.log(value);
-          return (
-            !value || (value[0] && PICTURE_FORMATS.includes(value[0].type))
-          );
-        },
+        (value) =>
+          !value || (value[0] && PICTURE_FORMATS.includes(value[0].type)),
       ),
   })
   .concat(schema);

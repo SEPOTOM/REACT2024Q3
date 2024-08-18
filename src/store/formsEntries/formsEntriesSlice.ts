@@ -19,13 +19,20 @@ const formsEntriesSlice = createSlice({
     addUncontrolledFormEntry: (state, action: PayloadAction<FormEntry>) => {
       state.uncontrolledFormEntries.unshift(action.payload);
     },
+    markEntriesAsOld: (state) => {
+      state.controlledFormEntries.forEach((entry) => (entry.isNew = false));
+      state.uncontrolledFormEntries.forEach((entry) => (entry.isNew = false));
+    },
   },
 });
 
 export default formsEntriesSlice.reducer;
 
-export const { addControlledFormEntry, addUncontrolledFormEntry } =
-  formsEntriesSlice.actions;
+export const {
+  addControlledFormEntry,
+  addUncontrolledFormEntry,
+  markEntriesAsOld,
+} = formsEntriesSlice.actions;
 
 export const selectControlledFormEntries = (state: RootState) =>
   state.formsEntries.controlledFormEntries;
