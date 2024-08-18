@@ -27,6 +27,18 @@ export interface CustomFormData {
   picture: FileList;
 }
 
+export interface FormErrors {
+  username: string;
+  age: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  gender: string;
+  't&c': string;
+  country: string;
+  picture: string;
+}
+
 export const schema: yup.ObjectSchema<CustomFormData> = yup.object({
   username: yup
     .string()
@@ -93,3 +105,46 @@ export const schema: yup.ObjectSchema<CustomFormData> = yup.object({
         !value || (value[0] && PICTURE_FORMATS.includes(value[0].type)),
     ),
 });
+
+export const validateForm = async (
+  formData: FormData,
+): Promise<{
+  errors: FormErrors;
+  isValid: boolean;
+}> => {
+  const errors: FormErrors = {
+    username: '',
+    age: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    country: '',
+    't&c': '',
+    picture: '',
+    gender: '',
+  };
+  let isValid = true;
+
+  const formDataObject = Object.fromEntries(formData.entries());
+
+  try {
+    await schema.validate(formDataObject, { abortEarly: false });
+  } catch (err) {
+    if (err instanceof yup.ValidationError) {
+      isValid = false;
+
+      err.inner.forEach((error) => {
+        if (error.path) {
+          errors[error.path as keyof FormErrors] = error.message;
+        }
+      });
+    } else {
+      throw err;
+    }
+  }
+
+  return {
+    isValid,
+    errors,
+  };
+};

@@ -1,5 +1,10 @@
-import { schema, CustomFormData } from '@utils/validation';
+import {
+  schema,
+  CustomFormData,
+  validateForm,
+  FormErrors,
+} from '@utils/validation';
 import { formDataToFormEntry } from '@utils/converters';
 
-export { schema, formDataToFormEntry };
-export type { CustomFormData };
+export { schema, formDataToFormEntry, validateForm };
+export type { CustomFormData, FormErrors };
