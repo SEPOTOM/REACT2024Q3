@@ -3,12 +3,12 @@ import { Provider } from 'react-redux';
 
 import { store } from '@store/store';
 
-import { ControlledForm } from '@/views';
+import { ControlledForm, MainPage } from '@/views';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>MainPage</div>,
+    element: <MainPage />,
   },
   {
     path: '/controlled',
