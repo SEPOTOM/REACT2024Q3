@@ -15,7 +15,7 @@ enum Genders {
   FEMALE = 'female',
   OTHER = 'other',
 }
-export interface FormData {
+export interface CustomFormData {
   username: string;
   age: number;
   email: string;
@@ -27,7 +27,7 @@ export interface FormData {
   picture: FileList;
 }
 
-export const schema: yup.ObjectSchema<FormData> = yup.object({
+export const schema: yup.ObjectSchema<CustomFormData> = yup.object({
   username: yup
     .string()
     .required('Username is required')
