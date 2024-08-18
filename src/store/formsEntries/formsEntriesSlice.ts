@@ -29,3 +29,5 @@ export const { addControlledFormEntry, addUncontrolledFormEntry } =
 
 export const selectControlledFormEntries = (state: RootState) =>
   state.formsEntries.controlledFormEntries;
+export const selectUncontrolledFormEntries = (state: RootState) =>
+  state.formsEntries.uncontrolledFormEntries;
