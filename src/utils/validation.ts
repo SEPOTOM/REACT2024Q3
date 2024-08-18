@@ -10,7 +10,24 @@ const countries = selectCountries(store.getState());
 const HALF_MB = 524288;
 const PICTURE_FORMATS = ['image/jpeg', 'image/png'];
 
-export const schema = yup.object({
+enum Genders {
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
+}
+export interface FormData {
+  username: string;
+  age: number;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  gender: Genders;
+  't&c': boolean;
+  country: (typeof countries)[number];
+  picture: FileList;
+}
+
+export const schema: yup.ObjectSchema<FormData> = yup.object({
   username: yup
     .string()
     .required('Username is required')
@@ -49,11 +66,12 @@ export const schema = yup.object({
     .string()
     .required('Gender is required')
     .oneOf(
-      ['male', 'female', 'other'],
+      Object.values(Genders),
       'Gender must be one of: male, female, other',
     ),
   't&c': yup
     .boolean()
+    .required('You must accept Terms and Conditions agreement')
     .oneOf([true], 'You must accept Terms and Conditions agreement'),
   country: yup
     .string()
@@ -61,6 +79,7 @@ export const schema = yup.object({
     .oneOf(countries, 'You must choose a country from the list'),
   picture: yup
     .mixed<FileList>()
+    .required('Picture is required')
     .test('required', 'Picture is required', (value) => value?.length !== 0)
     .test(
       'is-less-than-0.5MB',
@@ -74,5 +93,3 @@ export const schema = yup.object({
         !value || (value[0] && PICTURE_FORMATS.includes(value[0].type)),
     ),
 });
-
-export type FormData = yup.InferType<typeof schema>;
