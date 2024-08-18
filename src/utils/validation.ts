@@ -83,6 +83,9 @@ export const schema: yup.ObjectSchema<CustomFormData> = yup.object({
     ),
   't&c': yup
     .boolean()
+    .transform((value: string | boolean) => {
+      return value === 'on' || value === true;
+    })
     .required('You must accept Terms and Conditions agreement')
     .oneOf([true], 'You must accept Terms and Conditions agreement'),
   country: yup
