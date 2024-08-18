@@ -3,13 +3,17 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
-import { ErrorMessage, FormField, PasswordStrength } from '@/components';
+import {
+  CountriesDatalist,
+  ErrorMessage,
+  FormField,
+  PasswordStrength,
+} from '@/components';
 
-import { useAppDispatch, useAppSelector } from '@/hooks';
+import { useAppDispatch } from '@/hooks';
 
 import { FormData, formDataToFormEntry, schema } from '@/utils';
 import { addControlledFormEntry } from '@store/formsEntries/formsEntriesSlice';
-import { selectCountries } from '@store/countries/countriesSlice';
 
 import styles from '@views/ControlledForm/ControlledForm.module.css';
 
@@ -24,7 +28,6 @@ const ControlledForm = () => {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
-  const countries = useAppSelector(selectCountries);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -144,11 +147,7 @@ const ControlledForm = () => {
             id={`${id}-country`}
             list={`${id}-countries`}
           />
-          <datalist id={`${id}-countries`}>
-            {countries.map((country) => (
-              <option value={country} key={country} />
-            ))}
-          </datalist>
+          <CountriesDatalist id={`${id}-countries`} />
         </FormField>
         <button
           type="submit"
