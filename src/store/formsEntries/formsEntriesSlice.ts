@@ -16,12 +16,16 @@ const formsEntriesSlice = createSlice({
     addControlledFormEntry: (state, action: PayloadAction<FormEntry>) => {
       state.controlledFormEntries.unshift(action.payload);
     },
+    addUncontrolledFormEntry: (state, action: PayloadAction<FormEntry>) => {
+      state.uncontrolledFormEntries.unshift(action.payload);
+    },
   },
 });
 
 export default formsEntriesSlice.reducer;
 
-export const { addControlledFormEntry } = formsEntriesSlice.actions;
+export const { addControlledFormEntry, addUncontrolledFormEntry } =
+  formsEntriesSlice.actions;
 
 export const selectControlledFormEntries = (state: RootState) =>
   state.formsEntries.controlledFormEntries;
