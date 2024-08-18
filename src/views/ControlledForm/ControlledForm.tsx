@@ -54,21 +54,36 @@ const ControlledForm = () => {
           htmlFor={`${id}-username`}
           errorMessage={errors.username?.message}
         >
-          <input {...register('username')} type="text" id={`${id}-username`} />
+          <input
+            {...register('username')}
+            type="text"
+            id={`${id}-username`}
+            className={styles.textField}
+          />
         </FormField>
         <FormField
           label="Age:"
           htmlFor={`${id}-age`}
           errorMessage={errors.age?.message}
         >
-          <input {...register('age')} type="number" id={`${id}-age`} />
+          <input
+            {...register('age')}
+            type="number"
+            id={`${id}-age`}
+            className={styles.textField}
+          />
         </FormField>
         <FormField
           label="Email:"
           htmlFor={`${id}-email`}
           errorMessage={errors.email?.message}
         >
-          <input {...register('email')} type="email" id={`${id}-email`} />
+          <input
+            {...register('email')}
+            type="email"
+            id={`${id}-email`}
+            className={styles.textField}
+          />
         </FormField>
         <FormField
           label="Password:"
@@ -79,6 +94,7 @@ const ControlledForm = () => {
             {...register('password')}
             type="password"
             id={`${id}-password`}
+            className={styles.textField}
           />
           <PasswordStrength password={password} />
         </FormField>
@@ -91,6 +107,7 @@ const ControlledForm = () => {
             {...register('confirmPassword')}
             type="password"
             id={`${id}-confirmPassword`}
+            className={styles.textField}
           />
         </FormField>
         <fieldset className={styles.row}>
@@ -127,7 +144,12 @@ const ControlledForm = () => {
           horizontal
           errorMessage={errors['t&c']?.message}
         >
-          <input {...register('t&c')} type="checkbox" id={`${id}-t&c`} />
+          <input
+            {...register('t&c')}
+            type="checkbox"
+            id={`${id}-t&c`}
+            className={styles.checkbox}
+          />
         </FormField>
         <FormField
           label="Select a picture:"
@@ -147,6 +169,7 @@ const ControlledForm = () => {
             type="text"
             id={`${id}-country`}
             list={`${id}-countries`}
+            className={styles.textField}
           />
           <CountriesDatalist id={`${id}-countries`} />
         </FormField>

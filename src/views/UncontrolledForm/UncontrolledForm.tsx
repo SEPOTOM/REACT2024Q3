@@ -80,17 +80,32 @@ const UncontrolledForm = () => {
           htmlFor={`${id}-username`}
           errorMessage={errors.username}
         >
-          <input name="username" type="text" id={`${id}-username`} />
+          <input
+            name="username"
+            type="text"
+            id={`${id}-username`}
+            className={styles.textField}
+          />
         </FormField>
         <FormField label="Age:" htmlFor={`${id}-age`} errorMessage={errors.age}>
-          <input name="age" type="number" id={`${id}-age`} />
+          <input
+            name="age"
+            type="number"
+            id={`${id}-age`}
+            className={styles.textField}
+          />
         </FormField>
         <FormField
           label="Email:"
           htmlFor={`${id}-email`}
           errorMessage={errors.email}
         >
-          <input name="email" type="email" id={`${id}-email`} />
+          <input
+            name="email"
+            type="email"
+            id={`${id}-email`}
+            className={styles.textField}
+          />
         </FormField>
         <FormField
           label="Password:"
@@ -102,6 +117,7 @@ const UncontrolledForm = () => {
             type="password"
             id={`${id}-password`}
             ref={passwordRef}
+            className={styles.textField}
           />
           <PasswordStrength password={password} />
         </FormField>
@@ -114,6 +130,7 @@ const UncontrolledForm = () => {
             name="confirmPassword"
             type="password"
             id={`${id}-confirmPassword`}
+            className={styles.textField}
           />
         </FormField>
         <fieldset className={styles.row}>
@@ -150,7 +167,12 @@ const UncontrolledForm = () => {
           horizontal
           errorMessage={errors['t&c']}
         >
-          <input name="t&c" type="checkbox" id={`${id}-t&c`} />
+          <input
+            name="t&c"
+            type="checkbox"
+            id={`${id}-t&c`}
+            className={styles.checkbox}
+          />
         </FormField>
         <FormField
           label="Select a picture:"
@@ -170,6 +192,7 @@ const UncontrolledForm = () => {
             type="text"
             id={`${id}-country`}
             list={`${id}-countries`}
+            className={styles.textField}
           />
           <CountriesDatalist id={`${id}-countries`} />
         </FormField>
