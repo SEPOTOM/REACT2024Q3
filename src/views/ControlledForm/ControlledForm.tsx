@@ -42,6 +42,8 @@ const ControlledForm = () => {
   };
 
   const password = watch('password');
+  const confirmPassword = watch('confirmPassword');
+  const matchError = password !== confirmPassword ? 'Passwords must match' : '';
 
   return (
     <main className={`container ${styles.form}`}>
@@ -99,7 +101,7 @@ const ControlledForm = () => {
         <FormField
           label="Confirm password:"
           htmlFor={`${id}-confirmPassword`}
-          errorMessage={errors.confirmPassword?.message}
+          errorMessage={errors.confirmPassword?.message ?? matchError}
         >
           <input
             {...register('confirmPassword')}
@@ -171,7 +173,11 @@ const ControlledForm = () => {
           />
           <CountriesDatalist id={`${id}-countries`} />
         </FormField>
-        <button type="submit" disabled={!isValid} className={styles.button}>
+        <button
+          type="submit"
+          disabled={!(isValid && matchError === '')}
+          className={styles.button}
+        >
           Submit
         </button>
       </form>
