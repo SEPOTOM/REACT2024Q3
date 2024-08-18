@@ -1,6 +1,6 @@
 import { CustomFormData } from '@/utils';
 
-export interface FormEntry extends Omit<CustomFormData, 'picture'> {
+export interface FormEntry extends CustomFormData {
   picture: string;
 }
 

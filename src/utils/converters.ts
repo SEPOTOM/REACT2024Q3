@@ -1,11 +1,13 @@
-import { CustomFormData } from '@/utils';
+import { ControlledFormData, UncontrolledFormData } from '@/utils';
+
 import { FormEntry } from '@store/formsEntries/types';
 
 export const formDataToFormEntry = async (
-  formData: CustomFormData,
+  formData: ControlledFormData | UncontrolledFormData,
 ): Promise<FormEntry> => {
   const reader = new FileReader();
-  reader.readAsDataURL(formData.picture[0]);
+  const picture = formData.picture;
+  reader.readAsDataURL(picture instanceof File ? picture : picture[0]);
 
   return {
     ...formData,

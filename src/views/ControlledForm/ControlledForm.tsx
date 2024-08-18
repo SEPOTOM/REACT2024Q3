@@ -12,7 +12,11 @@ import {
 
 import { useAppDispatch } from '@/hooks';
 
-import { CustomFormData, formDataToFormEntry, schema } from '@/utils';
+import {
+  ControlledFormData,
+  controlledFormSchema,
+  formDataToFormEntry,
+} from '@/utils';
 import { addControlledFormEntry } from '@store/formsEntries/formsEntriesSlice';
 
 import styles from '@views/ControlledForm/ControlledForm.module.css';
@@ -24,14 +28,14 @@ const ControlledForm = () => {
     register,
     watch,
     formState: { errors, isValid },
-  } = useForm<CustomFormData>({
-    resolver: yupResolver(schema),
+  } = useForm<ControlledFormData>({
+    resolver: yupResolver(controlledFormSchema),
     mode: 'onChange',
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<CustomFormData> = async (data) => {
+  const onSubmit: SubmitHandler<ControlledFormData> = async (data) => {
     const formEntry = await formDataToFormEntry(data);
     dispatch(addControlledFormEntry(formEntry));
     navigate('/');

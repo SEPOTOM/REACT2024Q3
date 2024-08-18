@@ -24,7 +24,14 @@ export interface CustomFormData {
   gender: Genders;
   't&c': boolean;
   country: (typeof countries)[number];
+}
+
+export interface ControlledFormData extends CustomFormData {
   picture: FileList;
+}
+
+export interface UncontrolledFormData extends CustomFormData {
+  picture: File;
 }
 
 export interface FormErrors {
@@ -92,22 +99,50 @@ export const schema: yup.ObjectSchema<CustomFormData> = yup.object({
     .string()
     .required('Country is required')
     .oneOf(countries, 'You must choose a country from the list'),
-  picture: yup
-    .mixed<FileList>()
-    .required('Picture is required')
-    .test('required', 'Picture is required', (value) => value?.length !== 0)
-    .test(
-      'is-less-than-0.5MB',
-      'Picture size should not exceed 0.5MB',
-      (value) => !value || (value[0] && value[0].size <= HALF_MB),
-    )
-    .test(
-      'is-correct-format',
-      'Unsupported format, only PNG and JPEG are allowed',
-      (value) =>
-        !value || (value[0] && PICTURE_FORMATS.includes(value[0].type)),
-    ),
 });
+
+export const controlledFormSchema: yup.ObjectSchema<ControlledFormData> = yup
+  .object({
+    picture: yup
+      .mixed<FileList>()
+      .required('Picture is required')
+      .test('required', 'Picture is required', (value) => value?.length !== 0)
+      .test(
+        'is-less-than-0.5MB',
+        'Picture size should not exceed 0.5MB',
+        (value) => !value || (value[0] && value[0].size <= HALF_MB),
+      )
+      .test(
+        'is-correct-format',
+        'Unsupported format, only PNG and JPEG are allowed',
+        (value) => {
+          console.log(value);
+          return (
+            !value || (value[0] && PICTURE_FORMATS.includes(value[0].type))
+          );
+        },
+      ),
+  })
+  .concat(schema);
+
+export const uncontrolledFormSchema: yup.ObjectSchema<UncontrolledFormData> =
+  yup
+    .object({
+      picture: yup
+        .mixed<File>()
+        .required('Picture is required')
+        .test(
+          'is-less-than-0.5MB',
+          'Picture size should not exceed 0.5MB',
+          (value) => !value || value.size <= HALF_MB,
+        )
+        .test(
+          'is-correct-format',
+          'Unsupported format, only PNG and JPEG are allowed',
+          (value) => !value || PICTURE_FORMATS.includes(value.type),
+        ),
+    })
+    .concat(schema);
 
 export const validateForm = async (
   formData: FormData,
@@ -131,7 +166,9 @@ export const validateForm = async (
   const formDataObject = Object.fromEntries(formData.entries());
 
   try {
-    await schema.validate(formDataObject, { abortEarly: false });
+    await uncontrolledFormSchema.validate(formDataObject, {
+      abortEarly: false,
+    });
   } catch (err) {
     if (err instanceof yup.ValidationError) {
       isValid = false;
