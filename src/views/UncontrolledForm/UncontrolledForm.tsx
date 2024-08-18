@@ -1,6 +1,11 @@
-import { FormEvent, useId, useState } from 'react';
+import { FormEvent, useEffect, useId, useRef, useState } from 'react';
 
-import { CountriesDatalist, ErrorMessage, FormField } from '@/components';
+import {
+  CountriesDatalist,
+  ErrorMessage,
+  FormField,
+  PasswordStrength,
+} from '@/components';
 
 import { FormErrors, validateForm } from '@/utils';
 
@@ -19,6 +24,20 @@ const UncontrolledForm = () => {
     picture: '',
     gender: '',
   });
+  const [password, setPassword] = useState('');
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const newPassword = passwordRef.current?.value;
+
+      if (password !== newPassword && newPassword) {
+        setPassword(newPassword);
+      }
+    }, 500);
+
+    return () => clearInterval(intervalId);
+  }, [password]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -57,7 +76,13 @@ const UncontrolledForm = () => {
           htmlFor={`${id}-password`}
           errorMessage={errors.password}
         >
-          <input name="password" type="password" id={`${id}-password`} />
+          <input
+            name="password"
+            type="password"
+            id={`${id}-password`}
+            ref={passwordRef}
+          />
+          <PasswordStrength password={password} />
         </FormField>
         <FormField
           label="Confirm password:"
