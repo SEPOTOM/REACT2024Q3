@@ -1,5 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { RootState } from '@store/store';
+
 import { FormEntry, FromEntriesState } from '@store/formsEntries/types';
 
 const initialState: FromEntriesState = {
@@ -12,7 +14,7 @@ const formsEntriesSlice = createSlice({
   initialState,
   reducers: {
     addControlledFormEntry: (state, action: PayloadAction<FormEntry>) => {
-      state.controlledFormEntries.push(action.payload);
+      state.controlledFormEntries.unshift(action.payload);
     },
   },
 });
@@ -20,3 +22,6 @@ const formsEntriesSlice = createSlice({
 export default formsEntriesSlice.reducer;
 
 export const { addControlledFormEntry } = formsEntriesSlice.actions;
+
+export const selectControlledFormEntries = (state: RootState) =>
+  state.formsEntries.controlledFormEntries;
