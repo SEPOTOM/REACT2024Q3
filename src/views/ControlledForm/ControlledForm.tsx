@@ -1,12 +1,14 @@
 import { useId } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 
 import { ErrorMessage, FormField, PasswordStrength } from '@/components';
 
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
-import { FormData, schema } from '@/utils';
+import { FormData, formDataToFormEntry, schema } from '@/utils';
+import { addControlledFormEntry } from '@store/formsEntries/formsEntriesSlice';
 import { selectCountries } from '@store/countries/countriesSlice';
 
 import styles from '@views/ControlledForm/ControlledForm.module.css';
@@ -23,9 +25,13 @@ const ControlledForm = () => {
     mode: 'onChange',
   });
   const countries = useAppSelector(selectCountries);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const formEntry = await formDataToFormEntry(data);
+    dispatch(addControlledFormEntry(formEntry));
+    navigate('/');
   };
 
   const password = watch('password');
